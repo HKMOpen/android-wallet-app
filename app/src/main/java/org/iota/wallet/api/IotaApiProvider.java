@@ -20,6 +20,8 @@
 package org.iota.wallet.api;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.support.v7.preference.PreferenceManager;
 
 import org.iota.wallet.api.handler.AddNeighborsRequestHandler;
 import org.iota.wallet.api.handler.CoolTransactionsRequestHandler;
@@ -33,14 +35,16 @@ import org.iota.wallet.api.handler.RemoveNeighborsRequestHandler;
 import org.iota.wallet.api.handler.ReplayBundleRequestHandler;
 import org.iota.wallet.api.handler.RequestHandler;
 import org.iota.wallet.api.handler.SendTransferRequestHandler;
-import org.iota.wallet.model.api.requests.ApiRequest;
-import org.iota.wallet.model.api.responses.ApiResponse;
-import org.iota.wallet.model.api.responses.error.NetworkError;
-import org.iota.wallet.model.api.responses.error.NetworkErrorType;
+import org.iota.wallet.api.requests.ApiRequest;
+import org.iota.wallet.api.responses.ApiResponse;
+import org.iota.wallet.api.responses.error.NetworkError;
+import org.iota.wallet.api.responses.error.NetworkErrorType;
+import org.iota.wallet.helper.Constants;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import cfb.pearldiver.PearlDiverLocalPoW;
 import jota.IotaAPI;
 
 public class IotaApiProvider implements ApiProvider {
@@ -48,8 +52,15 @@ public class IotaApiProvider implements ApiProvider {
     private final Context context;
     private Map<Class<? extends ApiRequest>, RequestHandler> requestHandlerMap;
 
-    public IotaApiProvider(String host, int port, Context context) {
-        this.iotaApi = new IotaAPI.Builder().protocol("http").host(host).port(((Integer) port).toString()).build();
+    public IotaApiProvider(String protocol, String host, int port, Context context) {
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+
+        if (prefs.getBoolean(Constants.PREFERENCES_LOCAL_POW, false))
+            this.iotaApi = new IotaAPI.Builder().localPoW(new PearlDiverLocalPoW()).protocol(protocol).host(host).port(((Integer) port).toString()).build();
+        else
+            this.iotaApi = new IotaAPI.Builder().protocol(protocol).host(host).port(((Integer) port).toString()).build();
+
         this.context = context;
         loadRequestMap();
     }

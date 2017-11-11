@@ -24,11 +24,9 @@ import android.app.DialogFragment;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.widget.Button;
 
 import org.iota.wallet.R;
@@ -54,23 +52,15 @@ public class CopySeedDialog extends DialogFragment {
                 .setNegativeButton(R.string.buttons_cancel, null)
                 .create();
 
-        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        alertDialog.setOnShowListener(dialog -> {
 
-            @Override
-            public void onShow(final DialogInterface dialog) {
-
-                Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                button.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText(getActivity().getString(R.string.seed), generatedSeed);
-                        clipboard.setPrimaryClip(clip);
-                        dialog.dismiss();
-                    }
-                });
-            }
+            Button button = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            button.setOnClickListener(view -> {
+                ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText(getActivity().getString(R.string.seed), generatedSeed);
+                clipboard.setPrimaryClip(clip);
+                dialog.dismiss();
+            });
         });
 
         alertDialog.show();

@@ -51,6 +51,20 @@ public class SettingsNodeFragment extends PreferenceFragment implements SharedPr
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         switch (key) {
+            case Constants.PREFERENCE_NODE_PROTOCOL:
+                String nodeProtocol = sharedPreferences.getString(key, "");
+                if (nodeProtocol.isEmpty()) {
+                    EditTextPreference p = (EditTextPreference) findPreference(key);
+                    p.setText(Constants.PREFERENCE_NODE_DEFAULT_PROTOCOL);
+                    if (getView() != null)
+                        Snackbar.make(getView(), R.string.settings_messages_empty_node_protocol, Snackbar.LENGTH_LONG).show();
+                } else if (!nodeProtocol.equals("http") || !nodeProtocol.equals("https")) {
+                    EditTextPreference p = (EditTextPreference) findPreference(key);
+                    p.setText(Constants.PREFERENCE_NODE_DEFAULT_PROTOCOL);
+                    if (getView() != null)
+                        Snackbar.make(getView(), R.string.settings_messages_wrong_node_protocol, Snackbar.LENGTH_LONG).show();
+                }
+                break;
             case Constants.PREFERENCE_NODE_IP:
                 String nodeIp = sharedPreferences.getString(key, "");
                 if (nodeIp.isEmpty()) {

@@ -19,7 +19,6 @@
 
 package org.iota.wallet.ui.fragment;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -28,46 +27,63 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
 import org.iota.wallet.api.TaskManager;
-import org.iota.wallet.databinding.FragmentWalletAddressesBinding;
+import org.iota.wallet.api.requests.GetAccountDataRequest;
+import org.iota.wallet.api.requests.GetNewAddressRequest;
+import org.iota.wallet.api.requests.NodeInfoRequest;
+import org.iota.wallet.api.requests.SendTransferRequest;
+import org.iota.wallet.api.responses.GetAccountDataResponse;
+import org.iota.wallet.api.responses.GetNewAddressResponse;
+import org.iota.wallet.api.responses.NodeInfoResponse;
+import org.iota.wallet.api.responses.SendTransferResponse;
+import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.helper.Constants;
-import org.iota.wallet.model.api.requests.GetAccountDataRequest;
-import org.iota.wallet.model.api.requests.GetNewAddressRequest;
-import org.iota.wallet.model.api.requests.NodeInfoRequest;
-import org.iota.wallet.model.api.requests.SendTransferRequest;
-import org.iota.wallet.model.api.responses.GetAccountDataResponse;
-import org.iota.wallet.model.api.responses.GetNewAddressResponse;
-import org.iota.wallet.model.api.responses.NodeInfoResponse;
-import org.iota.wallet.model.api.responses.SendTransferResponse;
-import org.iota.wallet.model.api.responses.error.NetworkError;
+import org.iota.wallet.model.Address;
 import org.iota.wallet.ui.adapter.WalletAddressCardAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment implements WalletTabFragment.OnFabClickListener {
 
     private static final String ADDRESSES_LIST = "addresses";
-    private FragmentWalletAddressesBinding addressBinding;
     private WalletAddressCardAdapter adapter;
-    private RecyclerView recyclerView;
-    private List<String> addresses;
+
+    @BindView(R.id.wallet_addresses_recycler_view)
+    RecyclerView recyclerView;
+    @BindView(R.id.tv_empty)
+    TextView tvEmpty;
+
+    private List<Address> addresses;
+
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        addressBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_addresses, container, false);
-        View view = addressBinding.getRoot();
+        View view = inflater.inflate(R.layout.fragment_wallet_addresses, container, false);
+        unbinder = ButterKnife.bind(this, view);
         swipeRefreshLayout = view.findViewById(R.id.wallet_addresses_swipe_container);
-        recyclerView = view.findViewById(R.id.wallet_addresses_recycler_view);
-
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (unbinder != null) {
+            unbinder.unbind();
+            unbinder = null;
+        }
+        super.onDestroyView();
     }
 
     private void setAdapter() {
@@ -79,7 +95,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-        addressBinding.setAddresses(addresses);
+        tvEmpty.setVisibility(addresses.size() == 0 ? View.VISIBLE : View.GONE);
     }
 
     private void generateNewAddress() {
@@ -95,12 +111,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         SendTransferRequest tir = new SendTransferRequest(address, "0", "", Constants.NEW_ADDRESS_TAG);
         rt.startNewRequestTask(tir);
         if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
-                }
-            });
+            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
         }
     }
 
@@ -147,12 +158,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         rt.startNewRequestTask(nir);
 
         if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
-                }
-            });
+            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
         }
     }
 
@@ -179,7 +185,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (addresses != null)
-            outState.putStringArrayList(ADDRESSES_LIST, (ArrayList<String>) addresses);
+            outState.putParcelableArrayList(ADDRESSES_LIST, (ArrayList<Address>) addresses);
     }
 
     @Override
@@ -189,7 +195,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
             if (addresses == null) {
                 addresses = new ArrayList<>();
             }
-            addresses = savedInstanceState.getStringArrayList(ADDRESSES_LIST);
+            addresses = savedInstanceState.getParcelableArrayList(ADDRESSES_LIST);
         }
         setAdapter();
     }

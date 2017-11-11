@@ -33,8 +33,8 @@
     <string name="address">Address</string>
     <string name="hash">Hash</string>
     <string name="amount">Amount</string>
-    <string name="message_optional">Message (optional)</string>
-    <string name="tag_optional">Tag (optional)</string>
+    <string name="message_optional">Message (optional, A-Z and 9 only)</string>
+    <string name="tag_optional">Tag (optional, A-Z and 9 only)</string>
     <string name="neighbor_ip">Neighbor IP:</string>
 
     <!-- Buttons-->
@@ -114,6 +114,9 @@
     <string name="notification_replay_bundle_response_succeeded_title">Replay executed</string>
     <string name="notification_replay_bundle_response_failed_title">Replay failed</string>
 
+    <string name="notification_address_attach_to_tangle_blocked_title">Attaching new address failed, please enable local PoW</string>
+    <string name="notification_transfer_attach_to_tangle_blocked_title">Transaction failed, please enable local PoW</string>
+
     <!-- About-->
     <string name="about_version">Version %1$s</string>
     <string name="about_version_unknown">Version unknown</string>
@@ -129,6 +132,9 @@
     <!-- Settings-->
     <string name="settings_header_node_title">Node</string>
     <string name="settings_header_node_summary">Node settings</string>
+
+    <string name="settings_node_protocol_title">Node protocol</string>
+    <string name="settings_node_protocol_summary">The protocol of the (hopefully trusty) node you would like connect to</string>
 
     <string name="settings_node_ip_title">Node IP</string>
     <string name="settings_node_ip_summary">The IP address of the (hopefully trusty) node you would like connect to</string>
@@ -149,7 +155,10 @@
     <string name="settings_encrypt_seed_summary">Set-up password protection</string>
 
     <string name="settings_header_misc_title">Misc</string>
-    <string name="settings_header_misc_summary">Bug report, currency</string>
+    <string name="settings_header_misc_summary">Bug report, currency, PoW</string>
+
+    <string name="settings_local_pow_title">Local PoW</string>
+    <string name="settings_local_pow_summary">Doing the Proof of work locally</string>
 
     <string name="settings_issue_reporter_title">Report issue</string>
     <string name="settings_issue_reporter_summary">Report issue or submit feedback</string>
@@ -157,8 +166,10 @@
     <string name="settings_wallet_currency_title">Currency</string>
     <string name="settings_wallet_currency_summary">The currency in which the wallet value is displayed</string>
 
-    <string name="settings_messages_empty_node_ip">Empty node IP now allowed.</string>
-    <string name="settings_messages_empty_node_port">Empty node port now allowed.</string>
+    <string name="settings_messages_empty_node_protocol">Empty node protocol not allowed.</string>
+    <string name="settings_messages_wrong_node_protocol">Node protocol not allowed.</string>
+    <string name="settings_messages_empty_node_ip">Empty node IP not allowed.</string>
+    <string name="settings_messages_empty_node_port">Empty node port not allowed.</string>
 
     <!-- Info -->
     <string name="info_app_name">App name:</string>
