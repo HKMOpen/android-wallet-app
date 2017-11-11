@@ -22,7 +22,6 @@ package org.iota.wallet.model.api.responses;
 /**
  * Created by pinpong on 21.10.16.
  */
-
 public class AddNeighborsResponse extends ApiResponse {
 
     private Integer addedNeighbors;
