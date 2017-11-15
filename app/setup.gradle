@@ -1,0 +1,294 @@
+def final originalApplicationId = "org.iota.wallet"
+def versionMajor = 1;
+def versionMinor = 0;
+def versionPatch = 0;
+def versionBuild = 1;
+def version_Code = 1;
+def finalversionName = ""
+def value = 2;
+def val_minor = 0;
+
+android {
+    compileSdkVersion project.ANDROID_BUILD_SDK_VERSION as int
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+    flavorDimensions "default"
+
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def runTasks = gradle.startParameter.taskNames
+
+        if (runTasks.contains('assemblePlay_store')) {
+            val_minor = 1;
+        }
+
+        versionMinor = versionProps['VERSION_MINOR'].toInteger() + val_minor
+        versionPatch = versionProps['VERSION_PATCH'].toInteger() + value
+        versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+        version_Code = versionProps['VERSION_CODE'].toInteger() + value
+
+        versionProps['VERSION_PATCH'] = versionPatch.toString()
+        versionProps['VERSION_BUILD'] = versionBuild.toString()
+        versionProps['VERSION_CODE'] = version_Code.toString()
+        versionProps['VERSION_MINOR'] = versionMinor.toString()
+
+        versionProps.store(versionPropsFile.newWriter(), null)
+        finalversionName = "${versionMajor}.${versionMinor}.${versionPatch}"
+    }
+
+    packagingOptions {
+        //  pickFirst 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/ASL2.0'
+
+        //  pickFirst 'META-INF/rxjava.properties'
+        //--------------------
+        //  pickFirst 'lib/x86/librealm-jni.so'
+        //  pickFirst 'lib/x86_64/librealm-jni.so'
+        //  pickFirst 'lib/arm64-v8a/librealm-jni.so'
+        //  pickFirst 'lib/armeabi-v7a/librealm-jni.so'
+        //  pickFirst 'lib/mips/librealm-jni.so'
+    }
+
+    defaultConfig {
+        applicationId = originalApplicationId
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
+        versionCode versionBuild as int
+        versionName finalversionName
+        multiDexEnabled true
+        renderscriptTargetApi project.ANDROID_BUILD_TARGET_SDK_VERSION as int
+        renderscriptSupportModeEnabled false
+        vectorDrawables.useSupportLibrary = true
+
+        resConfigs "en", "zh"
+        /* javaCompileOptions {
+             annotationProcessorOptions {
+                 includeCompileClasspath false
+             }
+         }*/
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+
+    lintOptions {
+        disable 'MissingPrefix'
+        warning 'InvalidPackage'
+        checkReleaseBuilds false
+        abortOnError false
+        //disable 'GoogleAppIndexingWarning'
+    }
+
+    dexOptions {
+        maxProcessCount 4
+        // javaMaxHeapSize '8792m'
+        // preDexLibraries false
+        // incremental true
+        javaMaxHeapSize "10g"
+        additionalParameters = ['--multi-dex', '--set-max-idx-number=40000']
+    }
+
+    buildTypes {
+        release {
+            multiDexKeepFile file('multidex.keep')
+            multiDexKeepProguard file('multidexProguard.pro')
+            minifyEnabled true //Enabled Proguard
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexEnabled true // Disable multi-dex support.
+            // signingConfig signingConfigs.appdeploykey
+        }
+        debug {
+            useProguard false
+            minifyEnabled true
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            multiDexKeepFile file('multidex.keep')
+            multiDexKeepProguard file('multidexProguard.pro')
+            minifyEnabled false //Disabled Proguard
+            multiDexEnabled true // Enabling multi-dex support.
+            // ext.enableCrashlytics = false
+            testCoverageEnabled false
+        }
+    }
+
+    signingConfigs {
+        appdeploykey {
+            storeFile file(project.property("SIGNING_PATH"))
+            storePassword "gdsssk"
+            keyAlias "emperorcinema"
+            keyPassword "empzyngdsk"
+        }
+        configDev {
+            keyAlias 'alias'
+            keyPassword 'password'
+            storeFile file('second.keystore')
+            storePassword 'password'
+        }
+    }
+
+    productFlavors.whenObjectAdded { flavor ->
+        flavor.ext.set('propsfile', '-----')
+    }
+
+    productFlavors {
+        play_store {
+            applicationId "org.iota.wallet"
+            versionName defaultConfig.versionName
+            signingConfig signingConfigs.appdeploykey
+            propsfile = "gd_emp_production.properties"
+            // buildConfigField "String", "DOMAIN", "https://api.emperorcinemas.com"
+            // buildConfigField "String", "DOMAIN_INSEC", "https://www.emperorcinemas.com"
+
+        }
+        development {
+            applicationId "org.iota.walletdev"
+            versionName defaultConfig.versionName
+            signingConfig signingConfigs.appdeploykey
+            propsfile = "gd_emp_staging.properties"
+            // buildConfigField "String", "DOMAIN", "http://13.228.58.92"
+            // buildConfigField "String", "DOMAIN_INSEC", "http://13.228.58.92/website"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.getCompileConfiguration().resolutionStrategy {
+
+        }
+        variant.runtimeConfiguration.resolutionStrategy {
+
+        }
+        variant.getAnnotationProcessorConfiguration().resolutionStrategy {
+
+        }
+
+        variant.outputs.all { output ->
+            def date = new Date();
+            def formattedDate = date.format('yyyyMMddHHmmss')
+            def new_file_name = applicationId + formattedDate + "-v" + defaultConfig.versionName
+            output.outputFileName = new File("/", output.outputFile.name.replace("play_store-release", new_file_name))
+        }
+
+        def build_name_flavor = variant.getName();
+
+        if (build_name_flavor == "play_storeDebug" || build_name_flavor == "play_store" || build_name_flavor == "play_storeRelease") {
+            println 'adding configurations valuables into the list value list - EMP production'
+        } else if (build_name_flavor == "development" || build_name_flavor == "developmentDebug" || build_name_flavor == "developmentRelease") {
+            println 'adding configurations valuables into the list value list - EMP staging'
+        }
+
+        println build_name_flavor
+
+        def prosf = variant.productFlavors*.propsfile[0]
+        println prosf
+
+        def Props = file(prosf);
+        def configConstants = new Properties();
+
+        if (Props.exists()) {
+            Props.withInputStream {
+                stream -> configConstants.load(stream)
+            }
+            variant.buildConfigField "String", "REALM_IP", "\"${configConstants.REALM_IP}\""
+            variant.buildConfigField "String", "REALM_PASS", "\"${configConstants.REALM_PASS}\""
+            variant.buildConfigField "String", "REALM_USER", "\"${configConstants.REALM_USER}\""
+            variant.buildConfigField "String", "ACCESS_KEY", "\"${configConstants.ACCESS_KEY}\""
+            variant.buildConfigField "String", "DOMAIN", "\"${configConstants.DOMAIN}\""
+            variant.buildConfigField "String", "DOMAIN_INSEC", "\"${configConstants.DOMAIN_INSEC}\""
+            variant.buildConfigField "boolean", "PRODUCTION", "${configConstants.PRODUCTION}"
+        }
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            // include 'armeabi', 'armeabi-v7a', 'x86'
+            universalApk true
+        }
+    }
+
+  /*  variantFilter { variant ->
+        if (variant.buildType.name.equals('debug') {
+            variant.setIgnore(true)
+        }
+    }*/
+
+    buildTypes.all { buildType ->
+        buildType.javaCompileOptions.annotationProcessorOptions.arguments =
+                [
+                        // Validation is disabled in production to remove the runtime overhead
+                        validateEpoxyModelUsage     : String.valueOf(buildType.name == 'debug'),
+                        requireHashCodeInEpoxyModels: "false",
+                        requireAbstractEpoxyModels  : "true",
+                        implicitlyAddAutoModels     : "true"
+                ]
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+repositories {
+    jcenter()
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+    maven { url 'http://dl.bintray.com/jjhesk/maven/' }
+    maven { url 'https://clojars.org/repo/' }
+    maven { url 'https://maven.google.com' }
+}
+/*
+apply plugin: 'io.fabric'
+crashlytics {
+    enableNdk true
+     androidNdkOut 'src/personalPage/obj'
+     androidNdkLibsOut 'src/personalPage/libs'
+}
+*/
+
+apply plugin: 'realm-android'
+realm {
+    syncEnabled true
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-AdeepLinkDoc.output=${buildDir}/doc/deeplinks.txt"
+}
+/*
+afterEvaluate {
+    tasks.matching{
+        it.name.startsWith('create') && it.name.endsWith('MainDexClassList')
+    }.each { tk ->
+        tk.doLast {
+            keepMainMultiDex(tk.outputFile);
+        }
+    }
+}*/
+
+/**
+ * 控制MainDex中的class列表
+ * 将multidex.keep的内容追加到 maindexlist.txt 中
+ * @param outputFile
+ */
+def keepMainMultiDex(File outputFile) {
+    File keepFile = file("multidex.keep");
+    outputFile << '\n'
+    outputFile << keepFile.getText('UTF-8')
+}

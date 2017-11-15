@@ -16,3 +16,6 @@ local.properties
 # Built application files
 *.iml
 *.apk
+
+n18x
+dslaunch.sh
