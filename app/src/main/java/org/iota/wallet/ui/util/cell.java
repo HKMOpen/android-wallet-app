@@ -20,6 +20,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import org.iota.wallet.R;
+import org.iota.wallet.var.Constants;
 import org.iota.wallet.var.LocaleUtils;
 
 import java.math.RoundingMode;
@@ -111,7 +113,7 @@ public final class cell {
 
     public static String date2time(Date e) {
         Timestamp timestamp_now = new Timestamp(e.getTime());
-        SimpleDateFormat dateFormat = new SimpleDateFormat(Constant.DATE_FORMAT_v3);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.DATE_TIME_1);
         String currentTimeStamp = dateFormat.format(timestamp_now); // Find todays date
         return currentTimeStamp;
     }
@@ -220,7 +222,7 @@ public final class cell {
         int lang = LocaleUtils.getLanguageIndex(app);
         int length = lang == 0 ? "Register".length() : "立即加入".length();
         SpannableString spannableString = new SpannableString(txt);
-        ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(ContextCompat.getColor(app, R.color.colorPrimaryGrand));
+        ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(ContextCompat.getColor(app, R.color.colorFPrimary));
         spannableString.setSpan(foregroundSpan, txt.length() - length, txt.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
@@ -229,7 +231,7 @@ public final class cell {
         Typeface face = Typeface.createFromAsset(mText.getContext().getAssets(), AK_R);
         mText.setTypeface(face);
         mText.setAllCaps(true);
-        mText.setTextColor(ContextCompat.getColor(mText.getContext(), R.color.colorAccentBGreen));
+        mText.setTextColor(ContextCompat.getColor(mText.getContext(), R.color.colorFAccent));
     }
 
     public static void applyFont(Context context, TextView title_top) {
@@ -245,7 +247,7 @@ public final class cell {
         Typeface face = Typeface.createFromAsset(mText.getContext().getAssets(), AK_R);
         mText.setTypeface(face);
         mText.setAllCaps(true);
-        mText.setTextColor(ContextCompat.getColor(mText.getContext(), R.color.colorPrimaryGrand));
+        mText.setTextColor(ContextCompat.getColor(mText.getContext(), R.color.colorFPrimary));
     }
 /*
 

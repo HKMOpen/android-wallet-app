@@ -3,7 +3,7 @@
     android:id="@+id/area_touch"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/deep_green"
+    android:background="@color/colorFAccent"
     android:orientation="vertical">
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:padding="14dp"
         android:src="@drawable/login_account"
-        android:tint="@color/colorAccentGray" />
+        android:tint="@color/colorFPrimary" />
 
     <TextView
         android:id="@+id/elgoin_button"
@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/icon_lock"
-        android:text="@string/member_login_btn_login"
-        android:textColor="@color/colorAccentGray"
+        android:text="@string/buttons_login"
+        android:textColor="@color/colorFPrimary"
         android:textSize="13sp" />
 
 </RelativeLayout>

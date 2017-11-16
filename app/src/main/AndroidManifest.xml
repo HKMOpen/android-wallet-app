@@ -17,7 +17,6 @@
         android:fullBackupContent="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
@@ -25,10 +24,9 @@
         <!-- Activities -->
 
         <activity
-            android:name=".ui.activity.MainActivity"
-            android:label="@string/app_name"
+            android:name=".ui.activity.MainNewIota"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/UniqueToolbarColorTheme"
             android:windowSoftInputMode="adjustResize">
 
             <intent-filter>

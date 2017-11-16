@@ -53,8 +53,8 @@ import jota.utils.SeedRandomGenerator;
 public class SeedLoginFragment extends utilFragment {
 
     private static final String SEED = "seed";
-    @BindView(R.id.login_toolbar)
-    Toolbar loginToolbar;
+   // @BindView(R.id.login_toolbar)
+   // Toolbar loginToolbar;
     @BindView(R.id.seed_login_seed_text_input_layout)
     TextInputLayout seedEditTextLayout;
     @BindView(R.id.seed_login_seed_input)
@@ -71,7 +71,7 @@ public class SeedLoginFragment extends utilFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(loginToolbar);
+      //  ((AppCompatActivity) getActivity()).setSupportActionBar(loginToolbar);
     }
 
 

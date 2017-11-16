@@ -5,8 +5,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.widget.ImageView;
 
-import com.zyntauri.gdnet.BuildConfig;
-import com.zyntauri.gdnet.R;
+
+import org.iota.wallet.BuildConfig;
+import org.iota.wallet.R;
 
 import de.madcyph3r.materialnavigationdrawer.MaterialNavigationDrawer;
 import de.madcyph3r.materialnavigationdrawer.listener.MaterialSectionOnClickListener;
@@ -33,7 +34,7 @@ public class ExpSec extends MaterialItemSectionOnClick {
     public ExpSec(MaterialNavigationDrawer drawer, @DrawableRes final int draw, @StringRes final int res, MaterialSectionOnClickListener caller) {
         super(drawer, drawer.getString(res), drawer.getDrawable(draw));
         setOnSectionClickListener(caller);
-        if (res == R.string.peek_level_btn_logout) {
+        if (res == R.string.menu_logout) {
             hideRightIcon();
         }
     }
@@ -41,7 +42,7 @@ public class ExpSec extends MaterialItemSectionOnClick {
     public ExpSec(MaterialNavigationDrawer drawer, String title, @StringRes final int res, MaterialSectionOnClickListener caller) {
         super(drawer, title);
         setOnSectionClickListener(caller);
-        if (res == R.string.peek_level_btn_logout) {
+        if (res == R.string.menu_logout) {
             hideRightIcon();
         }
     }

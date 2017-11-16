@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.zyntauri.gdnet.R;
+
+import org.iota.wallet.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,7 +24,7 @@ public abstract class MenuItemFlat extends MaterialItemCustom implements View.On
     ImageView arrow_a;
     @BindView(R.id.amd_layout_notification)
     TextView notification_num;
-    @BindView(R.id.touch_base_area)
+    @BindView(R.id.amd_layout_touch_area)
     View touch_base_area;
 
     public MenuItemFlat(Context ctx, @StringRes final int display_txt, boolean hassub) {

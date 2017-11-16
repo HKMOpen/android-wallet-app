@@ -12,6 +12,14 @@
         <item name="android:textColorSecondary">@color/textColorSecondary</item>
     </style>
 
+    <style name="UniqueToolbarColorTheme" parent="MaterialNavigationDrawerTheme.Light">
+        <item name="uniqueToolbarColor">true</item>
+        <item name="autoDarkStatusBar">false</item>
+        <item name="actionBarOverlayAlpha">1.0</item>
+        <item name="belowToolbar">false</item>
+        <item name="drawerActionBarStyle">@style/beastbarSteup</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -63,13 +71,7 @@
         <item name="android:backgroundDimEnabled">false</item>
     </style>
 
-    <style name="UniqueToolbarColorTheme" parent="MaterialNavigationDrawerTheme.Light">
-        <item name="uniqueToolbarColor">true</item>
-        <item name="autoDarkStatusBar">false</item>
-        <item name="actionBarOverlayAlpha">1.0</item>
-        <item name="belowToolbar">false</item>
-        <item name="drawerActionBarStyle">@style/beastbarSteup</item>
-    </style>
+
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>

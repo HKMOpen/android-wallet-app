@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="中文"
-        android:textColor="@color/colorAccentDark" />
+        android:textColor="@color/colorFPrimary" />
 
     <TextView
         android:id="@+id/english"
@@ -18,6 +18,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="English"
-        android:textColor="@color/colorAccentDark" />
+        android:textColor="@color/colorFPrimary" />
 
 </RelativeLayout>

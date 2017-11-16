@@ -8,7 +8,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.zyntauri.gdnet.R;
+
+import org.iota.wallet.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

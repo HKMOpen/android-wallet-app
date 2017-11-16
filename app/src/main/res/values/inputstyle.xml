@@ -76,13 +76,13 @@
     </style>
 
     <style name="roller_movie_detail">
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/tag_size_m2</item>
     </style>
 
     <style name="roller_movie_detail_dark" parent="roller_movie_detail">
-        <item name="android:textColor">@color/colorPrimaryGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="EditorInputLayout" parent="Widget.Design.TextInputLayout">
@@ -115,7 +115,7 @@
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:layout_marginBottom">7dp</item>
         <item name="android:textSize">@dimen/tag_size_pt</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="title_top_left_pass" parent="title_bar_left_pass">
@@ -133,7 +133,7 @@
     <style name="membership_left_label" parent="title_bar_left_pass">
         <item name="android:textSize">@dimen/tag_size_m6</item>
         <item name="android:paddingLeft">0dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="title_bar_left_pass_fb_break_down" parent="title_bar_left_pass">
@@ -147,7 +147,7 @@
         <item name="android:gravity">center_vertical|right</item>
         <item name="android:maxLines">1</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m2</item>
     </style>
 
@@ -156,7 +156,7 @@
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:maxLines">1</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m2</item>
     </style>
     <style name="title_bar_left_pass_bottom_section">
@@ -164,12 +164,12 @@
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:maxLines">1</item>
         <item name="android:paddingLeft">10dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m5</item>
     </style>
     <style name="title_bar_left_pass_2" parent="title_bar_left_pass">
         <item name="android:textSize">@dimen/tag_size_m5</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/textColorSecondaryGray</item>
         <item name="android:paddingLeft">4dp</item>
     </style>
 
@@ -185,7 +185,7 @@
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:lines">1</item>
         <item name="android:paddingLeft">20dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size</item>
     </style>
 
@@ -194,7 +194,7 @@
         <item name="android:textSize">@dimen/tag_home_title</item>
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingBottom">@dimen/gap_lv1</item>
-        <item name="android:textColor">@color/colorPrimaryGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
     </style>
 
     <style name="title_bar_left.dark" parent="title_bar_left">
@@ -209,12 +209,12 @@
         <item name="android:paddingTop">@dimen/gap_lv1</item>
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingBottom">@dimen/gap_lv1</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">@color/textColorSecondaryGray</item>
     </style>
 
     <style name="title_roller_face">
         <item name="android:ellipsize">end</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_home_title</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -233,7 +233,7 @@
     </style>
 
     <style name="title_sub_roller_face" parent="title_roller_face">
-        <item name="android:textColor">@color/colorAccentB</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m3</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxWidth">250dp</item>
@@ -249,7 +249,7 @@
         <item name="android:gravity">center_vertical|left</item>
         <item name="android:maxLines">1</item>
         <item name="android:capitalize">characters</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m3</item>
     </style>
 
@@ -259,7 +259,7 @@
         <item name="android:lines">1</item>
         <item name="android:capitalize">characters</item>
         <item name="android:padding">5dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_home_title</item>
 
     </style>
@@ -294,7 +294,7 @@
         <item name="android:lines">1</item>
         <item name="android:capitalize">characters</item>
         <item name="android:paddingLeft">20dp</item>
-        <item name="android:textColor">@color/colorPrimaryGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size</item>
     </style>
 
@@ -324,7 +324,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:inputType">textNoSuggestions</item>
         <item name="android:capitalize">characters</item>
-        <item name="android:textColor">@color/colorPrimaryGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:autoText">false</item>
         <item name="android:textSize">@dimen/tag_size_m6</item>
     </style>
@@ -333,12 +333,12 @@
         <item name="android:textSize">@dimen/tag_size_tiny</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">left</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">@color/textColorSecondaryGray</item>
         <item name="android:maxLines">2</item>
     </style>
 
     <style name="redeem_offer_item_tag" parent="redeem_offer_item_title">
-        <item name="android:textColor">@color/colorPrimaryGrand</item>
+        <item name="android:textColor">@color/textColorSecondaryGray</item>
         <item name="android:maxLines">1</item>
     </style>
 
@@ -346,7 +346,7 @@
     <style name="notice_center">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:maxLines">3</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_tt</item>
     </style>
 
@@ -358,7 +358,7 @@
     <style name="title_ledger_left">
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">left|center_horizontal</item>
-        <item name="android:textColor">@color/dd_grey</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_tiny</item>
     </style>
 
@@ -366,7 +366,7 @@
     <style name="desc_ledger_left">
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">left|center_horizontal</item>
-        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_tiny</item>
     </style>
 
@@ -375,7 +375,7 @@
         <item name="android:gravity">left</item>
         <item name="android:lines">1</item>
         <item name="android:paddingLeft">20dp</item>
-        <item name="android:textColor">@color/colorAccentBGrand</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size</item>
     </style>
 
@@ -383,14 +383,14 @@
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:lines">1</item>
-        <item name="android:textColor">@color/dd_grey</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m6</item>
     </style>
 
     <style name="info_detail_block">
         <item name="android:gravity">left</item>
         <item name="android:minLines">2</item>
-        <item name="android:textColor">@color/dd_grey</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:textSize">@dimen/tag_size_m6</item>
     </style>
 
@@ -401,7 +401,7 @@
         <item name="qv_quantity">0</item>
         <item name="qv_minQuantity">0</item>
         <item name="qv_quantityDialog">true</item>
-        <item name="qv_quantityTextColor">@color/dd_grey</item>
+        <item name="qv_quantityTextColor">@color/textColorPrimary</item>
         <item name="qv_quantityPadding">3dp</item>
         <item name="qv_quantityTextSize">@dimen/tag_size_tiny</item>
         <item name="qv_removeButtonBackground">?selectableItemBackground</item>
@@ -409,7 +409,7 @@
 
     <style name="picker_general" parent="picker_root">
         <item name="qv_controlButtonIconSize">11dp</item>
-        <item name="qvl_textColor">@color/dark_grey</item>
+        <item name="qvl_textColor">@color/textColorPrimary</item>
         <item name="qvl_textPadding">0dp</item>
         <item name="qvl_textSize">@dimen/tag_size_tiny</item>
         <item name="qv_addButtonIcon">@drawable/btn_plus</item>
@@ -417,11 +417,11 @@
     </style>
 
     <style name="picker_number" parent="picker_root">
-        <item name="qvl_textColor">@color/dark_grey</item>
+        <item name="qvl_textColor">@color/textColorPrimary</item>
         <item name="qvl_textSize">@dimen/tag_size_tiny</item>
         <item name="qvl_textPadding">0dp</item>
-        <item name="qv_removeButtonTextColor">@color/black</item>
-        <item name="qv_addButtonTextColor">@color/black</item>
+        <item name="qv_removeButtonTextColor">@color/textColorPrimary</item>
+        <item name="qv_addButtonTextColor">@color/textColorPrimary</item>
         <item name="qv_controlButtonIconSize">10dp</item>
     </style>
 
@@ -431,20 +431,20 @@
     </style>
 
     <style name="hard_active">
-        <item name="ptc_tag_border_color">@color/colorAccentGrand</item>
-        <item name="ptc_tag_background_color">@color/colorAccentGrand</item>
-        <item name="ptc_tag_text_color">@color/dark_grey</item>
+        <item name="ptc_tag_border_color">@color/textColorPrimary</item>
+        <item name="ptc_tag_background_color">@color/textColorPrimary</item>
+        <item name="ptc_tag_text_color">@color/textColorSecondaryGray</item>
     </style>
 
     <style name="tagnormal">
-        <item name="ptc_tag_border_color">@color/colorAccentGrand</item>
-        <item name="ptc_tag_background_color">@color/colorAccentGrand</item>
-        <item name="ptc_tag_text_color">@color/dark_grey</item>
+        <item name="ptc_tag_border_color">@color/textColorPrimary</item>
+        <item name="ptc_tag_background_color">@color/textColorPrimary</item>
+        <item name="ptc_tag_text_color">@color/textColorSecondaryGray</item>
     </style>
 
     <style name="tagactive">
-        <item name="ptc_tag_border_color">@color/colorAccentGrand</item>
-        <item name="ptc_tag_background_color">@color/colorAccentGrand</item>
+        <item name="ptc_tag_border_color">@color/textColorPrimary</item>
+        <item name="ptc_tag_background_color">@color/textColorPrimary</item>
         <item name="ptc_tag_text_color">@color/colorPrimaryDark</item>
     </style>
 

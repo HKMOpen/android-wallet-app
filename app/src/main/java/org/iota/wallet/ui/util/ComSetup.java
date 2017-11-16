@@ -17,6 +17,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 import static org.iota.wallet.var.Constants.AG_C;
+import static org.iota.wallet.var.Constants.SAMPLE_IMAGE_URL_HEAD_D2;
 
 
 /**
@@ -38,7 +39,7 @@ public final class ComSetup {
         //this is the heart button
         // bb.companyIcon(R.drawable.actionbar_bg_hb_logo);
         bb.useNoPaddingWidgetButton();
-        bb.back(R.drawable.arrow_l);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.disableTitle();
         bb.enableLogoAnimation(false);
         return bb;
@@ -48,7 +49,7 @@ public final class ComSetup {
     public static BeastBar.Builder buildBeastHomeWhite(Application context) {
         BeastBar.Builder bb = BeastbarEmporerBasic(context);
         //this is the heart button
-        bb.back(R.drawable.arrow_l);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.enableLogoAnimation(true);
         return bb;
     }
@@ -57,11 +58,12 @@ public final class ComSetup {
         BeastBar.Builder bb = BeastbarEmporerBasic(context);
         //this is the heart button
         //bb.search(R.drawable.ic_action_action_search);
-        bb.back(R.drawable.btn);
+        bb.back(R.drawable.btn_menu);
+        // bb.back(R.drawable.btn_menu);
         bb.background(R.drawable.trans);
         bb.disableTitle();
         bb.enableLogoAnimation(true);
-        bb.useCustomWidgetStylingCompact40();
+        // bb.useCustomWidgetStylingCompact40();
         return bb;
     }
 
@@ -70,7 +72,7 @@ public final class ComSetup {
         //this is the heart button
         // bb.search(k);
         bb.companyIcon(R.drawable.logocom);
-        bb.back(R.drawable.arrow_l);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.disableTitle();
         bb.enableLogoAnimation(true);
         return bb;
@@ -79,7 +81,7 @@ public final class ComSetup {
     public static BeastBar.Builder builderRegBar(Application app) {
         BeastBar.Builder bb = BeastbarEmporerBasic(app);
         //this is the heart button
-        bb.back(R.drawable.arrow_l);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.useNoPaddingWidgetButton();
         bb.enableLogoAnimation(true);
         return bb;
@@ -100,7 +102,7 @@ public final class ComSetup {
     public static BeastBar.Builder builderMovieDetailBar(Application context) {
         BeastBar.Builder bb = BeastbarEmporerBasic(context);
         bb.useLayoutV2();
-        bb.back(R.drawable.arrow_l);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.useCustomWidgetStylingCompact40();
         bb.enableLogoAnimation(true);
         return bb;
@@ -108,7 +110,7 @@ public final class ComSetup {
 
     public static BeastBar.Builder builderPromotion(Application context) {
         BeastBar.Builder bb = BeastbarEmporerBasic(context);
-        bb.back(R.drawable.emp_arrow_left);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.useCustomWidgetStylingCompact40();
         bb.enableLogoAnimation(true);
         return bb;
@@ -118,7 +120,7 @@ public final class ComSetup {
         BeastBar.Builder bb = BeastbarEmporerBasic(context);
         bb.useNoPaddingWidgetButton();
         bb.useCustomWidgetStyling(R.style.actionButtonCompact30);
-        bb.back(R.drawable.emp_arrow_left);
+        bb.back(R.drawable.toolbar_arrow_l);
         bb.enableLogoAnimation(false);
         return bb;
     }

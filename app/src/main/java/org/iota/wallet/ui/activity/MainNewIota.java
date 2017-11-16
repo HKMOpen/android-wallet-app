@@ -2,6 +2,7 @@ package org.iota.wallet.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,14 +18,20 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hkm.advancedtoolbar.V5.BeastBar;
-import com.hkm.advancedtoolbar.V5.buttonBuilder;
 
 import org.iota.wallet.BuildConfig;
+import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
+import org.iota.wallet.helper.Constants;
 import org.iota.wallet.ui.activity.menu.ExpSec;
 import org.iota.wallet.ui.activity.menu.HeaderItem;
-import org.iota.wallet.ui.activity.menu.ItemAc;
 import org.iota.wallet.ui.activity.menu.ItemFr;
+import org.iota.wallet.ui.fragment.GenerateQRCodeFragment;
+import org.iota.wallet.ui.fragment.PasswordLoginFragment;
+import org.iota.wallet.ui.fragment.SeedLoginFragment;
+import org.iota.wallet.ui.fragment.TangleExplorerTabFragment;
+import org.iota.wallet.ui.fragment.WalletTabFragment;
+import org.iota.wallet.ui.util.ComSetup;
 import org.iota.wallet.var.LocaleUtils;
 
 import butterknife.BindView;
@@ -37,18 +45,18 @@ import de.madcyph3r.materialnavigationdrawer.menu.item.custom.MaterialItemCustom
 import de.madcyph3r.materialnavigationdrawer.menu.item.section.MaterialItemSection;
 import de.madcyph3r.materialnavigationdrawer.menu.item.section.MaterialItemSectionFragment;
 
-import static org.iota.wallet.var.Constants.poster_display_style;
 
 /**
  * Created by hesk on 16/11/2017.
  */
 
 public class MainNewIota extends MaterialNavNoHeaderActivity {
-
+    private SharedPreferences prefs;
     private MaterialNavigationDrawer drawer = null;
     private BeastBar mbar;
     public static int request_code_parent_menu = 1549;
     private MaterialDialog dialog;
+    private String store_id;
 
     @Override
     public void changeToolbarColor(MaterialItemSection section) {
@@ -144,18 +152,20 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         /**
          * phrase - 2
          */
-     /*   home_toolbar_set();
-        mv_h_roller_v1_cover instance_home = new mv_h_roller_v1_cover();
+        home_toolbar_set();
+        SeedLoginFragment instance_home = new SeedLoginFragment();
         if (b != null) {
             instance_home.setArguments(b);
         }
-        changeFragment(instance_home, "");*/
+        changeFragment(instance_home, "");
         store_id = "-------home";
     }
 
     private void home_toolbar_set() {
         mbar.removeToolbarBackground();
-        mbar.showMainLogo();/*
+       // mbar.setActionTitle("");
+        mbar.showMainLogo();
+        /*
         if (core.isLogin()) {
             buttonBuilder api = new buttonBuilder();
             api.addCustomIconButtonFunction(new Runnable() {
@@ -173,9 +183,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             mbar.resetRightSideButtonLayout();
         }
 */
-
         mbar.resetRightSideButtonLayout();
-
         setActionBarOverlay(true);
     }
 
@@ -185,7 +193,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
 
     private void ofContent(String id, @Nullable Bundle cap) {
         if (id.equalsIgnoreCase("peek_level_btn_promotion")) {
-          //  changeFragment(new new_promotions_bm(), "peek_level_btn_promotion");
+            //  changeFragment(new new_promotions_bm(), "peek_level_btn_promotion");
         }/* else if (id.equalsIgnoreCase("peek_level_btn_comingsoon")) {
             if (cap == null) {
                 mv_h_roller_coming instance = new mv_h_roller_coming();
@@ -263,7 +271,16 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         MaterialMenu menu = new MaterialMenu();
         //phrase 1: remove the head items
         menu.add(new HeaderMembershipBar(this));
-     /*   menu.add(new ItemFr(this, getString(R.string.peek_level_btn_home), new mv_h_roller_v1_cover(), "peek_home"));
+        String encSeed = prefs.getString(Constants.PREFERENCE_ENC_SEED, "");
+        if (!encSeed.isEmpty() && IOTA.seed == null) {
+            menu.add(new ItemFr(this, getString(R.string.menu_wallet), new PasswordLoginFragment(), "PasswordLoginFragment"));
+        } else if (IOTA.seed == null) {
+            menu.add(new ItemFr(this, getString(R.string.menu_wallet), new SeedLoginFragment(), "SeedLoginFragment"));
+        } else {
+            menu.add(new ItemFr(this, getString(R.string.menu_wallet), new WalletTabFragment(), "SeedLoginFragment"));
+        }
+        menu.add(new ItemFr(this, getString(R.string.menu_tangle_explorer), new TangleExplorerTabFragment(), "TangleExplorerTabFragment"));
+     /*
         menu.add(getListener(R.string.peek_level_btn_movies, fn_item_from_movie));
         menu.add(getListener(R.string.peek_level_btn_cinemas, fn_item_from_cinemas));
         if (BuildConfig.DEBUG) {
@@ -277,8 +294,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
 
         menu.add(new ItemFr(this, getString(R.string.peek_level_btn_promotion), new new_promotions_bm(), "peek_level_btn_promotion"));
         menu.add(getListener(R.string.peek_level_btn_others, fn_item_other));*/
-
-
 
 
         loadMenu(menu);
@@ -425,8 +440,8 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
     @Override
     public void init(Bundle savedInstanceState) {
         drawer = this;
-
-      //  core = Appliance.getGDCore().getUserSession();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //  core = Appliance.getGDCore().getUserSession();
         // information text for the fragment
         // load first ItemFr in the menu, because there is no start position
         MaterialMenu menu = parent_menu();
@@ -438,7 +453,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         if (isBelowToolbar()) {
 
         }
-        empPages = EMPStaticPages.instance(getApplication());
+//        empPages = EMPStaticPages.instance(getApplication());
 
         mbar.setBackIconFunc(new BeastBar.onButtonPressListener() {
             @Override
@@ -459,6 +474,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
     public void afterInit(Bundle savedInstanceState) {
 
     }
+/*
 
 
     private buttonBuilder panelTicketingEntrance(@Nullable Bundle cap) {
@@ -470,14 +486,16 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         buttonBuilder api = new buttonBuilder();
         switch (flag) {
             case STYLE_GRID:
-             /*   api.addCustomIconButtonFunction(new Runnable() {
+                api.addCustomIconButtonFunction(new Runnable() {
                     @Override
                     public void run() {
                         changeFragment(new mv_v_ticketing(), "");
                         mbar.setNewButtonLayout(beastBarTicketingBoxSwitcher(STYLE_STACK));
                     }
                 }, R.drawable.btn_listviewview);
-*/
+
+
+
                 api.addCustomIconButtonFunction(new Runnable() {
                     @Override
                     public void run() {
@@ -520,12 +538,12 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         buttonBuilder api = new buttonBuilder();
         switch (flag) {
             case STYLE_GRID:
-            /*    api.addCustomIconButtonFunction(new Runnable() {
+               api.addCustomIconButtonFunction(new Runnable() {
                     @Override
                     public void run() {
                         changeFragment(new mv_v_comingsoon(), "");
                          mbar.setNewButtonLayout(beastBarComingSoonSwitcher(STYLE_STACK));      }
-                }, R.drawable.btn_listviewview);*/
+                }, R.drawable.btn_listviewview);
                 api.addCustomIconButtonFunction(new Runnable() {
                     @Override
                     public void run() {
@@ -560,6 +578,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         return api;
     }
 
+*/
 
     @Override
     protected boolean finishActivityOnNewIntent() {
@@ -782,7 +801,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             }).show();
         }
     };
-    String store_id;
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -805,7 +824,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         MaterialMenu menu = new MaterialMenu();
         menu.add(BackButton());
 
-        if (core.isVip()) {
+       /* if (core.isVip()) {
             menu.add(new ItemFr(this, getString(R.string.peek_level_btn_profile), ContextCompat.getDrawable(this, R.drawable.icon_menu_profile), new personal_profile_vip(), "peek_level_btn_profile"));
         } else {
             menu.add(new ItemFr(this, getString(R.string.peek_level_btn_profile), ContextCompat.getDrawable(this, R.drawable.icon_menu_profile), new personal_profile_free(), "peek_level_btn_profile"));
@@ -823,9 +842,9 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         }
 
         menu.add(new ItemFr(this, getString(R.string.peek_level_btn_checkrecords), ContextCompat.getDrawable(this, R.drawable.icon_menu_checkrecord), new personal_check_records_history(), "peek_level_btn_checkrecords"));
-        //   menu.add(new ItemFr(this, getString(R.string.peek_level_btn_benefits), ContextCompat.getDrawable(this, R.drawable.icon_menu_benefits), new FragmentInstruction(), "peek_level_btn_benefits"));
-        //    menu.add(new ItemFr(this, getString(R.string.peek_level_btn_message), ContextCompat.getDrawable(this, R.drawable.icon_menu_message), new FragmentInstruction(), "peek_level_btn_message"));
-        menu.add(new ExpSec(this, R.drawable.icon_menu_logout, R.string.peek_level_btn_logout, fn_logout));
+           menu.add(new ItemFr(this, getString(R.string.peek_level_btn_benefits), ContextCompat.getDrawable(this, R.drawable.icon_menu_benefits), new FragmentInstruction(), "peek_level_btn_benefits"));
+           menu.add(new ItemFr(this, getString(R.string.peek_level_btn_message), ContextCompat.getDrawable(this, R.drawable.icon_menu_message), new FragmentInstruction(), "peek_level_btn_message"));*/
+        menu.add(new ExpSec(this, R.drawable.icon_menu_logout, R.string.menu_logout, fn_logout));
         loadMenu(menu);
     }
 
