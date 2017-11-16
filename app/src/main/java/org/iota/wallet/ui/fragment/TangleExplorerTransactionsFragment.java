@@ -26,12 +26,10 @@ import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
@@ -47,6 +45,7 @@ import org.iota.wallet.api.responses.CoolTransactionResponse;
 import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.model.Transaction;
 import org.iota.wallet.ui.adapter.TangleExplorerTransactionsCardAdapter;
+import org.iota.wallet.ui.util.BaseSwipeRefreshLayoutFragment;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -57,8 +56,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFragment implements SearchView.OnQueryTextListener, TextView.OnEditorActionListener {
@@ -85,36 +82,22 @@ public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFr
     private TangleExplorerTransactionsCardAdapter adapter;
     private String savedSearchText = "";
 
-    private Unbinder unbinder;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tangle_explorer_transactions, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        swipeRefreshLayout = view.findViewById(R.id.tangle_explorer_transactions_swipe_container);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_tangle_explorer_transactions;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         swipeRefreshLayout.setEnabled(false);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     @Override

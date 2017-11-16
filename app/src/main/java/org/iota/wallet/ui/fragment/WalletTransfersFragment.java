@@ -27,9 +27,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -44,14 +42,13 @@ import org.iota.wallet.api.responses.SendTransferResponse;
 import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.model.Transfer;
 import org.iota.wallet.ui.adapter.WalletTransfersCardAdapter;
+import org.iota.wallet.ui.util.BaseSwipeRefreshLayoutFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment implements WalletTabFragment.OnFabClickListener {
 
@@ -63,15 +60,10 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
     @BindView(R.id.tv_empty)
     TextView tvEmpty;
 
-    private Unbinder unbinder;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet_transfers, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        swipeRefreshLayout = view.findViewById(R.id.wallet_transfers_swipe_container);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_wallet_transfers;
     }
 
     @Override
@@ -79,15 +71,6 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         super.onViewCreated(view, savedInstanceState);
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         navigationView.getMenu().findItem(R.id.nav_wallet).setChecked(true);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     @Subscribe
@@ -137,12 +120,9 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
     @Subscribe
     public void onEvent(GetAccountDataResponse gad) {
         swipeRefreshLayout.setRefreshing(false);
-
         //TODO show a bundle card instead of all transfers as a card
         transfers = gad.getTransfers();
-
         adapter.setAdapterList(transfers);
-
         setAdapter();
     }
 
@@ -173,9 +153,7 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
         adapter.setAdapterList(transfers);
-
         tvEmpty.setVisibility(transfers.size() == 0 ? View.VISIBLE : View.GONE);
     }
 
@@ -183,7 +161,6 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         TaskManager rt = new TaskManager(getActivity());
         NodeInfoRequest nir = new NodeInfoRequest();
         rt.startNewRequestTask(nir);
-
         if (!swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.post(new Runnable() {
                 @Override
@@ -196,11 +173,13 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
 
     public void onFabClick() {
         Fragment fragment = new NewTransferFragment();
-        getActivity().getFragmentManager().beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .add(R.id.container, fragment, null)
-                .addToBackStack(null)
-                .commit();
+        if (fragment != null) {
+            getActivity().getFragmentManager().beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .add(R.id.container, fragment, null)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     @Override

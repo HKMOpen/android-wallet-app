@@ -1,0 +1,49 @@
+.bottom-row, .general_TandC, .free_member_t_and_c, .vip_t_and_c, .disclaimer, .contactus
+{
+	line-height: 2;
+	margin-left: 30px;
+	margin-right:30px;
+	font-size:14px;
+}
+
+.bottom-row p, .free_member_t_and_c p, .vip_t_and_c p, .disclaimer p
+{
+	color:#808080;
+	margin-bottom: 15px;
+}
+
+.bottom-row strong,.general_TandC h3, .free_member_t_and_c strong, .vip_t_and_c strong
+{
+	color:#00595f;
+}
+
+
+.icon-icons-arr-d
+{
+	 line-height: 2.5;
+}
+
+.general_TandC ul
+{
+	 padding-left: 10px
+}
+
+.general_TandC li
+{
+	 list-style: disc;
+}
+
+.general_TandC h3
+{
+	margin-top:15px;
+}
+
+.contactus {
+    color:#A4A4A4;
+}
+
+.join
+{
+	text-align: center;
+	font-size:20px;
+}

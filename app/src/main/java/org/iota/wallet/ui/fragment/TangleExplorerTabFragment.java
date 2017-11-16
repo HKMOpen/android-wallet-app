@@ -36,12 +36,13 @@ import org.iota.wallet.R;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.helper.price.AlternateValueManager;
 import org.iota.wallet.ui.adapter.TangleExplorerPagerAdapter;
+import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class TangleExplorerTabFragment extends Fragment {
+public class TangleExplorerTabFragment extends utilFragment {
 
     private TangleExplorerPagerAdapter adapter;
     @BindView(R.id.tangle_explorer_toolbar)
@@ -53,8 +54,6 @@ public class TangleExplorerTabFragment extends Fragment {
 
     private AlternateValueManager alternateValueManager;
 
-    private Unbinder unbinder;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +61,9 @@ public class TangleExplorerTabFragment extends Fragment {
         alternateValueManager = new AlternateValueManager(getActivity());
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tangle_explorer_tab, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_tangle_explorer_tab;
     }
 
     @Override
@@ -76,15 +72,6 @@ public class TangleExplorerTabFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(tangleExplorerToolbar);
         viewPager.setAdapter(adapter);
         tabs.setupWithViewPager(viewPager);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     @Subscribe

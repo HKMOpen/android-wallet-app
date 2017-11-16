@@ -18,20 +18,21 @@ package org.iota.wallet.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import org.iota.wallet.R;
 import org.iota.wallet.ui.fragment.SettingsFragment;
+import org.iota.wallet.ui.util.utilActivity;
 
-public class SettingsActivity extends AppCompatActivity {
-
+public class SettingsActivity extends utilActivity {
+    @Override
+    protected int layout() {
+        return R.layout.activity_settings;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
-
         getFragmentManager()
                 .beginTransaction()
                 .add(R.id.content, new SettingsFragment())

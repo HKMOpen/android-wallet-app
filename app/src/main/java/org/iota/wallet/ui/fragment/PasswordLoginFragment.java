@@ -42,6 +42,7 @@ import org.iota.wallet.R;
 import org.iota.wallet.helper.AESCrypt;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.ui.dialog.ForgotPasswordDialog;
+import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,7 @@ import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 
-public class PasswordLoginFragment extends Fragment {
+public class PasswordLoginFragment extends utilFragment {
 
     private static final String PASSWORD = "password";
     @BindView(R.id.password_login_toolbar)
@@ -59,28 +60,16 @@ public class PasswordLoginFragment extends Fragment {
     @BindView(R.id.password_login)
     TextInputEditText textInputEditTextPassword;
 
-    private Unbinder unbinder;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_password_login, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_password_login;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).setSupportActionBar(passwordLoginToolbar);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     private void login() {

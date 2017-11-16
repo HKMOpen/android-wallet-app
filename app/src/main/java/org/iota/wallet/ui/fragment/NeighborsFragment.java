@@ -63,6 +63,7 @@ import org.iota.wallet.helper.Constants;
 import org.iota.wallet.model.Neighbor;
 import org.iota.wallet.ui.activity.MainActivity;
 import org.iota.wallet.ui.adapter.NeighborsListAdapter;
+import org.iota.wallet.ui.util.BaseSwipeRefreshLayoutFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,8 +106,6 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
 
     private NeighborsListAdapter adapter;
 
-    private Unbinder unbinder;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,12 +114,11 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_neighbors, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        swipeRefreshLayout = view.findViewById(R.id.neighbors_swipe_container);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_neighbors;
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -158,15 +156,6 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
             }
             addNeighbor();
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     @Override

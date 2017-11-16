@@ -72,13 +72,14 @@ import org.iota.wallet.ui.fragment.TangleExplorerTabFragment;
 import org.iota.wallet.ui.fragment.WalletAddressesFragment;
 import org.iota.wallet.ui.fragment.WalletTabFragment;
 import org.iota.wallet.ui.fragment.WalletTransfersFragment;
+import org.iota.wallet.ui.util.utilActivity;
 
 import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends utilActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String STATE_CURRENT_FRAGMENT_TAG = "CURRENT_FRAGMENT_TAG";
     private static final String SHORTCUT_ID_GENERATE_QR_CODE = "generateQrCode";
@@ -97,11 +98,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private OnBackPressedClickListener onBackPressedClickListener;
 
     @Override
+    protected int layout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
 
         navigationView.setNavigationItemSelectedListener(this);
 

@@ -24,9 +24,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -45,14 +43,13 @@ import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.model.Address;
 import org.iota.wallet.ui.adapter.WalletAddressCardAdapter;
+import org.iota.wallet.ui.util.BaseSwipeRefreshLayoutFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment implements WalletTabFragment.OnFabClickListener {
 
@@ -66,25 +63,11 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
 
     private List<Address> addresses;
 
-    private Unbinder unbinder;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet_addresses, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        swipeRefreshLayout = view.findViewById(R.id.wallet_addresses_swipe_container);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_wallet_addresses;
     }
 
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
-    }
 
     private void setAdapter() {
         if (addresses == null) {

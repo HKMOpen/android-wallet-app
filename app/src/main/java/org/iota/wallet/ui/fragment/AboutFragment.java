@@ -30,9 +30,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AndroidRuntimeException;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.iota.wallet.IOTA;
@@ -40,14 +38,13 @@ import org.iota.wallet.R;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.model.QRCode;
 import org.iota.wallet.ui.dialog.ChangelogDialog;
+import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import de.psdev.licensesdialog.LicensesDialog;
 
-public class AboutFragment extends Fragment {
+public class AboutFragment extends utilFragment {
 
     public static final String IOTA_DONATION_ADDRESS = "TBH9CSFWUHACJSWGA9XDDMNPJ9USPRLJ9FCHDEYDYGOWPQTQUWXMUBCUKTFJRESNBHGJOISFJOLXTLZOBRLLGVTROD";
     private static final String IOTA_DONATION_TAG = "ANDROID9WALLET9DONATION9999";
@@ -58,14 +55,9 @@ public class AboutFragment extends Fragment {
     @BindView(R.id.about_version)
     TextView versionTextView;
 
-    private Unbinder unbinder;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_about, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_about;
     }
 
     private void initAppVersion() {
@@ -83,15 +75,6 @@ public class AboutFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(aboutToolbar);
         initAppVersion();
 
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     private void openPlayStore() {

@@ -31,14 +31,20 @@ import com.google.zxing.Result;
 import org.iota.wallet.R;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.model.QRCode;
+import org.iota.wallet.ui.util.utilFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class QRScannerFragment extends Fragment implements ZXingScannerView.ResultHandler {
+public class QRScannerFragment extends utilFragment implements ZXingScannerView.ResultHandler {
 
     private ZXingScannerView scannerView;
+
+    @Override
+    protected int getLayout() {
+        return 0;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

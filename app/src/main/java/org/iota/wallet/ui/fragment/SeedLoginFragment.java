@@ -41,6 +41,7 @@ import org.iota.wallet.helper.Constants;
 import org.iota.wallet.helper.SeedValidator;
 import org.iota.wallet.ui.dialog.CopySeedDialog;
 import org.iota.wallet.ui.dialog.EncryptSeedDialog;
+import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +50,7 @@ import butterknife.OnEditorAction;
 import butterknife.Unbinder;
 import jota.utils.SeedRandomGenerator;
 
-public class SeedLoginFragment extends Fragment {
+public class SeedLoginFragment extends utilFragment {
 
     private static final String SEED = "seed";
     @BindView(R.id.login_toolbar)
@@ -61,15 +62,11 @@ public class SeedLoginFragment extends Fragment {
     @BindView(R.id.seed_login_store_seed_check_box)
     CheckBox storeSeedCheckBox;
 
-    private Unbinder unbinder;
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_seed_login, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_seed_login;
     }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -77,14 +74,6 @@ public class SeedLoginFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(loginToolbar);
     }
 
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
-    }
 
     @OnClick(R.id.seed_login_button)
     public void onSeedLoginClick() {

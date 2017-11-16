@@ -50,6 +50,7 @@ import org.iota.wallet.helper.price.ExchangeRateNotAvailableException;
 import org.iota.wallet.helper.price.ExchangeRateUpdateTaskHandler;
 import org.iota.wallet.model.Transfer;
 import org.iota.wallet.ui.adapter.WalletPagerAdapter;
+import org.iota.wallet.ui.util.utilFragment;
 import org.knowm.xchange.currency.Currency;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import jota.utils.IotaUnitConverter;
 
-public class WalletTabFragment extends Fragment {
+public class WalletTabFragment extends utilFragment {
 
     private static final String BALANCE = "balance";
     private static final String ALTERNATE_BALANCE = "alternateBalance";
@@ -85,20 +86,15 @@ public class WalletTabFragment extends Fragment {
     private WalletPagerAdapter adapter;
     private int currentPagerPosition = 0;
 
-    private Unbinder unbinder;
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_wallet_tab;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         alternateValueManager = new AlternateValueManager(getActivity());
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet_tab, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
     }
 
     @Override
@@ -108,14 +104,6 @@ public class WalletTabFragment extends Fragment {
         setViewPager();
     }
 
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
-    }
 
     @OnClick(R.id.fab_wallet)
     public void onFabWalletClick() {

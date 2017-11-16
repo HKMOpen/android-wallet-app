@@ -31,9 +31,7 @@ import android.text.SpannableString;
 import android.text.format.Formatter;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -58,6 +56,7 @@ import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.helper.Utils;
 import org.iota.wallet.model.NodeInfo;
 import org.iota.wallet.ui.adapter.NodeInfoListAdapter;
+import org.iota.wallet.ui.util.BaseSwipeRefreshLayoutFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,8 +65,6 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements OnChartValueSelectedListener {
 
@@ -79,14 +76,9 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
     @BindView(R.id.node_info_chart)
     PieChart chart;
 
-    private Unbinder unbinder;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_node_info, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        swipeRefreshLayout = view.findViewById(R.id.node_info_swipe_container);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_node_info;
     }
 
     @Override
@@ -99,15 +91,6 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
         Paint p = chart.getPaint(Chart.PAINT_INFO);
         p.setColor(ContextCompat.getColor(getActivity(), R.color.colorAccent));
         initializeChart();
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     @Override

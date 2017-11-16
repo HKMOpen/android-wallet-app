@@ -58,6 +58,7 @@ import org.iota.wallet.api.requests.SendTransferRequest;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.helper.PermissionRequestHelper;
 import org.iota.wallet.model.QRCode;
+import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -69,7 +70,7 @@ import jota.utils.InputValidator;
 import jota.utils.IotaUnitConverter;
 import jota.utils.IotaUnits;
 
-public class NewTransferFragment extends Fragment {
+public class NewTransferFragment extends utilFragment {
 
     private static final String ADDRESS = "address";
     private static final String AMOUNT = "amount";
@@ -106,14 +107,9 @@ public class NewTransferFragment extends Fragment {
         inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
-    private Unbinder unbinder;
-
-    @Nullable
     @Override
-    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_new_transfer, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
+    protected int getLayout() {
+        return R.layout.fragment_new_transfer;
     }
 
     @Override
@@ -153,15 +149,6 @@ public class NewTransferFragment extends Fragment {
 
             }
         }
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (unbinder != null) {
-            unbinder.unbind();
-            unbinder = null;
-        }
-        super.onDestroyView();
     }
 
     @OnClick(R.id.new_transfer_send_fab_button)
