@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle"
+            android:thickness="@dimen/gap_lv1">
+
+            <stroke
+                android:width="0.5dp"
+                android:color="@color/facebook_blue" />
+        </shape>
+    </item>
+    <!--  <item>
+          <bitmap
+              android:antialias="true"
+              android:gravity="left"
+              android:src="@drawable/arrow_r" />
+      </item>-->
+</layer-list>

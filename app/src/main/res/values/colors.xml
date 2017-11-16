@@ -13,13 +13,16 @@
 
     <color name="divider">#1f000000</color>
     <color name="overlay">#b3546e7a</color>
-
+    <color name="facebook_blue">#416BC1</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="black_overlay_dark">#d8000000</color>
 
 
     <color name="colorFPrimary">#f97b59</color>
     <color name="colorFPrimaryDark">#457c3e</color>
     <color name="colorFAccent">#14413d</color>
     <color name="colorFSecondary">#eceff1</color>
+    <color name="colorPrimaryWhite">#e6e6e6</color>
 
 
 </resources>

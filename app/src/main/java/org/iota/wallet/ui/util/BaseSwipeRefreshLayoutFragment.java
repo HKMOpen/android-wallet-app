@@ -48,10 +48,7 @@ public abstract class BaseSwipeRefreshLayoutFragment extends utilFragment implem
         super.onViewCreated(view, savedInstanceState);
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setOnRefreshListener(this);
-            swipeRefreshLayout.setColorSchemeResources(
-                    R.color.colorAccent,
-                    R.color.colorSecondary,
-                    R.color.colorAccent);
+            swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorSecondary, R.color.colorAccent);
         }
     }
 

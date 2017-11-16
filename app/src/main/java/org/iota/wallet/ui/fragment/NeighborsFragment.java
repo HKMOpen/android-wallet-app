@@ -175,13 +175,10 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
         inflater.inflate(R.menu.neighbors, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         this.searchView = (SearchView) searchItem.getActionView();
-
         searchView.setOnQueryTextListener(this);
-
         //focus the SearchView
         if (savedSearchText != null && !savedSearchText.isEmpty()) {
             searchItem.expandActionView();
