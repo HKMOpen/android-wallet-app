@@ -110,11 +110,11 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
         TaskManager rt = new TaskManager(getActivity());
         NodeInfoRequest nir = new NodeInfoRequest();
         rt.startNewRequestTask(nir);
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(new Runnable() {
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(new Runnable() {
                 @Override
                 public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
+                    getSwipeRefreshLayout().setRefreshing(true);
                 }
             });
         }
@@ -122,7 +122,7 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
 
     @Subscribe
     public void onEvent(NodeInfoResponse nir) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
         nodeInfos = new ArrayList<>();
         nodeInfos.add(new NodeInfo(getString(R.string.info_app_name), nir.getAppName()));
@@ -151,7 +151,7 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
     public void onEvent(NetworkError error) {
         switch (error.getErrorType()) {
             case REMOTE_NODE_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 chart.setVisibility(View.INVISIBLE);
                 nodeInfos.clear();
                 setAdapter();
@@ -166,7 +166,7 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
 
     private void setAdapter() {
         NodeInfoListAdapter nodeInfoListAdapter = new NodeInfoListAdapter(getActivity(), R.layout.item_node_info, nodeInfos);
-        Utils.fixListView(list, swipeRefreshLayout);
+        Utils.fixListView(list, getSwipeRefreshLayout());
         list.setAdapter(nodeInfoListAdapter);
     }
 

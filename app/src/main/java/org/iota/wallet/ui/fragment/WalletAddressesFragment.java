@@ -93,14 +93,14 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         TaskManager rt = new TaskManager(getActivity());
         SendTransferRequest tir = new SendTransferRequest(address, "0", "", Constants.NEW_ADDRESS_TAG);
         rt.startNewRequestTask(tir);
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
         }
     }
 
     @Subscribe
     public void onEvent(GetNewAddressResponse gnar) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         //attach new
         attachNewAddress(gnar.getAddresses().get(0));
     }
@@ -113,7 +113,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
 
     @Subscribe
     public void onEvent(GetAccountDataResponse gad) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         addresses = gad.getAddresses();
         adapter.setAdapterList(addresses);
         setAdapter();
@@ -130,7 +130,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         if (nodeInfoResponse.getLatestMilestoneIndex() == (nodeInfoResponse.getLatestSolidSubtangleMilestoneIndex())) {
             getAccountData();
         } else {
-            swipeRefreshLayout.setRefreshing(false);
+            getSwipeRefreshLayout().setRefreshing(false);
             Snackbar.make(getActivity().findViewById(R.id.drawer_layout), getString(R.string.messages_not_fully_synced_yet), Snackbar.LENGTH_LONG).show();
         }
     }
@@ -140,8 +140,8 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         NodeInfoRequest nir = new NodeInfoRequest();
         rt.startNewRequestTask(nir);
 
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
         }
     }
 
@@ -153,11 +153,11 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
     public void onEvent(NetworkError error) {
         switch (error.getErrorType()) {
             case ACCESS_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 getNodeInfo();
                 break;
             case REMOTE_NODE_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 addresses.clear();
                 setAdapter();
                 break;

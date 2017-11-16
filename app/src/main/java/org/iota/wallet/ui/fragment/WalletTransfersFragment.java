@@ -77,11 +77,11 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
     public void onEvent(NetworkError error) {
         switch (error.getErrorType()) {
             case ACCESS_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 getNodeInfo();
                 break;
             case REMOTE_NODE_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 transfers.clear();
                 setAdapter();
                 break;
@@ -93,11 +93,11 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         GetAccountDataRequest gtr = new GetAccountDataRequest();
         rt.startNewRequestTask(gtr);
 
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(new Runnable() {
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(new Runnable() {
                 @Override
                 public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
+                    getSwipeRefreshLayout().setRefreshing(true);
                 }
             });
         }
@@ -107,11 +107,11 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
     public void onEvent(SendTransferRequest tir) {
         TaskManager rt = new TaskManager(getActivity());
         rt.startNewRequestTask(tir);
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(new Runnable() {
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(new Runnable() {
                 @Override
                 public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
+                    getSwipeRefreshLayout().setRefreshing(true);
                 }
             });
         }
@@ -119,7 +119,7 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
 
     @Subscribe
     public void onEvent(GetAccountDataResponse gad) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         //TODO show a bundle card instead of all transfers as a card
         transfers = gad.getTransfers();
         adapter.setAdapterList(transfers);
@@ -139,7 +139,7 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
             getAccountData();
 
         } else {
-            swipeRefreshLayout.setRefreshing(false);
+            getSwipeRefreshLayout().setRefreshing(false);
             Snackbar.make(getActivity().findViewById(R.id.drawer_layout), getString(R.string.messages_not_fully_synced_yet), Snackbar.LENGTH_LONG).show();
         }
     }
@@ -161,13 +161,8 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         TaskManager rt = new TaskManager(getActivity());
         NodeInfoRequest nir = new NodeInfoRequest();
         rt.startNewRequestTask(nir);
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(true);
-                }
-            });
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
         }
     }
 

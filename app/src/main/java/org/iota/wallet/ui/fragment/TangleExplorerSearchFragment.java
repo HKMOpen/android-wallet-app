@@ -142,14 +142,14 @@ public class TangleExplorerSearchFragment extends BaseSwipeRefreshLayoutFragment
             GetBundleRequest gtr = new GetBundleRequest(ftr.getHashes()[0]);
             rt.startNewRequestTask(gtr);
         } else {
-            swipeRefreshLayout.setRefreshing(false);
+            getSwipeRefreshLayout().setRefreshing(false);
             Snackbar.make(getActivity().findViewById(R.id.drawer_layout), getString(R.string.messages_trx_not_found), Snackbar.LENGTH_LONG).show();
         }
     }
 
     @Subscribe
     public void onEvent(GetBundleResponse getBundleResponse) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         transactions = getBundleResponse.getTransactions();
         setAdapter();
         if (transactions.isEmpty()) {
@@ -177,7 +177,7 @@ public class TangleExplorerSearchFragment extends BaseSwipeRefreshLayoutFragment
         if (searchView.getQuery().toString().isEmpty() || !InputValidator.isTrytes(searchView.getQuery().toString(), searchView.getQuery().toString().length())) {
             Snackbar.make(getActivity().findViewById(R.id.drawer_layout), getString(R.string.messages_invalid_search), Snackbar.LENGTH_LONG)
                     .setAction(null, null).show();
-            swipeRefreshLayout.setRefreshing(false);
+            getSwipeRefreshLayout().setRefreshing(false);
             return;
         }
         TaskManager rt = new TaskManager(getActivity());
@@ -188,8 +188,8 @@ public class TangleExplorerSearchFragment extends BaseSwipeRefreshLayoutFragment
             FindTransactionRequest ftr = new FindTransactionRequest(searchView.getQuery().toString());
             rt.startNewRequestTask(ftr);
         }
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
         }
     }
 
@@ -199,7 +199,7 @@ public class TangleExplorerSearchFragment extends BaseSwipeRefreshLayoutFragment
             case NETWORK_ERROR:
             case INVALID_HASH_ERROR:
             case IOTA_COOL_NETWORK_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 if (transactions != null)
                     transactions.clear();
                 if (adapter != null)

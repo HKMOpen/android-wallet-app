@@ -66,8 +66,8 @@ public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFr
         TaskManager rt = new TaskManager(getActivity());
         rt.startNewRequestTask(new CoolTransationsRequest());
 
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
         }
     };
 
@@ -97,7 +97,7 @@ public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFr
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        swipeRefreshLayout.setEnabled(false);
+        getSwipeRefreshLayout().setEnabled(false);
     }
 
     @Override
@@ -145,7 +145,7 @@ public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFr
         switch (error.getErrorType()) {
             case NETWORK_ERROR:
             case IOTA_COOL_NETWORK_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 transactions.clear();
                 break;
         }
@@ -197,7 +197,7 @@ public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFr
 
     @Subscribe
     public void onEvent(CoolTransactionResponse transactionResponse) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         if (transactions != null) {
             this.transactions = Arrays.asList(transactionResponse.getTransactions());
             tvEmpty.setVisibility(transactions.size() == 0 ? View.VISIBLE : View.GONE);

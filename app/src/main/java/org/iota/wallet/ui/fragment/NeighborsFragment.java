@@ -106,6 +106,12 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
 
     private NeighborsListAdapter adapter;
 
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,17 +125,14 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
     }
 
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ((AppCompatActivity) getActivity()).setSupportActionBar(neighborToolbar);
         neighbors = new ArrayList<>();
         fabAddButton.setVisibility(View.VISIBLE);
-
         revealView.setVisibility(View.INVISIBLE);
         isEditTextVisible = false;
-
         editTextNewAddress.setOnEditorActionListener(this);
     }
 
@@ -262,7 +265,7 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
     @SuppressLint("SetTextI18n")
     @Subscribe
     public void onEvent(GetNeighborsResponse gpr) {
-        swipeRefreshLayout.setRefreshing(false);
+        getSwipeRefreshLayout().setRefreshing(false);
         // clear all online states
         neighbors.clear();
 
@@ -286,14 +289,14 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
     public void onEvent(NetworkError error) {
         switch (error.getErrorType()) {
             case ACCESS_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 if (neighbors != null)
                     neighbors.clear();
                 if (adapter != null)
                     adapter.notifyDataSetChanged();
                 break;
             case REMOTE_NODE_ERROR:
-                swipeRefreshLayout.setRefreshing(false);
+                getSwipeRefreshLayout().setRefreshing(false);
                 if (neighbors != null)
                     neighbors.clear();
                 setAdapter();
@@ -315,8 +318,8 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
         GetNeighborsRequest nar = new GetNeighborsRequest();
         TaskManager rt = new TaskManager(getActivity());
         rt.startNewRequestTask(nar);
-        if (!swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(true));
+        if (!getSwipeRefreshLayout().isRefreshing()) {
+            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
         }
     }
 
