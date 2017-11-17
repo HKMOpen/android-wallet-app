@@ -7,24 +7,10 @@
     android:clickable="true"
     tools:ignore="contentDescription">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/new_transfer_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/fragment_new_transfer_title" />
-
-    </android.support.design.widget.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
         android:background="@color/colorSecondary"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -33,14 +19,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:orientation="vertical"
-            android:padding="@dimen/baseline">
+            android:padding="@dimen/gap_lv3">
 
             <!--  Address Label -->
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/new_transfer_address_text_input_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="72dp"
                 app:errorEnabled="true"
                 app:hintTextAppearance="@style/TextLabel">
 
@@ -48,8 +33,8 @@
                     android:id="@+id/new_transfer_address_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/address"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ9"
+                    android:hint="@string/address"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -74,7 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="@string/amount"
-                        android:inputType="numberSigned" />
+                        android:inputType="numberSigned|phone" />
 
                     <Spinner
                         android:id="@+id/new_transfer_units_spinner"
@@ -98,8 +83,8 @@
                     android:id="@+id/new_transfer_message_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/message_optional"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ9"
+                    android:hint="@string/message_optional"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>
@@ -117,8 +102,8 @@
                     android:id="@+id/new_transfer_tag_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tag_optional"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ9"
+                    android:hint="@string/tag_optional"
                     android:inputType="text" />
 
             </android.support.design.widget.TextInputLayout>

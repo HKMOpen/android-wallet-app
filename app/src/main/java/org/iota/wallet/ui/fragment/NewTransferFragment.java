@@ -79,8 +79,6 @@ public class NewTransferFragment extends utilFragment {
     private static final String SPINNER_POISTION = "spinnerPosition";
     private InputMethodManager inputManager;
 
-    @BindView(R.id.new_transfer_toolbar)
-    Toolbar newTransferToolbar;
     @BindView(R.id.new_transfer_amount_input)
     TextInputEditText amountEditText;
     @BindView(R.id.new_transfer_address_input)
@@ -115,7 +113,6 @@ public class NewTransferFragment extends utilFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(newTransferToolbar);
 
         initUnitsSpinner();
 
@@ -188,16 +185,14 @@ public class NewTransferFragment extends utilFragment {
                     .create();
 
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.buttons_ok),
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            SendTransferRequest tir = new SendTransferRequest(getAddress(),
-                                    amountInSelectedUnit(), getMessage(), getTaG());
+                    (dialog, which) -> {
+                        SendTransferRequest tir = new SendTransferRequest(getAddress(),
+                                amountInSelectedUnit(), getMessage(), getTaG());
 
-                            TaskManager rt = new TaskManager(getActivity());
-                            rt.startNewRequestTask(tir);
+                        TaskManager rt = new TaskManager(getActivity());
+                        rt.startNewRequestTask(tir);
 
-                            getActivity().onBackPressed();
-                        }
+                        getActivity().onBackPressed();
                     });
 
             alertDialog.show();

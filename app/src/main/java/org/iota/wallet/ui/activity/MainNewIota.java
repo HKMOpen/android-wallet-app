@@ -19,7 +19,9 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hkm.advancedtoolbar.V5.BeastBar;
+import com.hkm.advancedtoolbar.V5.buttonBuilder;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.iota.wallet.BuildConfig;
 import org.iota.wallet.IOTA;
@@ -32,6 +34,7 @@ import org.iota.wallet.ui.activity.menu.ItemFr;
 import org.iota.wallet.ui.fragment.AboutFragment;
 import org.iota.wallet.ui.fragment.GenerateQRCodeFragment;
 import org.iota.wallet.ui.fragment.NeighborsFragment;
+import org.iota.wallet.ui.fragment.NewTransferFragment;
 import org.iota.wallet.ui.fragment.NodeInfoFragment;
 import org.iota.wallet.ui.fragment.PasswordLoginFragment;
 import org.iota.wallet.ui.fragment.SeedLoginFragment;
@@ -93,6 +96,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             if (id.equalsIgnoreCase("NodeInfoFragment")) {
                 mbar.setActionTitle(getString(R.string.fragment_node_info_title));
             } else if (id.equalsIgnoreCase("WalletTabFragment")) {
+                mbar.setNewButtonLayout(top_bar_buttons(id));
                 mbar.setActionTitle(getString(R.string.fragment_wallet_title));
             } else if (id.equalsIgnoreCase("NeighborsFragment")) {
                 mbar.setActionTitle(getString(R.string.fragment_neighbors_title));
@@ -310,6 +314,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         } else if (object instanceof WalletTabFragment) {
             changeFragment(object, "WalletTabFragment");
             bar_title(R.string.fragment_wallet_title);
+            mbar.setNewButtonLayout(top_bar_buttons("WalletTabFragment"));
         }
     }
 
@@ -327,12 +332,8 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             menu.add(new ItemFr(this, getString(R.string.menu_wallet), new WalletTabFragment(), "WalletTabFragment"));
         }
         menu.add(new ItemFr(this, getString(R.string.menu_tangle_explorer), new TangleExplorerTabFragment(), "TangleExplorerTabFragment"));
-
         menu.add(new ItemFr(this, getString(R.string.menu_node_info), new NodeInfoFragment(), "NodeInfoFragment"));
-
         menu.add(new ItemFr(this, getString(R.string.menu_neighbors), new NeighborsFragment(), "NeighborsFragment"));
-
-
         menu.add(getListener(R.string.menu_group_misc, fn_item_from_movie));
         /*    menu.add(getListener(R.string.peek_level_btn_cinemas, fn_item_from_cinemas));
         if (BuildConfig.DEBUG) {
@@ -341,13 +342,9 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         // if (BuildConfig.DEBUG) {
         menu.add(new ItemFr(this, getString(R.string.peek_level_btn_membership), new c_membership(), "peek_level_btn_c_membership"));
         //  }
-
         menu.add(new ItemFr(this, getString(R.string.peek_level_btn_party), CWebHybrid.feature(FEATURE_PARTY), "peek_level_btn_party"));
-
         menu.add(new ItemFr(this, getString(R.string.peek_level_btn_promotion), new new_promotions_bm(), "peek_level_btn_promotion"));
         menu.add(getListener(R.string.peek_level_btn_others, fn_item_other));*/
-
-
         loadMenu(menu);
         return menu;
     }
@@ -447,7 +444,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             regReg.putExtras(f);
             menu.add(new ItemAc(this, "party form", regReg));
         }*/
-
         loadMenu(menu);
     }
 
@@ -483,8 +479,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             ofBeastBar(store_id);
             ofContent(store_id);
         }*/
-
-
         ofBeastBar(store_id);
         ofContent(store_id);
     }
@@ -526,6 +520,26 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
     public void afterInit(Bundle savedInstanceState) {
 
     }
+
+    private buttonBuilder top_bar_buttons(String id) {
+        buttonBuilder api = new buttonBuilder();
+        if (id.equalsIgnoreCase("WalletTabFragment")) {
+            api.addCustomIconButtonFunction(() -> {
+                changeFragment(new NewTransferFragment(), "NewTransferFragment");
+                bar_title(R.string.fragment_new_transfer_title);
+                //mbar.setNewButtonLayout(beastBarTicketingBoxSwitcher(STYLE_ROLLER));
+            }, R.drawable.ic_checked);
+
+            api.addCustomIconButtonFunction(() -> {
+                changeFragment(new GenerateQRCodeFragment(), "GenerateQRCodeFragment");
+                bar_title(R.string.fragment_generate_qr_code_title);
+            }, R.drawable.ic_smartphone);
+            return api;
+        } else {
+            return api;
+        }
+    }
+
 /*
     private buttonBuilder panelTicketingEntrance(@Nullable Bundle cap) {
         if (cap == null) return beastBarTicketingBoxSwitcher(STYLE_ROLLER);
@@ -894,4 +908,20 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         Snackbar.make(findViewById(R.id.drawer_layout), errorMessage, Snackbar.LENGTH_LONG)
                 .setAction(null, null).show();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+        //  showLogoutNavigationItem();
+        //  updateDynamicShortcuts();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //  updateDynamicShortcuts();
+        EventBus.getDefault().unregister(this);
+    }
+
 }
