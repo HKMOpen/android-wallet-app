@@ -34,7 +34,7 @@ import butterknife.BindView;
 public abstract class BaseSwipeRefreshLayoutFragment extends utilFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @Nullable
-    @BindView(R.id.wallet_transfers_swipe_container)
+    @BindView(R.id.lreg_swipe_container)
     SwipeRefreshLayout swipeRefreshLayout;
 
     @Nullable
@@ -70,5 +70,14 @@ public abstract class BaseSwipeRefreshLayoutFragment extends utilFragment implem
 
     @Override
     public void onRefresh() {
+    }
+
+    protected final void refreshSwipeLayout() {
+        getSwipeRefreshLayout().post(() ->
+                {
+                    if (postThreadExist())
+                        getSwipeRefreshLayout().setRefreshing(true);
+                }
+        );
     }
 }

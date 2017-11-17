@@ -73,7 +73,7 @@ android {
         renderscriptSupportModeEnabled false
         vectorDrawables.useSupportLibrary = true
 
-        resConfigs "en", "zh"
+        resConfigs "en", "zh", "de"
         /* javaCompileOptions {
              annotationProcessorOptions {
                  includeCompileClasspath false

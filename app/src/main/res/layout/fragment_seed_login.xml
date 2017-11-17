@@ -27,17 +27,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
             android:padding="@dimen/baseline"
             tools:ignore="contentDescription">
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/gap_lv3c" />
 
             <ImageView
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/logo"
+                android:src="@drawable/coin_logo"
                 android:tint="@color/colorPrimary" />
 
             <android.support.design.widget.TextInputLayout

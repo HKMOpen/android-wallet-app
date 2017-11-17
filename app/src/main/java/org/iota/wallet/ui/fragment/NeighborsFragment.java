@@ -73,8 +73,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
-        implements SearchView.OnQueryTextListener, TextView.OnEditorActionListener, MainActivity.OnBackPressedClickListener {
+public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment implements SearchView.OnQueryTextListener, TextView.OnEditorActionListener, MainActivity.OnBackPressedClickListener {
 
     private static final int AUTOMATICALLY_DISMISS_ITEM = 3000;
     private static final String SEARCH_TEXT = "searchText";
@@ -82,8 +81,6 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
     private static final String REAVEAL_VIEW_STATE = "revealViewState";
     private static final String NEW_ADDRESS_TEXT = "newAddress";
 
-    @BindView(R.id.neighbor_toolbar)
-    Toolbar neighborToolbar;
     @BindView(R.id.connected_neighbors)
     TextView neighborsHeaderTextView;
     @BindView(R.id.neighbor_recycler_view)
@@ -128,7 +125,7 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(neighborToolbar);
+      //  ((AppCompatActivity) getActivity()).setSupportActionBar(neighborToolbar);
         neighbors = new ArrayList<>();
         fabAddButton.setVisibility(View.VISIBLE);
         revealView.setVisibility(View.INVISIBLE);
@@ -316,7 +313,7 @@ public class NeighborsFragment extends BaseSwipeRefreshLayoutFragment
         TaskManager rt = new TaskManager(getActivity());
         rt.startNewRequestTask(nar);
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
+             refreshSwipeLayout();
         }
     }
 

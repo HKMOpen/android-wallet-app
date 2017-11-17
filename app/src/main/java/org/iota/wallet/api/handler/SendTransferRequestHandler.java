@@ -78,18 +78,14 @@ public class SendTransferRequestHandler extends IotaRequestHandler {
                     null));
         } catch (NotEnoughBalanceException | InvalidSecurityLevelException | InvalidTrytesException | InvalidAddressException | InvalidTransferException | IllegalAccessError e) {
             NetworkError error = new NetworkError();
-
             NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.cancel(notificationId);
-
             if (((SendTransferRequest) request).getValue().equals("0")
                     && ((SendTransferRequest) request).getTag().equals(Constants.NEW_ADDRESS_TAG)) {
                 NotificationHelper.responseNotification(context, R.drawable.ic_address, context.getString(R.string.notification_attaching_new_address_response_failed_title), notificationId);
-
             } else {
                 NotificationHelper.responseNotification(context, R.drawable.ic_fab_send, context.getString(R.string.notification_send_transfer_response_failed_title), notificationId);
             }
-
             if (e instanceof IllegalAccessError) {
                 error.setErrorType(NetworkErrorType.ACCESS_ERROR);
                 mNotificationManager.cancel(notificationId);
@@ -99,24 +95,20 @@ public class SendTransferRequestHandler extends IotaRequestHandler {
                     NotificationHelper.responseNotification(context, R.drawable.ic_error, context.getString(R.string.notification_transfer_attach_to_tangle_blocked_title), notificationId);
             } else
                 error.setErrorType(NetworkErrorType.NETWORK_ERROR);
-
             response = error;
         }
-
         if (response instanceof SendTransferResponse && ((SendTransferRequest) request).getValue().equals("0")
                 && ((SendTransferRequest) request).getTag().equals(Constants.NEW_ADDRESS_TAG)) {
             if (Arrays.asList(((SendTransferResponse) response).getSuccessfully()).contains(true))
                 NotificationHelper.responseNotification(context, R.drawable.ic_address, context.getString(R.string.notification_attaching_new_address_response_succeeded_title), notificationId);
             else
                 NotificationHelper.responseNotification(context, R.drawable.ic_address, context.getString(R.string.notification_attaching_new_address_response_failed_title), notificationId);
-
         } else if (response instanceof SendTransferResponse) {
             if (Arrays.asList(((SendTransferResponse) response).getSuccessfully()).contains(true))
                 NotificationHelper.responseNotification(context, R.drawable.ic_fab_send, context.getString(R.string.notification_send_transfer_response_succeeded_title), notificationId);
             else
                 NotificationHelper.responseNotification(context, R.drawable.ic_fab_send, context.getString(R.string.notification_send_transfer_response_failed_title), notificationId);
         }
-
         return response;
     }
 }

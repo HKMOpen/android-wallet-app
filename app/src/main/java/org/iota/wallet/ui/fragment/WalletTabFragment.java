@@ -23,6 +23,7 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -77,8 +78,9 @@ public class WalletTabFragment extends utilFragment {
     TextView balanceTextView;
     @BindView(R.id.toolbar_title_layout_alternate_balance)
     TextView alternateBalanceTextView;
-    @BindView(R.id.fab_wallet)
-    FloatingActionButton fabWallet;
+    @BindView(R.id.fab_wallet) FloatingActionButton fabWallet;
+    @BindView(R.id.app_layout_list)
+    AppBarLayout app_layout_list;
     private long walletBalanceIota;
     private List<Transfer> transfers;
     private AlternateValueManager alternateValueManager;
@@ -100,8 +102,11 @@ public class WalletTabFragment extends utilFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(walletToolbar);
+        //  ((AppCompatActivity) getActivity()).setSupportActionBar(walletToolbar);
         setViewPager();
+        app_layout_list.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            getParent().setBarAlpha(verticalOffset, 50);
+        });
     }
 
 
@@ -120,6 +125,7 @@ public class WalletTabFragment extends utilFragment {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
             }
 
             @Override
@@ -139,18 +145,12 @@ public class WalletTabFragment extends utilFragment {
         if (transfers == null) {
             transfers = new ArrayList<>();
         }
-
         transfers = gad.getTransfers();
-
         isConnected = true;
-
         currentPagerPosition = viewPager.getCurrentItem();
         updateFab();
-
         walletBalanceIota = 0;
-
         walletBalanceIota = walletBalanceIota + gad.getBalance();
-
         String balanceText = IotaUnitConverter.convertRawIotaAmountToDisplayText(walletBalanceIota, false);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         prefs.edit().putLong(Constants.PREFERENCES_CURRENT_IOTA_BALANCE, walletBalanceIota).apply();
@@ -169,7 +169,6 @@ public class WalletTabFragment extends utilFragment {
         } else {
             fabWallet.show();
             fabWallet.setEnabled(true);
-
             switch (currentPagerPosition) {
                 case 0:
                     fabWallet.setImageResource(R.drawable.ic_fab_send);

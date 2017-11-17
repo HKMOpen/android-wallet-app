@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.StringRes;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.view.View;
@@ -19,20 +20,28 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.hkm.advancedtoolbar.V5.BeastBar;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.iota.wallet.BuildConfig;
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
+import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.ui.activity.menu.ExpSec;
 import org.iota.wallet.ui.activity.menu.HeaderItem;
 import org.iota.wallet.ui.activity.menu.ItemFr;
+import org.iota.wallet.ui.fragment.AboutFragment;
 import org.iota.wallet.ui.fragment.GenerateQRCodeFragment;
+import org.iota.wallet.ui.fragment.NeighborsFragment;
+import org.iota.wallet.ui.fragment.NodeInfoFragment;
 import org.iota.wallet.ui.fragment.PasswordLoginFragment;
 import org.iota.wallet.ui.fragment.SeedLoginFragment;
+import org.iota.wallet.ui.fragment.SettingsFragment;
 import org.iota.wallet.ui.fragment.TangleExplorerTabFragment;
 import org.iota.wallet.ui.fragment.WalletTabFragment;
 import org.iota.wallet.ui.util.ComSetup;
+import org.iota.wallet.ui.util.utilFragment;
 import org.iota.wallet.var.LocaleUtils;
+import org.iota.wallet.var.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,14 +81,39 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         ofBeastBar(id, null);
     }
 
+    String list_iota = "NodeInfoFragment,NeighborsFragment,TangleExplorerTabFragment,NewTransferFragment,WalletAddressesFragment,WalletTransfersFragment,WalletTabFragment";
+
     private void ofBeastBar(String id, @Nullable Bundle cap) {
         setActionBarOverlay(false);
         if (mbar == null) return;
-        /*if (id.equalsIgnoreCase("peek_level_btn_ticketing")) {
-            mbar.setNewButtonLayout(panelTicketingEntrance(cap));
+        if (Util.explode(",", list_iota).indexOf(id) > -1) {
+            // mbar.setNewButtonLayout(panelTicketingEntrance(cap));
+            setActionBarOverlay(true);
             mbar.hideMainLogo();
-            mbar.setActionTitle(getString(R.string.peek_level_btn_ticketing));
-        } else if (id.equalsIgnoreCase("peek_level_btn_comingsoon")) {
+            if (id.equalsIgnoreCase("NodeInfoFragment")) {
+                mbar.setActionTitle(getString(R.string.fragment_node_info_title));
+            } else if (id.equalsIgnoreCase("WalletTabFragment")) {
+                mbar.setActionTitle(getString(R.string.fragment_wallet_title));
+            } else if (id.equalsIgnoreCase("NeighborsFragment")) {
+                mbar.setActionTitle(getString(R.string.fragment_neighbors_title));
+            } else if (id.equalsIgnoreCase("NewTransferFragment")) {
+                mbar.setActionTitle(getString(R.string.fragment_new_transfer_title));
+            } else if (id.equalsIgnoreCase("AboutFragment")) {
+                mbar.setActionTitle(getString(R.string.fragment_about_title));
+            } else if (id.equalsIgnoreCase("SettingsFragment")) {
+                mbar.setActionTitle(getString(R.string.menu_settings));
+            } else if (id.equalsIgnoreCase("TangleExplorerTabFragment")) {
+                setActionBarOverlay(false);
+                mbar.setActionTitle(getString(R.string.fragment_tangle_explorer_title));
+            } else {
+                mbar.setActionTitle(getString(R.string.fragment_wallet_title));
+            }
+        } else {
+            //WalletTabFragment
+            mbar.resetRightSideButtonLayout();
+            mbar.showMainLogo();
+        }
+        /*else if (id.equalsIgnoreCase("peek_level_btn_comingsoon")) {
             mbar.setNewButtonLayout(panelComingSoonEntrance(cap));
             mbar.hideMainLogo();
             mbar.setActionTitle(getString(R.string.peek_level_btn_comingsoon));
@@ -128,8 +162,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             mbar.showMainLogo();
         }*/
 
-        mbar.resetRightSideButtonLayout();
-        mbar.showMainLogo();
 
         store_id = id;
     }
@@ -163,7 +195,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
 
     private void home_toolbar_set() {
         mbar.removeToolbarBackground();
-       // mbar.setActionTitle("");
+        // mbar.setActionTitle("");
         mbar.showMainLogo();
         /*
         if (core.isLogin()) {
@@ -257,14 +289,29 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             }
         }
     }
-/*
-    public final void pageDirect(material_base object, int step) {
-        if (object instanceof membership_base) {
-            changeFragment(object, "peek_level_btn_profile_ed");
-        } else if (object instanceof c_membership) {
-            changeFragment(object, "peek_level_btn_c_membership");
+
+    public void setBarAlpha(int yscroll, int full) {
+        mbar.setToolbarAlphaHeightScrollable(yscroll, full);
+    }
+
+    private void bar_title(final @StringRes int title) {
+        mbar.hideMainLogo();
+        mbar.resetRightSideButtonLayout();
+        mbar.setActionTitle(getString(title));
+    }
+
+    public final void pageDirect(utilFragment object, String step) {
+        if (object instanceof SeedLoginFragment) {
+            changeFragment(object, "SeedLoginFragment");
+            bar_title(R.string.fragment_wallet_title);
+        } else if (object instanceof PasswordLoginFragment) {
+            changeFragment(object, "PasswordLoginFragment");
+            bar_title(R.string.fragment_login_title);
+        } else if (object instanceof WalletTabFragment) {
+            changeFragment(object, "WalletTabFragment");
+            bar_title(R.string.fragment_wallet_title);
         }
-    }*/
+    }
 
     private MaterialMenu parent_menu() {
         //   final Intent eat_drink_intent = new Intent(this, StepperTicketingActivity.class);
@@ -277,12 +324,17 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         } else if (IOTA.seed == null) {
             menu.add(new ItemFr(this, getString(R.string.menu_wallet), new SeedLoginFragment(), "SeedLoginFragment"));
         } else {
-            menu.add(new ItemFr(this, getString(R.string.menu_wallet), new WalletTabFragment(), "SeedLoginFragment"));
+            menu.add(new ItemFr(this, getString(R.string.menu_wallet), new WalletTabFragment(), "WalletTabFragment"));
         }
         menu.add(new ItemFr(this, getString(R.string.menu_tangle_explorer), new TangleExplorerTabFragment(), "TangleExplorerTabFragment"));
-     /*
-        menu.add(getListener(R.string.peek_level_btn_movies, fn_item_from_movie));
-        menu.add(getListener(R.string.peek_level_btn_cinemas, fn_item_from_cinemas));
+
+        menu.add(new ItemFr(this, getString(R.string.menu_node_info), new NodeInfoFragment(), "NodeInfoFragment"));
+
+        menu.add(new ItemFr(this, getString(R.string.menu_neighbors), new NeighborsFragment(), "NeighborsFragment"));
+
+
+        menu.add(getListener(R.string.menu_group_misc, fn_item_from_movie));
+        /*    menu.add(getListener(R.string.peek_level_btn_cinemas, fn_item_from_cinemas));
         if (BuildConfig.DEBUG) {
             menu.add(new ItemFr(this, getString(R.string.peek_level_btn_eatndrink), CWebHybrid.feature(CWebHybrid.FEATURE_FNB), "peek_level_btn_eatndrink"));
         }
@@ -402,9 +454,9 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
     private void item_from_movie() {
         final MaterialMenu menu = new MaterialMenu();
         menu.add(BackButton());
-        /*menu.add(new ItemFr(this, getString(R.string.peek_level_btn_ticketing), new mv_h_roller_v3_ticketing(), "peek_level_btn_ticketing"));
-        menu.add(new ItemFr(this, getString(R.string.peek_level_btn_comingsoon), new mv_h_roller_coming(), "peek_level_btn_comingsoon"));
-        menu.add(new ItemFr(this, getString(R.string.peek_level_btn_specialprogram), new mv_special_program(), "peek_level_btn_specialprogram"));*/
+        menu.add(new ItemFr(this, getString(R.string.menu_about), new AboutFragment(), "AboutFragment"));
+        menu.add(new ItemFr(this, getString(R.string.menu_settings), new SettingsFragment(), "SettingsFragment"));
+        //menu.add(new ItemFr(this, getString(R.string.menu_logout), new mv_special_program(), "peek_level_btn_specialprogram"));
         loadMenu(menu);
     }
 
@@ -475,8 +527,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
 
     }
 /*
-
-
     private buttonBuilder panelTicketingEntrance(@Nullable Bundle cap) {
         if (cap == null) return beastBarTicketingBoxSwitcher(STYLE_ROLLER);
         return beastBarTicketingBoxSwitcher(cap.getInt(poster_display_style));
@@ -493,9 +543,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
                         mbar.setNewButtonLayout(beastBarTicketingBoxSwitcher(STYLE_STACK));
                     }
                 }, R.drawable.btn_listviewview);
-
-
-
                 api.addCustomIconButtonFunction(new Runnable() {
                     @Override
                     public void run() {
@@ -521,11 +568,9 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
                         mbar.setNewButtonLayout(beastBarTicketingBoxSwitcher(STYLE_GRID));
                     }
                 }, R.drawable.btn_listview);
-
             default:
                 break;
         }
-
         return api;
     }
 
@@ -574,7 +619,6 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
             default:
                 break;
         }
-
         return api;
     }
 
@@ -697,39 +741,27 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         return new HeaderSubMeunTop(this);
     }
 
-    private MaterialSectionOnClickListener fn_item_from_movie = new MaterialSectionOnClickListener() {
-        @Override
-        public void onClick(MaterialItemSection section, View view) {
-            if (BuildConfig.DEBUG)
-                Toast.makeText(drawer, "this is fn_item_from_movie", Toast.LENGTH_LONG).show();
-            item_from_movie();
-        }
+    private MaterialSectionOnClickListener fn_item_from_movie = (section, view) -> {
+        if (BuildConfig.DEBUG)
+            Toast.makeText(drawer, "this is fn_item_from_movie", Toast.LENGTH_LONG).show();
+        item_from_movie();
     };
-    private MaterialSectionOnClickListener fn_item_from_cinemas = new MaterialSectionOnClickListener() {
-        @Override
-        public void onClick(MaterialItemSection section, View view) {
-            if (BuildConfig.DEBUG)
-                Toast.makeText(drawer, "this is fn_item_from_cinemas", Toast.LENGTH_LONG).show();
-            item_from_cinemas();
-        }
+    private MaterialSectionOnClickListener fn_item_from_cinemas = (section, view) -> {
+        if (BuildConfig.DEBUG)
+            Toast.makeText(drawer, "this is fn_item_from_cinemas", Toast.LENGTH_LONG).show();
+        item_from_cinemas();
     };
-    private MaterialSectionOnClickListener fn_item_from_membership = new MaterialSectionOnClickListener() {
-        @Override
-        public void onClick(MaterialItemSection section, View view) {
-           /* if (core.isLogin()) {
-                item_from_membership();
-            } else {
-                LoginActivity.normalLogin(InitialPage.this);
-            }*/
-        }
+    private MaterialSectionOnClickListener fn_item_from_membership = (section, view) -> {
+       /* if (core.isLogin()) {
+            item_from_membership();
+        } else {
+            LoginActivity.normalLogin(InitialPage.this);
+        }*/
     };
-    private MaterialSectionOnClickListener fn_item_other = new MaterialSectionOnClickListener() {
-        @Override
-        public void onClick(MaterialItemSection section, View view) {
-            if (BuildConfig.DEBUG)
-                Toast.makeText(drawer, "this is fn_item_other", Toast.LENGTH_LONG).show();
-            item_other();
-        }
+    private MaterialSectionOnClickListener fn_item_other = (section, view) -> {
+        if (BuildConfig.DEBUG)
+            Toast.makeText(drawer, "this is fn_item_other", Toast.LENGTH_LONG).show();
+        item_other();
     };
 
     private ExpSec getListener(@StringRes final int title, MaterialSectionOnClickListener caller) {
@@ -746,7 +778,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
     private void showProgress() {
         if (dialog != null && dialog.isShowing()) return;
         dialog = new MaterialDialog.Builder(this)
-                .content("please wait")
+                .content(getString(R.string.message_install_web_view))
                 .progress(true, 0)
                 .cancelable(false)
                 .show();
@@ -758,49 +790,36 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         }
     }
 
-    private MaterialSectionOnClickListener fn_logout = new MaterialSectionOnClickListener() {
-        @Override
-        public void onClick(MaterialItemSection section, View v) {
-            new MaterialDialog.Builder(MainNewIota.this).cancelable(false).title(getString(R.string.menu_logout)).content("Do u want to logout?").positiveText(getString(android.R.string.yes)).negativeText(getString(android.R.string.no)).onPositive(new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull final MaterialDialog dialog, @NonNull DialogAction which) {
-                   /* showProgress();
-                    if (core.hasfacebookID()) {
-                        LoginManager.getInstance().logOut();
-                    }
-                    core.logout(new ObjectCallback() {
-                        @Override
-                        public void onSuccess(Object map) {
-                            core.initGuest(new ObjectCallback<memberLogin>() {
-                                @Override
-                                public void onSuccess(memberLogin map) {
-                                    dialog.dismiss();
-                                    display_rendering_menu();
-                                }
-
-                                @Override
-                                public void onError(Throwable t, int error_code) {
-                                    dialog.dismiss();
-                                    display_rendering_menu();
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onError(Throwable t, int error_code) {
-                            dialog.dismiss();
-                            display_rendering_menu();
-                        }
-                    });*/
-                }
-            }).onNegative(new MaterialDialog.SingleButtonCallback() {
-                @Override
-                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    dialog.dismiss();
-                }
-            }).show();
+    private MaterialSectionOnClickListener fn_logout = (section, v) -> new MaterialDialog.Builder(MainNewIota.this).cancelable(false).title(getString(R.string.menu_logout)).content("Do u want to logout?").positiveText(getString(android.R.string.yes)).negativeText(getString(android.R.string.no)).onPositive((dialog, which) -> {
+       /* showProgress();
+        if (core.hasfacebookID()) {
+            LoginManager.getInstance().logOut();
         }
-    };
+        core.logout(new ObjectCallback() {
+            @Override
+            public void onSuccess(Object map) {
+                core.initGuest(new ObjectCallback<memberLogin>() {
+                    @Override
+                    public void onSuccess(memberLogin map) {
+                        dialog.dismiss();
+                        display_rendering_menu();
+                    }
+
+                    @Override
+                    public void onError(Throwable t, int error_code) {
+                        dialog.dismiss();
+                        display_rendering_menu();
+                    }
+                });
+            }
+
+            @Override
+            public void onError(Throwable t, int error_code) {
+                dialog.dismiss();
+                display_rendering_menu();
+            }
+        });*/
+    }).onNegative((dialog, which) -> dialog.dismiss()).show();
 
 
     @Override
@@ -848,4 +867,31 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         loadMenu(menu);
     }
 
+    @Subscribe
+    public void onEvent(NetworkError error) {
+        String errorMessage = "";
+        switch (error.getErrorType()) {
+            case REMOTE_NODE_ERROR:
+                errorMessage = getString(R.string.messages_network_remote_error);
+                break;
+            case NETWORK_ERROR:
+                errorMessage = getString(R.string.messages_network_error);
+                break;
+            case ACCESS_ERROR:
+                errorMessage = getString(R.string.messages_network_access_error);
+                break;
+            case INVALID_HASH_ERROR:
+                errorMessage = getString(R.string.messages_invalid_hash_error);
+                break;
+            case EXCHANGE_RATE_ERROR:
+                errorMessage = getString(R.string.messages_exchange_rate_error);
+                break;
+            case IOTA_COOL_NETWORK_ERROR:
+                errorMessage = getString(R.string.messages_network_iota_cool_error);
+                break;
+        }
+
+        Snackbar.make(findViewById(R.id.drawer_layout), errorMessage, Snackbar.LENGTH_LONG)
+                .setAction(null, null).show();
+    }
 }

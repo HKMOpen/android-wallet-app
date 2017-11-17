@@ -7,11 +7,13 @@ import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.widget.ImageView;
 
+import java.lang.reflect.Array;
 import java.security.Key;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -322,5 +324,10 @@ public class Util {
         return max_tickets;
     }
 
-
+    public static ArrayList<String> explode(String delimiter, @Nullable String data) {
+        ArrayList<String> k = new ArrayList<String>();
+        if (data == null) return k;
+        String[] list_max = data.split(delimiter);
+        return new ArrayList<String>(Arrays.asList(list_max));
+    }
 }

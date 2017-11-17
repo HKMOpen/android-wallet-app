@@ -46,10 +46,13 @@ dependencies {
     implementation('com.hkm.ui:QuantityView:2.5.0') {
         exclude group: 'com.android.support'
     }
+    implementation ('com.mikhaellopez:circularimageview:3.0.2'){
+        exclude group: 'com.android.support'
+    }
     implementation('com.hkm.ui:advMenu:2.3.0') {
         exclude group: 'com.android.support'
     }
-    implementation('com.hkm.ui:advancedtoolbar:1.2.0') {
+    implementation('com.hkm.ui:advancedtoolbar:1.2.7') {
         exclude group: 'com.android.support'
     }
     implementation('com.hkm.ui:material-stepper:4.5.1') {

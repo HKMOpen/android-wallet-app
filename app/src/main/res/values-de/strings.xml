@@ -40,6 +40,7 @@
 <string name="tag_optional">Tag (optional, nur A-Z und 9)</string>
 <string name="neighbor_ip">Nachbar IP:</string>
 <!-- Buttons Section -->
+<string name="button_update">Update</string>
 <string name="buttons_ok">Ok</string>
 <string name="buttons_cancel">Abbrechen</string>
 <string name="buttons_login">Einloggen</string>
@@ -74,6 +75,7 @@
 <string name="messages_not_yet_implemented">Die Funktion ist noch nicht implementiert</string>
 <string name="messages_enter_txaddress_with_checksum">Bitte eine gültige Empfängeradresse mit Prüfsumme eingeben</string>
 <string name="messages_enter_amount">Bitte einen Betrag angeben</string>
+<string name="message_wait">Wait</string>
 <string name="messages_not_enough_balance">Nicht genügend Guthaben</string>
 <string name="messages_invalid_characters">Nur Großbuchstaben von A-Z und die Nummer 9 werden akzeptiert.</string>
 <string name="messages_tag_to_long">Bitte ein gültiges Tag eingeben. Maximal 27 Trytes sind erlaubt</string>
@@ -86,13 +88,29 @@
 <string name="message_open_licenses_error">WebView kann nicht geöffnet werden.</string>
 <string name="message_install_web_view">WebView installieren</string>
 <string name="messages_iota_donation_require_login">Bitte log dich zuerst mit deinem Seed ein</string>
-<!-- Peek menu -->
+<string name="force_upgrade_msg_true">NEW VERSION AVAILABLE \n
+Please update IOTA wallet App NOW</string>
+<string name="force_upgrade_msg_optional">NEW VERSION AVAILABLE \n
+Update IOTA wallet App NOW</string>
+<string name="force_upgrade_btn_later">Tangle Explorer</string>
+
+
+
+
+
 <string name="menu_group_misc">Verschiedenes</string>
 <string name="menu_wallet">Wallet</string>
 <string name="menu_tangle_explorer">Tangle Explorer</string>
+
+
+
+
+
+
+
 <string name="menu_neighbors">Nachbarn</string>
 <string name="menu_node_info">Node Info</string>
-<string name="menu_settings">@string/action_settings</string>
+<string name="menu_settings">Settings</string>
 <string name="menu_about">Über diese App</string>
 <string name="menu_logout">Abmelden</string>
 <string name="menu_search">Suchen</string>
