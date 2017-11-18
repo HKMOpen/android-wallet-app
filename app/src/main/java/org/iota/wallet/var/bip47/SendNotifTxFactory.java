@@ -5,7 +5,7 @@ import org.iota.wallet.var.SamouraiWallet;
 
 import java.math.BigInteger;
 
-public class SendNotifTxFactory	{
+public class SendNotifTxFactory {
 
     public static final BigInteger _bNotifTxValue = SamouraiWallet.bDust;
     public static final BigInteger _bSWFee = SamouraiWallet.bFee;
@@ -16,6 +16,7 @@ public class SendNotifTxFactory	{
 
     public static final double _dSWFeeUSD = 0.5;
 
-    private SendNotifTxFactory () { ; }
+    private SendNotifTxFactory() {
+    }
 
 }

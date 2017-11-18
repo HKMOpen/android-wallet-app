@@ -51,6 +51,8 @@
 <string name="button_retry">Retry</string>
 <string name="buttons_share">分享</string>
 <string name="button_create_pin">Create PIN code</string>
+<string name="button_yes">是</string>
+<string name="button_no">否</string>
 <string name="confirm_pin">Confirm PIN</string>
 <string name="buttons_backup">備用</string>
 <!-- Messages Notices -->
@@ -61,6 +63,7 @@
 <string name="messages_network_remote_error">Network error, could not connect to the remote node.</string>
 <string name="messages_network_access_error">Unauthorized, the command is not available on this node.</string>
 <string name="messages_network_iota_cool_error">Network error, could not connect to iota.cool network.</string>
+<string name="messages_api_error">Samourai APIs are returning an error. Please try again or try later.</string>
 <string name="messages_network_error">Network error, could not connect to network.</string>
 <string name="messages_invalid_hash_error">Invalid hash error, unable to find transaction.</string>
 <string name="messages_exchange_rate_error">No exchange rate data available.</string>
@@ -93,7 +96,6 @@
 <string name="message_install_web_view">Install WebView</string>
 <string name="messages_iota_donation_require_login">Please login with your seed first</string>
 <string name="message_pushtx_returns_null">Spend failed. Server returned null value.</string>
-<string name="bip47_recommended_list"></string>
 <string name="bip47_recommended">Recommended payment codes</string>
 <string name="bip47_already_has_recommended">This payment code is already in your list.</string>
 
@@ -124,28 +126,33 @@
 
 
 
+<string name="cannot_reach_api">Samourai APIs cannot be reached. Please verify connection and try again or try later.</string>
+<string name="cannot_recognize_privkey">Cannot recognize private key</string>
+<string name="cannot_sweep_privkey">Error sweeping private key</string>
+<string name="cannot_find_unspents">Unspents list is empty</string>
+<string name="please_wait_sending">Sending transaction, please wait.</string>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<string name="trusted_node_breaks_consensus">Trusted node cannot be set on a bitcoin client that breaks consensus.</string>
+<string name="trusted_node_not_responding">Trusted node not responding. Please check installation.</string>
+<string name="trusted_node_not_core_131">Trusted node is set. Note that Samourai Wallet supports Bitcoin Core 0.13.1 and over.</string>
+<string name="trusted_node_ko">Trusted node not recognized. Please check installation.</string>
 <string name="trusted_node_tx_error">Transaction failed on trusted node.</string>
 <string name="trusted_node_not_valid">Please supply valid info for your trusted node.</string>
-<string name="tx_failed">xx</string>
-<string name="trusted_node_tx_sent">xx</string>
-<string name="tx_sent">xx</string>
+
+<string name="trusted_node_password_hint">rpc user password</string>
+<string name="trusted_node_port_hint">Port (8332 default)</string>
+<string name="trusted_node_ip_hint">IP address</string>
+<string name="trusted_node_user_hint">rpc user name</string>
+<string name="trusted_node">Trusted node</string>
+<string name="tx_length_error">Samourai does not handle transactions over 100KB in size. Please try splitting your transaction.</string>
+
+<string name="invalid_amount">Invalid amount</string>
+<string name="trusted_node_tx_sent">Transaction sent via trusted node.</string>
+<string name="timeline_today">Today</string>
+<string name="timeline_older">Older</string>
+<string name="tx_failed">Error sending transaction</string>
+<string name="tx_sent">Transaction sent</string>
 <string name="alternative_pin_wait">Wait for stealth launch mode to fully activate before defining an alternative PIN code.</string>
 <string name="alternative_pin_deleted">You are not using any alternative PIN code for stealth and remote functions.</string>
 <string name="alternative_pin_create">Are you sure you want to create an alternative PIN to be used for stealth launch and remote commands?</string>

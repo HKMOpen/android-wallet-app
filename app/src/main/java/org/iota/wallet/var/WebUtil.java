@@ -10,7 +10,8 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-public class WebUtil	{
+
+public class WebUtil {
 
     public static final String SAMOURAI_API = "https://api.samouraiwallet.com/";
     public static final String SAMOURAI_API_CHECK = "https://api.samourai.com/v1/status";
@@ -45,14 +46,14 @@ public class WebUtil	{
     private static WebUtil instance = null;
     private static Context context = null;
 
-    private WebUtil()   {
+    private WebUtil() {
         ;
     }
 
-    public static WebUtil getInstance(Context ctx)  {
+    public static WebUtil getInstance(Context ctx) {
 
         context = ctx;
-        if(instance == null)  {
+        if (instance == null) {
 
             instance = new WebUtil();
         }
@@ -62,24 +63,21 @@ public class WebUtil	{
 
     public String postURL(String request, String urlParameters) throws Exception {
 
-        if(context == null) {
+        if (context == null) {
             return postURL(null, request, urlParameters);
-        }
-        else    {
+        } else {
             Log.i("WebUtil", "Tor enabled status:" + TorUtil.getInstance(context).statusFromBroadcast());
-            if(TorUtil.getInstance(context).statusFromBroadcast())    {
-                if(urlParameters.startsWith("tx="))    {
-                    HashMap<String,String> args = new HashMap<String,String>();
+            if (TorUtil.getInstance(context).statusFromBroadcast()) {
+                if (urlParameters.startsWith("tx=")) {
+                    HashMap<String, String> args = new HashMap<String, String>();
                     args.put("tx", urlParameters.substring(3));
-                   // return tor_postURL(request, args);
+                    // return tor_postURL(request, args);
+                    return "";
+                } else {
+                    //  return tor_postURL(request + urlParameters, null);
                     return "";
                 }
-                else    {
-                  //  return tor_postURL(request + urlParameters, null);
-                    return "";
-                }
-            }
-            else    {
+            } else {
                 return postURL(null, request, urlParameters);
             }
 
@@ -93,7 +91,7 @@ public class WebUtil	{
 
         for (int ii = 0; ii < DefaultRequestRetry; ++ii) {
             URL url = new URL(request);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             try {
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
@@ -105,7 +103,7 @@ public class WebUtil	{
                 connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
 
-                connection.setUseCaches (false);
+                connection.setUseCaches(false);
 
                 connection.setConnectTimeout(DefaultRequestTimeout);
                 connection.setReadTimeout(DefaultRequestTimeout);
@@ -122,8 +120,7 @@ public class WebUtil	{
                 if (connection.getResponseCode() == 200) {
 //					System.out.println("postURL:return code 200");
                     return IOUtils.toString(connection.getInputStream(), "UTF-8");
-                }
-                else {
+                } else {
                     error = IOUtils.toString(connection.getErrorStream(), "UTF-8");
 //                    System.out.println("postURL:return code " + error);
                 }
@@ -143,7 +140,7 @@ public class WebUtil	{
 
         for (int ii = 0; ii < DefaultRequestRetry; ++ii) {
             URL url = new URL(request);
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             try {
                 connection.setDoOutput(true);
                 connection.setDoInput(true);
@@ -155,7 +152,7 @@ public class WebUtil	{
                 connection.setRequestProperty("Content-Length", "" + Integer.toString(urlParameters.getBytes().length));
                 connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
 
-                connection.setUseCaches (false);
+                connection.setUseCaches(false);
 
                 connection.setConnectTimeout(DefaultRequestTimeout);
                 connection.setReadTimeout(DefaultRequestTimeout);
@@ -172,8 +169,7 @@ public class WebUtil	{
                 if (connection.getResponseCode() == 200) {
 //					System.out.println("postURL:return code 200");
                     return IOUtils.toString(connection.getInputStream(), "UTF-8");
-                }
-                else {
+                } else {
                     error = IOUtils.toString(connection.getErrorStream(), "UTF-8");
 //                    System.out.println("postURL:return code " + error);
                 }
@@ -189,17 +185,15 @@ public class WebUtil	{
 
     public String getURL(String URL) throws Exception {
 
-        if(context == null) {
+        if (context == null) {
             return _getURL(URL);
-        }
-        else    {
+        } else {
             //if(TorUtil.getInstance(context).orbotIsRunning())    {
             Log.i("WebUtil", "Tor enabled status:" + TorUtil.getInstance(context).statusFromBroadcast());
-            if(TorUtil.getInstance(context).statusFromBroadcast())    {
+            if (TorUtil.getInstance(context).statusFromBroadcast()) {
                 //return tor_getURL(URL);
                 return URL;
-            }
-            else    {
+            } else {
                 return _getURL(URL);
             }
 
@@ -243,6 +237,13 @@ public class WebUtil	{
         return error;
     }
 
+    public String tor_postURL(String URL, HashMap<String, String> args) throws Exception {
+        return "";
+    }
+
+    public String tor_deleteURL(String URL, HashMap<String, String> args) throws Exception {
+        return "";
+    }
  /*   private String tor_getURL(String URL) throws Exception {
 
         StrongHttpsClient httpclient = new StrongHttpsClient(context, R.raw.debiancacerts);

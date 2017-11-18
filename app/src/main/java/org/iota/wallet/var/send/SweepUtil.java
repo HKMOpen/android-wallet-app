@@ -7,16 +7,15 @@ import android.content.DialogInterface;
 import android.os.Looper;
 import android.widget.Toast;
 
-import com.samourai.wallet.JSONRPC.TrustedNodeUtil;
-import com.samourai.wallet.SamouraiWallet;
-import com.samourai.wallet.api.APIFactory;
-import com.samourai.wallet.segwit.P2SH_P2WPKH;
-import com.samourai.wallet.util.AddressFactory;
-import com.samourai.wallet.util.PrefsUtil;
-import com.samourai.wallet.util.PrivKeyReader;
-import com.samourai.wallet.R;
 
 import org.bitcoinj.core.Coin;
+import org.iota.wallet.R;
+import org.iota.wallet.var.AddressFactory;
+import org.iota.wallet.var.PrefsUtil;
+import org.iota.wallet.var.PrivKeyReader;
+import org.iota.wallet.var.SamouraiWallet;
+import org.iota.wallet.var.bip49.P2SH_P2WPKH;
+import org.iota.wallet.var.send.JSONRPC.TrustedNodeUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.bouncycastle.util.encoders.Hex;
@@ -25,25 +24,27 @@ import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 
-public class SweepUtil  {
+public class SweepUtil {
 
     private static Context context = null;
     private static SweepUtil instance = null;
 
-    private SweepUtil() { ; }
+    private SweepUtil() {
+        ;
+    }
 
     public static SweepUtil getInstance(Context ctx) {
 
         context = ctx;
 
-        if(instance == null)    {
+        if (instance == null) {
             instance = new SweepUtil();
         }
 
         return instance;
     }
 
-    public void sweep(final PrivKeyReader privKeyReader, final boolean sweepBIP49)  {
+    public void sweep(final PrivKeyReader privKeyReader, final boolean sweepBIP49) {
 
         new Thread(new Runnable() {
             @Override
@@ -53,33 +54,31 @@ public class SweepUtil  {
 
                 try {
 
-                    if(privKeyReader == null || privKeyReader.getKey() == null || !privKeyReader.getKey().hasPrivKey())    {
+                    if (privKeyReader == null || privKeyReader.getKey() == null || !privKeyReader.getKey().hasPrivKey()) {
                         Toast.makeText(context, R.string.cannot_recognize_privkey, Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     String address = null;
-                    if(sweepBIP49)    {
+                    if (sweepBIP49) {
                         address = new P2SH_P2WPKH(privKeyReader.getKey(), SamouraiWallet.getInstance().getCurrentNetworkParams()).getAddressAsString();
-                    }
-                    else    {
+                    } else {
                         address = privKeyReader.getKey().toAddress(SamouraiWallet.getInstance().getCurrentNetworkParams()).toString();
                     }
 
                     UTXO utxo = APIFactory.getInstance(context).getUnspentOutputsForSweep(address);
-                    if(utxo != null)    {
+                    if (utxo != null) {
 
                         long total_value = 0L;
                         final List<MyTransactionOutPoint> outpoints = utxo.getOutpoints();
-                        for(MyTransactionOutPoint outpoint : outpoints)   {
+                        for (MyTransactionOutPoint outpoint : outpoints) {
                             total_value += outpoint.getValue().longValue();
                         }
 
                         final BigInteger fee;
-                        if(sweepBIP49)    {
+                        if (sweepBIP49) {
                             fee = FeeUtil.getInstance().estimatedFeeSegwit(0, outpoints.size(), 1);
-                        }
-                        else    {
+                        } else {
                             fee = FeeUtil.getInstance().estimatedFee(outpoints.size(), 1);
                         }
 
@@ -94,7 +93,7 @@ public class SweepUtil  {
                         builder.setTitle(R.string.app_name);
                         builder.setMessage(message);
                         builder.setCancelable(false);
-                        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(R.string.button_yes, new DialogInterface.OnClickListener() {
                             public void onClick(final DialogInterface dialog, int whichButton) {
 
                                 final ProgressDialog progress = new ProgressDialog(context);
@@ -104,10 +103,9 @@ public class SweepUtil  {
                                 progress.show();
 
                                 String receive_address = null;
-                                if(PrefsUtil.getInstance(context).getValue(PrefsUtil.USE_SEGWIT, true) == true)    {
+                                if (PrefsUtil.getInstance(context).getValue(PrefsUtil.USE_SEGWIT, true) == true) {
                                     receive_address = AddressFactory.getInstance(context).getBIP49(AddressFactory.RECEIVE_CHAIN).getAddressAsString();
-                                }
-                                else    {
+                                } else {
                                     receive_address = AddressFactory.getInstance(context).get(AddressFactory.RECEIVE_CHAIN).getAddressString();
                                 }
                                 final HashMap<String, BigInteger> receivers = new HashMap<String, BigInteger>();
@@ -120,50 +118,45 @@ public class SweepUtil  {
 
                                 String response = null;
                                 try {
-                                    if(PrefsUtil.getInstance(context).getValue(PrefsUtil.USE_TRUSTED_NODE, false) == true)    {
-                                        if(TrustedNodeUtil.getInstance().isSet())    {
+                                    if (PrefsUtil.getInstance(context).getValue(PrefsUtil.USE_TRUSTED_NODE, false) == true) {
+                                        if (TrustedNodeUtil.getInstance().isSet()) {
                                             response = PushTx.getInstance(context).trustedNode(hexTx);
                                             JSONObject jsonObject = new JSONObject(response);
-                                            if(jsonObject.has("result"))    {
-                                                if(jsonObject.getString("result").matches("^[A-Za-z0-9]{64}$"))    {
+                                            if (jsonObject.has("result")) {
+                                                if (jsonObject.getString("result").matches("^[A-Za-z0-9]{64}$")) {
                                                     Toast.makeText(context, R.string.tx_sent, Toast.LENGTH_SHORT).show();
-                                                }
-                                                else    {
+                                                } else {
                                                     Toast.makeText(context, R.string.trusted_node_tx_error, Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-                                        }
-                                        else    {
+                                        } else {
                                             Toast.makeText(context, R.string.trusted_node_not_valid, Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                    else    {
+                                    } else {
                                         response = PushTx.getInstance(context).samourai(hexTx);
 
-                                        if(response != null)    {
+                                        if (response != null) {
                                             JSONObject jsonObject = new JSONObject(response);
-                                            if(jsonObject.has("status"))    {
-                                                if(jsonObject.getString("status").equals("ok"))    {
+                                            if (jsonObject.has("status")) {
+                                                if (jsonObject.getString("status").equals("ok")) {
                                                     Toast.makeText(context, R.string.tx_sent, Toast.LENGTH_SHORT).show();
                                                 }
                                             }
-                                        }
-                                        else    {
-                                            Toast.makeText(context, R.string.pushtx_returns_null, Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(context, R.string.message_pushtx_returns_null, Toast.LENGTH_SHORT).show();
                                         }
                                     }
-                                }
-                                catch(JSONException je) {
+                                } catch (JSONException je) {
                                     Toast.makeText(context, "pushTx:" + je.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
-                                if(progress != null && progress.isShowing())    {
+                                if (progress != null && progress.isShowing()) {
                                     progress.dismiss();
                                 }
 
                             }
                         });
-                        builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        builder.setNegativeButton(R.string.button_no, new DialogInterface.OnClickListener() {
                             public void onClick(final DialogInterface dialog, int whichButton) {
                                 ;
                             }
@@ -172,14 +165,12 @@ public class SweepUtil  {
                         AlertDialog alert = builder.create();
                         alert.show();
 
-                    }
-                    else    {
+                    } else {
 //                        Toast.makeText(context, R.string.cannot_find_unspents, Toast.LENGTH_SHORT).show();
                         sweep(privKeyReader, true);
                     }
 
-                }
-                catch(Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(context, R.string.cannot_sweep_privkey, Toast.LENGTH_SHORT).show();
                 }
 

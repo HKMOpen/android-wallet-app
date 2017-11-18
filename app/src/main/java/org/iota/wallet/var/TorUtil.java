@@ -21,13 +21,15 @@ public class TorUtil {
 
     private static boolean statusFromBroadcast = false;
 
-    private TorUtil()   { ; }
+    private TorUtil() {
+
+    }
 
     public static TorUtil getInstance(Context ctx) {
 
         context = ctx;
 
-        if(instance == null)    {
+        if (instance == null) {
             instance = new TorUtil();
         }
 
@@ -55,8 +57,7 @@ public class TorUtil {
 
             jsonPayload.put("active", statusFromBroadcast);
 
-        }
-        catch(JSONException je) {
+        } catch (JSONException je) {
             ;
         }
 
@@ -67,12 +68,11 @@ public class TorUtil {
 
         try {
 
-            if(jsonPayload.has("active"))    {
+            if (jsonPayload.has("active")) {
                 statusFromBroadcast = jsonPayload.getBoolean("active");
             }
 
-        }
-        catch(JSONException ex) {
+        } catch (JSONException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -101,15 +101,13 @@ public class TorUtil {
         try {
             pid = getPIDviaPIDOf(command);
 
-            if (pid == -1)   {
+            if (pid == -1) {
                 pid = getPIDviaPS(command);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
                 pid = getPIDviaPS(command);
-            }
-            catch (Exception e2) {
+            } catch (Exception e2) {
                 Log.e("TorUtil", "Unable to get proc id for command: " + URLEncoder.encode(command), e2);
             }
         }
@@ -124,19 +122,18 @@ public class TorUtil {
         Process proc = null;
         Runtime runtime = Runtime.getRuntime();
         String baseName = new File(command).getName();
-        proc = runtime.exec(new String[] {
+        proc = runtime.exec(new String[]{
                 "pidof", baseName
         });
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
         String line = null;
-        while ((line = reader.readLine()) != null)  {
+        while ((line = reader.readLine()) != null) {
 
             try {
                 pid = Integer.parseInt(line.trim());
                 break;
-            }
-            catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 Log.e("TorUtil", "cannot parse process pid: " + line, e);
             }
         }
@@ -145,18 +142,15 @@ public class TorUtil {
 
     }
 
-   private int getPIDviaPS(String command) throws Exception    {
-
+    private int getPIDviaPS(String command) throws Exception {
         int pid = -1;
-
         Process proc = null;
         Runtime runtime = Runtime.getRuntime();
         proc = runtime.exec("ps");
-
         BufferedReader reader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
         String line = null;
-        while ((line = reader.readLine()) != null)  {
-            if (line.indexOf(' ' + command) != -1)  {
+        while ((line = reader.readLine()) != null) {
+            if (line.indexOf(' ' + command) != -1) {
 
                 StringTokenizer st = new StringTokenizer(line, " ");
                 st.nextToken();

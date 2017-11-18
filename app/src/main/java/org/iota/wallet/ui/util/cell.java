@@ -249,53 +249,6 @@ public final class cell {
         mText.setAllCaps(true);
         mText.setTextColor(ContextCompat.getColor(mText.getContext(), R.color.colorFPrimary));
     }
-/*
-
-    public static String timeFormatDateEmp(Context context, String time_raw_print) {
-        final String dateformat = LocaleUtils.getLanguageIndex(context) == 0 ? DATE_TIME_4 : DATE_TIME_11;
-        return Util.timeFormatConvert(context, DATE_TIME_9, dateformat, time_raw_print);
-    }
-
-    public static String timeFormatDateEmpNoWeekDays(Context context, String time_raw_print) {
-        final String dateformat = LocaleUtils.getLanguageIndex(context) == 0 ? DATE_TIME_2 : DATE_TIME_14;
-        return Util.timeFormatConvert(context, DATE_TIME_9, dateformat, time_raw_print);
-    }
-
-    public static String timeFormatTicketingDetail(Context context, String time_raw) {
-        String releaes_date_format = LocaleUtils.getLanguageIndex(context) == 0 ? DATE_TIME_6 : DATE_TIME_12;
-        return Util.timeFormatConvert(context, DATE_TIME_3, releaes_date_format, time_raw);
-    }
-*/
-
-    public static void ofTermsConditions(final AppCompatActivity activity, TextView tx) {
-     /*   String termscon = tx.getText().toString();
-        SpannableString content = new SpannableString(termscon);
-        if (LocaleUtils.getLanguageIndex(activity) == 0) {
-            int a1 = termscon.indexOf("Terms");
-            int l = "Terms & Conditions and Privacy Policy".length();
-            content.setSpan(new UnderlineSpan(), a1, a1 + l, 0);
-        } else {//條款細則及私隱政策
-            int a1 = termscon.indexOf("條款");
-            int l = "條款細則及私隱政策".length();
-            content.setSpan(new UnderlineSpan(), a1, a1 + l, 0);
-        }
-        tx.setText(content);*/
-        tx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               // EmpInstruction.init_tnc(activity);
-            }
-        });
-    }
-
-    public static void ofTermsConditionsReg(final AppCompatActivity activity, TextView tx) {
-        tx.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-              //  EmpInstruction.init_tnc(activity);
-            }
-        });
-    }
 
     public static boolean renderHTML_field(@Nullable TextView txt_view, @Nullable String json_txt) {
         if (json_txt == null || json_txt.isEmpty() || txt_view == null) return false;

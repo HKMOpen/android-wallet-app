@@ -32,6 +32,7 @@ import org.iota.wallet.var.bip47.rpc.PaymentAddress;
 import org.iota.wallet.var.bip47.rpc.PaymentCode;
 import org.iota.wallet.var.hd.HD_Address;
 import org.iota.wallet.var.hd.HD_WalletFactory;
+import org.iota.wallet.var.send.APIFactory;
 import org.iota.wallet.var.send.FeeUtil;
 import org.iota.wallet.var.send.MyTransactionOutPoint;
 import org.iota.wallet.var.send.SendFactory;

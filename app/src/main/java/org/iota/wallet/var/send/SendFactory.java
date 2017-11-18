@@ -15,23 +15,6 @@ import android.util.Log;
 import android.widget.Toast;
 //import android.util.Log;
 
-import com.samourai.wallet.SamouraiWallet;
-import com.samourai.wallet.SendActivity;
-import com.samourai.wallet.bip47.BIP47Meta;
-import com.samourai.wallet.bip47.BIP47Util;
-import com.samourai.wallet.bip47.rpc.PaymentAddress;
-import com.samourai.wallet.bip47.rpc.PaymentCode;
-import com.samourai.wallet.hd.HD_Account;
-import com.samourai.wallet.hd.HD_Address;
-import com.samourai.wallet.hd.HD_WalletFactory;
-import com.samourai.wallet.api.APIFactory;
-import com.samourai.wallet.segwit.BIP49Util;
-import com.samourai.wallet.segwit.P2SH_P2WPKH;
-import com.samourai.wallet.util.AddressFactory;
-import com.samourai.wallet.util.PrefsUtil;
-import com.samourai.wallet.util.PrivKeyReader;
-import com.samourai.wallet.util.FormatsUtil;
-import com.samourai.wallet.R;
 
 import org.apache.commons.lang3.tuple.Pair;
 import org.bitcoinj.core.Address;
@@ -51,6 +34,20 @@ import org.bitcoinj.script.ScriptBuilder;
 
 import org.bitcoinj.script.ScriptOpCodes;
 import org.bouncycastle.util.encoders.Hex;
+import org.iota.wallet.R;
+import org.iota.wallet.var.AddressFactory;
+import org.iota.wallet.var.FormatsUtil;
+import org.iota.wallet.var.PrefsUtil;
+import org.iota.wallet.var.PrivKeyReader;
+import org.iota.wallet.var.SamouraiWallet;
+import org.iota.wallet.var.bip47.BIP47Meta;
+import org.iota.wallet.var.bip47.BIP47Util;
+import org.iota.wallet.var.bip47.rpc.PaymentAddress;
+import org.iota.wallet.var.bip47.rpc.PaymentCode;
+import org.iota.wallet.var.bip49.BIP49Util;
+import org.iota.wallet.var.bip49.P2SH_P2WPKH;
+import org.iota.wallet.var.hd.HD_Address;
+import org.iota.wallet.var.hd.HD_WalletFactory;
 
 public class SendFactory	{
 
