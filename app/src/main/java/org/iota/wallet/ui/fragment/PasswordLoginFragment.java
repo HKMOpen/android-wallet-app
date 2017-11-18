@@ -19,7 +19,6 @@
 
 package org.iota.wallet.ui.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -27,12 +26,8 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
@@ -45,16 +40,12 @@ import org.iota.wallet.ui.dialog.ForgotPasswordDialog;
 import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
-import butterknife.Unbinder;
 
 public class PasswordLoginFragment extends utilFragment {
 
     private static final String PASSWORD = "password";
-    @BindView(R.id.password_login_toolbar)
-    Toolbar passwordLoginToolbar;
     @BindView(R.id.password_forgot_text_input_layout)
     TextInputLayout textInputLayoutPassword;
     @BindView(R.id.password_login)
@@ -69,7 +60,6 @@ public class PasswordLoginFragment extends utilFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(passwordLoginToolbar);
     }
 
     private void login() {
@@ -102,8 +92,7 @@ public class PasswordLoginFragment extends utilFragment {
 
     @OnEditorAction(R.id.password_login)
     public boolean onEditorAction(int actionId, KeyEvent event) {
-        if ((actionId == EditorInfo.IME_ACTION_DONE)
-                || ((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN))) {
+        if ((actionId == EditorInfo.IME_ACTION_DONE) || ((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN))) {
             login();
         }
         return true;

@@ -67,7 +67,7 @@ public class TangleExplorerTransactionsFragment extends BaseSwipeRefreshLayoutFr
         rt.startNewRequestTask(new CoolTransationsRequest());
 
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
+            refreshSwipeLayout();
         }
     };
 

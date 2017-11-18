@@ -12,7 +12,7 @@
             android:id="@+id/tangle_explorer_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@color/textColorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/fragment_tangle_explorer_title" />
@@ -21,7 +21,7 @@
             android:id="@+id/tangle_explorer_tabs"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="?colorPrimary"
+            android:background="@color/textColorPrimary"
             android:fillViewport="true"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"

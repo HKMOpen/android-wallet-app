@@ -69,8 +69,8 @@ import butterknife.BindView;
 public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements OnChartValueSelectedListener {
 
     private List<NodeInfo> nodeInfos;
-    @BindView(R.id.node_info_toolbar)
-    Toolbar nodeInfoToolbar;
+    //@BindView(R.id.node_info_toolbar)
+   // Toolbar nodeInfoToolbar;
     @BindView(R.id.iri_info_list)
     ListView list;
     @BindView(R.id.node_info_chart)
@@ -84,7 +84,7 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(nodeInfoToolbar);
+        //((AppCompatActivity) getActivity()).setSupportActionBar(nodeInfoToolbar);
         chart.setNoDataText(getString(R.string.messages_no_chart_data));
         chart.setNoDataTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
         chart.setEntryLabelColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
@@ -111,12 +111,7 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
         NodeInfoRequest nir = new NodeInfoRequest();
         rt.startNewRequestTask(nir);
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(new Runnable() {
-                @Override
-                public void run() {
-                    getSwipeRefreshLayout().setRefreshing(true);
-                }
-            });
+            getSwipeRefreshLayout().post(() ->{ if (postThreadExist())getSwipeRefreshLayout().setRefreshing(true);});
         }
     }
 

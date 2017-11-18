@@ -69,8 +69,8 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
-        navigationView.getMenu().findItem(R.id.nav_wallet).setChecked(true);
+        //  NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+//        navigationView.getMenu().findItem(R.id.nav_wallet).setChecked(true);
     }
 
     @Subscribe
@@ -94,11 +94,8 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         rt.startNewRequestTask(gtr);
 
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(new Runnable() {
-                @Override
-                public void run() {
-                    getSwipeRefreshLayout().setRefreshing(true);
-                }
+            getSwipeRefreshLayout().post(() -> {
+                if (postThreadExist()) getSwipeRefreshLayout().setRefreshing(true);
             });
         }
     }
@@ -108,11 +105,8 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         TaskManager rt = new TaskManager(getActivity());
         rt.startNewRequestTask(tir);
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(new Runnable() {
-                @Override
-                public void run() {
-                    getSwipeRefreshLayout().setRefreshing(true);
-                }
+            getSwipeRefreshLayout().post(() -> {
+                if (postThreadExist()) getSwipeRefreshLayout().setRefreshing(true);
             });
         }
     }
@@ -162,7 +156,7 @@ public class WalletTransfersFragment extends BaseSwipeRefreshLayoutFragment impl
         NodeInfoRequest nir = new NodeInfoRequest();
         rt.startNewRequestTask(nir);
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
+            refreshSwipeLayout();
         }
     }
 

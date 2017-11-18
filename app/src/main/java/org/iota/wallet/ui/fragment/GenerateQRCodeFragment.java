@@ -72,8 +72,7 @@ public class GenerateQRCodeFragment extends utilFragment {
 
     private InputMethodManager inputManager;
 
-    @BindView(R.id.generate_qr_code_toolbar)
-    Toolbar generateQrCodeToolbar;
+
     @BindView(R.id.generate_qr_code_address_input)
     TextInputEditText addressEditText;
     @BindView(R.id.generate_qr_code_amount_input)
@@ -91,8 +90,6 @@ public class GenerateQRCodeFragment extends utilFragment {
     @BindView(R.id.generate_qr_code_units_spinner)
     Spinner unitsSpinner;
 
-    private Unbinder unbinder;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,12 +101,10 @@ public class GenerateQRCodeFragment extends utilFragment {
         return R.layout.fragment_generate_qr;
     }
 
-
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(generateQrCodeToolbar);
+      //  ((AppCompatActivity) getActivity()).setSupportActionBar(generateQrCodeToolbar);
 
         Bundle bundle = getArguments();
         if (bundle != null) {

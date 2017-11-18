@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="lylib_login_input" type="id" />
+    <item name="lylib_password" type="id" />
+    <item name="lylib_login_qr" type="id" />
+    <item name="lylib_login_qrimage" type="id" />
+    <item name="lylib_login_proceed" type="id" />
+    <item name="lylib_login_continue_purchase" type="id" />
+    <item name="lylib_button_forget_password" type="id" />
+    <item name="lylib_login_button" type="id" />
+    <item name="l_me_register" type="id" />
+    <item name="panel_base" type="id" />
+    <item name="gd_disbox" type="id" />
+    <item name="lylib_ui_loading_circle" type="id" />
+    <item name="lylib_list_uv" type="id" />
+
+    <item name="empty_view_display" type="id" />
+    <item name="emptyicondisplay" type="id" />
+    <item name="emptyviewfielddisplay" type="id" />
+    <item name="emptyactionbutton" type="id" />
+
+    <item name="lreg_salutaion" type="id" />
+    <item name="lreg_fullname" type="id" />
+    <item name="lreg_gender" type="id" />
+    <item name="lreg_birthday" type="id" />
+    <item name="lreg_agerange" type="id" />
+    <item name="lreg_livingarea" type="id" />
+    <item name="lreg_workarea" type="id" />
+    <item name="lreg_mobile" type="id" />
+    <item name="lreg_c_mobile" type="id" />
+    <item name="lreg_email" type="id" />
+    <item name="lreg_c_email" type="id" />
+    <item name="lreg_old_password" type="id" />
+    <item name="lreg_password" type="id" />
+    <item name="lreg_c_password" type="id" />
+    <item name="lreg_cc_agreement_1" type="id" />
+    <item name="lreg_cc_agreement_2" type="id" />
+    <item name="lreg_recv_promotion" type="id" />
+    <item name="lreg_mem_id" type="id" />
+    <item name="lreg_mem_type" type="id" />
+    <item name="lreg_join_date" type="id" />
+    <item name="lreg_last_renew" type="id" />
+    <item name="lreg_expiry_date" type="id" />
+    <item name="lreg_facebook_login_button" type="id" />
+    <item name="lreg_facebook_customized_button" type="id" />
+    <item name="lreg_button_edit" type="id" />
+    <item name="lreg_button_join_vip" type="id" />
+    <item name="lreg_button_left" type="id" />
+    <item name="lreg_button_right" type="id" />
+    <item name="lreg_swipe_container" type="id" />
+
+    <item name="l_recycler" type="id" />
+    <item name="l_recycler_no1" type="id" />
+    <item name="l_recycler_no2" type="id" />
+    <item name="l_recycler_no3" type="id" />
+    <item name="l_recycler_no4" type="id" />
+    <item name="cross_run_display" type="id" />
+    <item name="l_picker_roll" type="id" />
+    <item name="l_preview_slides" type="id" />
+
+    <item name="l_bi_background_area" type="id" />
+    <item name="l_bi_foreground_area" type="id" />
+    <item name="l_bi_txt" type="id" />
+    <item name="l_bi_time" type="id" />
+    <item name="l_bi_mid" type="id" />
+    <item name="l_bi_vip" type="id" />
+    <item name="l_btn_toggle" type="id" />
+
+    <item name="i_seat_label" type="id" />
+    <item name="i_main_plan" type="id" />
+    <item name="i_main_plan_prc" type="id" />
+    <item name="i_main_desc" type="id" />
+    <item name="i_drink_plan" type="id" />
+    <item name="i_snack_plan" type="id" />
+    <item name="image_holder" type="id" />
+    <item name="big_button_selection" type="id" />
+
+    <item name="bottom_part" type="id" />
+    <item name="id_bottom_banner" type="id" />
+    <item name="id_crazy_ad" type="id" />
+
+</resources>

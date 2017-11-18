@@ -22,6 +22,7 @@ package org.iota.wallet.ui.fragment;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
@@ -34,6 +35,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
@@ -53,8 +57,8 @@ import jota.utils.SeedRandomGenerator;
 public class SeedLoginFragment extends utilFragment {
 
     private static final String SEED = "seed";
-    @BindView(R.id.login_toolbar)
-    Toolbar loginToolbar;
+    // @BindView(R.id.login_toolbar)
+    // Toolbar loginToolbar;
     @BindView(R.id.seed_login_seed_text_input_layout)
     TextInputLayout seedEditTextLayout;
     @BindView(R.id.seed_login_seed_input)
@@ -71,7 +75,7 @@ public class SeedLoginFragment extends utilFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(loginToolbar);
+        //  ((AppCompatActivity) getActivity()).setSupportActionBar(loginToolbar);
     }
 
 
@@ -101,29 +105,16 @@ public class SeedLoginFragment extends utilFragment {
     }
 
     private void loginDialog() {
-
         if (seedEditText.getText().toString().isEmpty()) {
             seedEditTextLayout.setError(getString(R.string.messages_empty_seed));
             if (seedEditTextLayout.getError() != null)
                 return;
         }
-
         String seed = seedEditText.getText().toString();
-
         if (SeedValidator.isSeedValid(getActivity(), seed) == null) {
             login();
-
         } else {
-            AlertDialog loginDialog = new AlertDialog.Builder(getActivity())
-                    .setMessage(SeedValidator.isSeedValid(getActivity(), seed))
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.buttons_ok, null)
-                    .setNegativeButton(R.string.buttons_cancel, null)
-                    .create();
-
-            loginDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.buttons_login), (dialog, which) -> login());
-
-            loginDialog.show();
+            loginMessage(SeedValidator.isSeedValid(getActivity(), seed), (dialog, which) -> login());
         }
     }
 
@@ -134,11 +125,13 @@ public class SeedLoginFragment extends utilFragment {
             bundle.putString("seed", seed);
             EncryptSeedDialog encryptSeedDialog = new EncryptSeedDialog();
             encryptSeedDialog.setArguments(bundle);
-            encryptSeedDialog.show(getActivity().getFragmentManager(), null);
+            encryptSeedDialog.show(getFragmentManager(), null);
         } else {
             IOTA.seed = seed.toCharArray();
-            Intent intent = new Intent(getActivity().getIntent());
-            getActivity().startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
+            // Intent intent = new Intent(getActivity().getIntent());
+            // getActivity().startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);
+            getParent().home_display_close_drawer();
+            getParent().pageDirect(new WalletTabFragment(), "WalletTabFragment");
         }
     }
 

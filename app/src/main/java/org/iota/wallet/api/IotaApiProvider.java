@@ -53,14 +53,11 @@ public class IotaApiProvider implements ApiProvider {
     private Map<Class<? extends ApiRequest>, RequestHandler> requestHandlerMap;
 
     public IotaApiProvider(String protocol, String host, int port, Context context) {
-
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-
         if (prefs.getBoolean(Constants.PREFERENCES_LOCAL_POW, false))
             this.iotaApi = new IotaAPI.Builder().localPoW(new PearlDiverLocalPoW()).protocol(protocol).host(host).port(((Integer) port).toString()).build();
         else
             this.iotaApi = new IotaAPI.Builder().protocol(protocol).host(host).port(((Integer) port).toString()).build();
-
         this.context = context;
         loadRequestMap();
     }
@@ -98,7 +95,6 @@ public class IotaApiProvider implements ApiProvider {
     @Override
     public ApiResponse processRequest(ApiRequest apiRequest) {
         ApiResponse response = null;
-
         try {
             if (this.requestHandlerMap.containsKey(apiRequest.getClass())) {
                 RequestHandler requestHandler = this.requestHandlerMap.get(apiRequest.getClass());

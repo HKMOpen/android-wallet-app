@@ -12,33 +12,34 @@ public class Constants {
     // public static final String AUTH_URL = "http://" + BuildConfig.REALM_IP + ":9080/auth";
     // public static final String REALM_URL = "realm://" + BuildConfig.REALM_IP + ":9080/~/staffpos";
 
-    public static final String DATE_TIME_1 = "dd MMM yyyy HH:mm:ss z";
-    public static final String DATE_TIME_2 = "dd MMM yyyy";
-    public static final String DATE_TIME_14 = "yyyy'年'MM'月'dd'日'";
+    public static final String DATE_TIME_0 = "dd MMM yyyy HH:mm:ss z";
+    public static final String DATE_TIME_1 = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_TIME_19 = "dd MMM yyyy";
+    public static final String DATE_TIME_ZH_19 = "yyyy'年'MM'月'dd'日'";
 
-    public static final String DATE_TIME_3 = "dd/MM/yyyy";
-    public static final String DATE_TIME_20 = "yyyy-MM-dd";
-    public static final String DATE_TIME_21 = "MM'月'dd'日'";
+
+    public static final String DATE_TIME_20 = "dd/MM/yyyy";
+    public static final String DATE_TIME_21 = "yyyy-MM-dd";
+    public static final String DATE_TIME_ZH_22 = "MM'月'dd'日'";
     public static final String DATE_TIME_22 = "dd MMM";
+    public static final String DATE_TIME_23 = "dd MMM yyyy (EEE)";
+
     //pair 1 ====
-    public static final String DATE_TIME_4 = "dd MMM (EEE)";
-    public static final String DATE_TIME_11 = "MM'月'dd'日' (EE)";
+    public static final String DATE_TIME_11 = "dd MMM (EEE)";
+    public static final String DATE_TIME_ZH_11 = "MM'月'dd'日' (EE)";
     //============
     // public static final String DATE_TIME_EN_TICKETING = "dd MMM";
     // public static final String DATE_TIME_ZH_TICKETING = "MM'月'dd'日'";
     public static final String DATE_TIME_5 = "dd/MM/yyyy HH:mm";
     public static final String DATE_TIME_6 = "EEE dd MMM yyyy";
-    public static final String DATE_TIME_12 = "yyyy'年'MM'月'dd'日' EEEE";
+    public static final String DATE_TIME_ZH_41 = "yyyy'年'MM'月'dd'日' EEEE";
 
     //need to show the 12 hour loop instead of 24 hr base
-    public static final String DATE_TIME_7 = "hh:mm a";
-    public static final String DATE_TIME_15 = "hh:mm a";
+    public static final String DATE_TIME_30 = "hh:mm a";
 
-    public static final String DATE_TIME_8 = "dd MMM yyyy hh:mm a";
-    public static final String DATE_TIME_13 = "yyyy'年'MM'月'dd'日'hh:mma";
+    public static final String DATE_TIME_33 = "dd MMM yyyy hh:mm a";
+    public static final String DATE_TIME_ZH_33 = "yyyy'年'MM'月'dd'日'hh:mma";
 
-    public static final String DATE_TIME_9 = "yyyy-MM-dd HH:mm:ss";
-    public static final String DATE_TIME_10 = "dd MMM yyyy (EEE)";
 
     public static final String INTENT_TABLE_FUNCTION = "ifunction";
     public static final String INTENT_BILL_ID = "transaction_id";
@@ -82,7 +83,7 @@ public class Constants {
             TAG_TIMEDATE = 105,
             TAG_TIMEFRAME = 103,
             TAG_TIME_DATE_CINEMA = 106,
-    TRACK_RECORD_TRANSACTIONS = 107,
+            TRACK_RECORD_TRANSACTIONS = 107,
             TRACK_RECORD_YEARS = 108;
 
     public static final String

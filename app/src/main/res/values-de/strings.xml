@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!-- AUTO-GENERATED -->
-<!-- Main Keywords -->
-<string name="app_name">IOTA Wallet</string>
+<!-- Main Keywords main section -->
+<string name="app_name">FatBB Wallet</string>
 <string name="app_settings">Einstellungen</string>
 <string name="app_issue_reporter">Fehlermeldung</string>
 <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -40,13 +40,20 @@
 <string name="tag_optional">Tag (optional, nur A-Z und 9)</string>
 <string name="neighbor_ip">Nachbar IP:</string>
 <!-- Buttons Section -->
+<string name="button_update">Update</string>
 <string name="buttons_ok">Ok</string>
 <string name="buttons_cancel">Abbrechen</string>
 <string name="buttons_login">Einloggen</string>
 <string name="buttons_save">Speichern</string>
 <string name="buttons_show">Anzeigen</string>
 <string name="buttons_again">Nicht nochmal fragen</string>
+<string name="button_exit">Exit</string>
+<string name="button_retry">Retry</string>
 <string name="buttons_share">Teilen</string>
+<string name="button_create_pin">Create PIN code</string>
+<string name="button_yes">YES</string>
+<string name="button_no">NO</string>
+<string name="confirm_pin">Confirm PIN</string>
 <string name="buttons_backup">Sichern</string>
 <!-- Messages Notices -->
 <string name="messages_shortcuts_not_available">Bitte zuerst einloggen.</string>
@@ -56,6 +63,7 @@
 <string name="messages_network_remote_error">Verbindungsfehler, der Remote-Knoten konnte nicht erreicht werden.</string>
 <string name="messages_network_access_error">Nicht autorisiert, das Kommando steht auf dem Knoten nicht zur Verfügung.</string>
 <string name="messages_network_iota_cool_error">Verbindungsfehler, es konnte keine Verbindung zu dem iota.cool Netzwerk hergestellt werden.</string>
+<string name="messages_api_error">Samourai APIs are returning an error. Please try again or try later.</string>
 <string name="messages_network_error">Verbindungsfehler, keine Verbindung zum Internet.</string>
 <string name="messages_invalid_hash_error">Ungültiger Hash, die Transaktion konnte nicht gefunden werden.</string>
 <string name="messages_exchange_rate_error">Keine Wechselkursdaten verfügbar.</string>
@@ -74,6 +82,7 @@
 <string name="messages_not_yet_implemented">Die Funktion ist noch nicht implementiert</string>
 <string name="messages_enter_txaddress_with_checksum">Bitte eine gültige Empfängeradresse mit Prüfsumme eingeben</string>
 <string name="messages_enter_amount">Bitte einen Betrag angeben</string>
+<string name="message_wait">Wait</string>
 <string name="messages_not_enough_balance">Nicht genügend Guthaben</string>
 <string name="messages_invalid_characters">Nur Großbuchstaben von A-Z und die Nummer 9 werden akzeptiert.</string>
 <string name="messages_tag_to_long">Bitte ein gültiges Tag eingeben. Maximal 27 Trytes sind erlaubt</string>
@@ -86,13 +95,101 @@
 <string name="message_open_licenses_error">WebView kann nicht geöffnet werden.</string>
 <string name="message_install_web_view">WebView installieren</string>
 <string name="messages_iota_donation_require_login">Bitte log dich zuerst mit deinem Seed ein</string>
-<!-- Peek menu -->
+<string name="message_pushtx_returns_null">Spend failed. Server returned null value.</string>
+<string name="bip47_recommended">Recommended payment codes</string>
+<string name="bip47_already_has_recommended">This payment code is already in your list.</string>
+
+<string name="bip47_no_label_error">You must supply a label for this payment code</string>
+<string name="bip47_init_text1">Add a payment code to send bitcoin anytime without sharing or reusing addresses.</string>
+<string name="bip47_init_text2">Share your payment code to receive payments without sharing or reusing your addresses.</string>
+<string name="bip47_init_text3">HELP GETTING STARTED</string>
+<string name="bip47_status_tbe">Not yet established</string>
+<string name="bip47_status_pending">Pending - 0/1 Confirmations</string>
+<string name="bip47_status_active">Ready to send</string>
+<string name="bip47_status_incoming">Ready to receive</string>
+<string name="bip47_cannot_scan_own_pcode">Cannot scan your own payment code</string>
+<string name="bip47_spend_to_pcode">Send through this payment channel?</string>
+<string name="bip47_partners">Recommended</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<string name="cannot_reach_api">Samourai APIs cannot be reached. Please verify connection and try again or try later.</string>
+<string name="cannot_recognize_privkey">Cannot recognize private key</string>
+<string name="cannot_sweep_privkey">Error sweeping private key</string>
+<string name="cannot_find_unspents">Unspents list is empty</string>
+<string name="please_wait_sending">Sending transaction, please wait.</string>
+
+
+<string name="trusted_node_breaks_consensus">Trusted node cannot be set on a bitcoin client that breaks consensus.</string>
+<string name="trusted_node_not_responding">Trusted node not responding. Please check installation.</string>
+<string name="trusted_node_not_core_131">Trusted node is set. Note that Samourai Wallet supports Bitcoin Core 0.13.1 and over.</string>
+<string name="trusted_node_ko">Trusted node not recognized. Please check installation.</string>
+<string name="trusted_node_tx_error">Transaction failed on trusted node.</string>
+<string name="trusted_node_not_valid">Please supply valid info for your trusted node.</string>
+
+<string name="trusted_node_password_hint">rpc user password</string>
+<string name="trusted_node_port_hint">Port (8332 default)</string>
+<string name="trusted_node_ip_hint">IP address</string>
+<string name="trusted_node_user_hint">rpc user name</string>
+<string name="trusted_node">Trusted node</string>
+<string name="tx_length_error">Samourai does not handle transactions over 100KB in size. Please try splitting your transaction.</string>
+
+<string name="invalid_amount">Invalid amount</string>
+<string name="trusted_node_tx_sent">Transaction sent via trusted node.</string>
+<string name="timeline_today">Today</string>
+<string name="timeline_older">Older</string>
+<string name="tx_failed">Error sending transaction</string>
+<string name="tx_sent">Transaction sent</string>
+<string name="alternative_pin_wait">Wait for stealth launch mode to fully activate before defining an alternative PIN code.</string>
+<string name="alternative_pin_deleted">You are not using any alternative PIN code for stealth and remote functions.</string>
+<string name="alternative_pin_create">Are you sure you want to create an alternative PIN to be used for stealth launch and remote commands?</string>
+<string name="success_change_pin">PIN changed</string>
+<string name="confirm_change_pin">Are you sure you want to change your PIN?</string>
+<string name="encrypted_backup">Encrypted wallet data</string>
+<string name="decryption_error">There was an error while decrypting your wallet backup. Please try again.</string>
+<string name="restore_wallet_from_backup">Restore wallet from backup</string>
+<string name="restore_wallet_from_existing_backup">Backup found on device. To restore from existing backup, tap \'OK\', otherwise copy/paste different backup and tap \'OK\'.</string>
+<string name="choose_email_client">Choose an Email client:</string>
+<string name="cannot_launch_app">Samourai Wallet cannot be run on this device</string>
+<string name="ssl_no_connection">We are unable to connect to the host to verify the SSL certificate. Please verify your network connection and device before continuing.
+</string>
+<string name="ssl_pinning_invalid">SL certificate pinning has failed. This might indicate malicious activity. Please verify your network connection and device before continuing.</string>
+<string name="force_upgrade_msg_true">NEW VERSION AVAILABLE \n
+Please update IOTA wallet App NOW</string>
+<string name="force_upgrade_msg_optional">NEW VERSION AVAILABLE \n
+Update IOTA wallet App NOW</string>
+<string name="force_upgrade_btn_later">Tangle Explorer</string>
+
+
+
+
+
 <string name="menu_group_misc">Verschiedenes</string>
 <string name="menu_wallet">Wallet</string>
 <string name="menu_tangle_explorer">Tangle Explorer</string>
+
+
+
+
+
+
+
 <string name="menu_neighbors">Nachbarn</string>
 <string name="menu_node_info">Node Info</string>
-<string name="menu_settings">@string/action_settings</string>
+<string name="menu_settings">Settings</string>
 <string name="menu_about">Über diese App</string>
 <string name="menu_logout">Abmelden</string>
 <string name="menu_search">Suchen</string>

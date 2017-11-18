@@ -52,6 +52,8 @@ android {
         exclude 'META-INF/dependencies.txt'
         exclude 'META-INF/LGPL2.1'
         exclude 'META-INF/ASL2.0'
+        exclude 'org.bitcoin.test.checkpoints.txt'
+        exclude 'META-INF/org.bitcoin.test.checkpoints.txt'
 
         //  pickFirst 'META-INF/rxjava.properties'
         //--------------------
@@ -73,7 +75,7 @@ android {
         renderscriptSupportModeEnabled false
         vectorDrawables.useSupportLibrary = true
 
-        resConfigs "en", "zh"
+        resConfigs "en", "zh", "de"
         /* javaCompileOptions {
              annotationProcessorOptions {
                  includeCompileClasspath false
@@ -99,7 +101,7 @@ android {
         // preDexLibraries false
         // incremental true
         javaMaxHeapSize "10g"
-        additionalParameters = ['--multi-dex', '--set-max-idx-number=40000']
+        additionalParameters = ['--multi-dex', '--set-max-idx-number=40000', '--min-sdk-version>=24']
     }
 
     buildTypes {
@@ -162,8 +164,13 @@ android {
             // buildConfigField "String", "DOMAIN_INSEC", "http://13.228.58.92/website"
         }
     }
-
+    configurations.all {
+        resolutionStrategy {
+            force 'commons-io:commons-io:2.5', 'commons-codec:commons-codec:1.9'
+        }
+    }
     applicationVariants.all { variant ->
+
         variant.getCompileConfiguration().resolutionStrategy {
 
         }
@@ -220,11 +227,11 @@ android {
         }
     }
 
-  /*  variantFilter { variant ->
-        if (variant.buildType.name.equals('debug') {
-            variant.setIgnore(true)
-        }
-    }*/
+    /*  variantFilter { variant ->
+          if (variant.buildType.name.equals('debug') {
+              variant.setIgnore(true)
+          }
+      }*/
 
     buildTypes.all { buildType ->
         buildType.javaCompileOptions.annotationProcessorOptions.arguments =

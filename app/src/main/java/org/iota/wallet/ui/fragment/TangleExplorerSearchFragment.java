@@ -189,7 +189,7 @@ public class TangleExplorerSearchFragment extends BaseSwipeRefreshLayoutFragment
             rt.startNewRequestTask(ftr);
         }
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
+             refreshSwipeLayout();
         }
     }
 

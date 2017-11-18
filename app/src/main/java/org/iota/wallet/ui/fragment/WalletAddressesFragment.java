@@ -94,7 +94,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         SendTransferRequest tir = new SendTransferRequest(address, "0", "", Constants.NEW_ADDRESS_TAG);
         rt.startNewRequestTask(tir);
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
+            refreshSwipeLayout();
         }
     }
 
@@ -141,7 +141,7 @@ public class WalletAddressesFragment extends BaseSwipeRefreshLayoutFragment impl
         rt.startNewRequestTask(nir);
 
         if (!getSwipeRefreshLayout().isRefreshing()) {
-            getSwipeRefreshLayout().post(() -> getSwipeRefreshLayout().setRefreshing(true));
+            refreshSwipeLayout();
         }
     }
 
