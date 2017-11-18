@@ -1,5 +1,6 @@
 package org.iota.wallet.ui.util;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
@@ -177,6 +178,7 @@ public final class ComSetup {
         return new GlideUrl(infodata == null || infodata.isEmpty() ? SAMPLE_IMAGE_URL_HEAD_D2 : infodata, new LazyHeaders.Builder().addHeader("Authorization", "").build());
     }
 
+    @SuppressLint("CheckResult")
     public static RequestOptions glideOpt() {
         RequestOptions opt = new RequestOptions();
         opt.placeholder(R.drawable.ic_logo_emporer_padding);

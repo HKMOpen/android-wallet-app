@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!-- AUTO-GENERATED -->
-<!-- Main Keywords -->
-<string name="app_name">IOTA Wallet</string>
+<!-- Main Keywords main section -->
+<string name="app_name">FatBB Wallet</string>
 <string name="app_settings">Einstellungen</string>
 <string name="app_issue_reporter">Fehlermeldung</string>
 <string name="navigation_drawer_open">Open navigation drawer</string>

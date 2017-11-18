@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.widget.Toast;
 
-import com.subgraph.orchid.crypto.PRNGFixes;
 
 import org.iota.wallet.R;
 import org.iota.wallet.var.hd.HD_Wallet;
