@@ -92,12 +92,12 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         if (Util.explode(",", list_iota).indexOf(id) > -1) {
             // mbar.setNewButtonLayout(panelTicketingEntrance(cap));
             setActionBarOverlay(true);
-            mbar.hideMainLogo();
+            mbar.hideMainLogo(); mbar.resetRightSideButtonLayout();
             if (id.equalsIgnoreCase("NodeInfoFragment")) {
                 mbar.setActionTitle(getString(R.string.fragment_node_info_title));
             } else if (id.equalsIgnoreCase("WalletTabFragment")) {
-                mbar.setNewButtonLayout(top_bar_buttons(id));
                 mbar.setActionTitle(getString(R.string.fragment_wallet_title));
+                mbar.setNewButtonLayout(top_bar_buttons(id));
             } else if (id.equalsIgnoreCase("NeighborsFragment")) {
                 mbar.setActionTitle(getString(R.string.fragment_neighbors_title));
             } else if (id.equalsIgnoreCase("NewTransferFragment")) {
@@ -424,12 +424,10 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
 
             menu.add(new ItemAc(this, "instructions nonvip", emp_inss));
 
-
             Intent emp_export_image = new Intent(this, PageMemberShip.class);
             // in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             emp_export_image.putExtra("case", CASE_EXPORT);
             menu.add(new ItemAc(this, "export images", emp_export_image));
-
 
             Intent sms_test = new Intent(this, RegPrefep6Sms.class);
             // in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

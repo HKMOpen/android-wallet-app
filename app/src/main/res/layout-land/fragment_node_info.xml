@@ -6,24 +6,11 @@
     android:layout_height="match_parent">
 
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/node_info_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/fragment_node_info_title" />
-    </android.support.design.widget.AppBarLayout>
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@id/lreg_swipe_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout

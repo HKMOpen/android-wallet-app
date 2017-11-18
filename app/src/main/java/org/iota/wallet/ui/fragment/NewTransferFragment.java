@@ -51,6 +51,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import org.apache.commons.lang3.StringUtils;
 import org.iota.wallet.R;
 import org.iota.wallet.api.TaskManager;
@@ -177,25 +180,12 @@ public class NewTransferFragment extends utilFragment {
             tagEditTextInputLayout.setError(getString(R.string.messages_tag_to_long));
 
         } else {
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
-                    .setMessage(R.string.message_confirm_transfer)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.buttons_ok, null)
-                    .setNegativeButton(R.string.buttons_cancel, null)
-                    .create();
-
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.buttons_ok),
-                    (dialog, which) -> {
-                        SendTransferRequest tir = new SendTransferRequest(getAddress(),
-                                amountInSelectedUnit(), getMessage(), getTaG());
-
-                        TaskManager rt = new TaskManager(getActivity());
-                        rt.startNewRequestTask(tir);
-
-                        getActivity().onBackPressed();
-                    });
-
-            alertDialog.show();
+            getMaterialDialog().content(R.string.message_confirm_transfer).onPositive((dialog, which) -> {
+                SendTransferRequest tir = new SendTransferRequest(getAddress(), amountInSelectedUnit(), getMessage(), getTaG());
+                TaskManager rt = new TaskManager(getActivity());
+                rt.startNewRequestTask(tir);
+                getActivity().onBackPressed();
+            }).show();
         }
     }
 

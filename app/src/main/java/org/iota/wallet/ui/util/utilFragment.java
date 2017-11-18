@@ -143,6 +143,14 @@ public abstract class utilFragment extends Fragment {
                 .show();
     }
 
+    protected final MaterialDialog.Builder getMaterialDialog() {
+        return new MaterialDialog.Builder(getActivity()).cancelable(false)
+                .negativeText(getString(R.string.buttons_cancel))
+                .onNegative((dialog, which) -> dialog.dismiss())
+                .positiveColor(ContextCompat.getColor(getActivity().getBaseContext(), R.color.colorFPrimary))
+                .positiveText(getString(R.string.card_label_persistence_yes));
+    }
+
     protected final void submissionConfirm(final MaterialDialog.SingleButtonCallback run) {
         new MaterialDialog.Builder(getActivity())
                 .cancelable(false)

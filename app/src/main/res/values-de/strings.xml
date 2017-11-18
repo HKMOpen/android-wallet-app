@@ -47,7 +47,11 @@
 <string name="buttons_save">Speichern</string>
 <string name="buttons_show">Anzeigen</string>
 <string name="buttons_again">Nicht nochmal fragen</string>
+<string name="button_exit">Exit</string>
+<string name="button_retry">Retry</string>
 <string name="buttons_share">Teilen</string>
+<string name="button_create_pin">Create PIN code</string>
+<string name="confirm_pin">Confirm PIN</string>
 <string name="buttons_backup">Sichern</string>
 <!-- Messages Notices -->
 <string name="messages_shortcuts_not_available">Bitte zuerst einloggen.</string>
@@ -88,6 +92,74 @@
 <string name="message_open_licenses_error">WebView kann nicht geöffnet werden.</string>
 <string name="message_install_web_view">WebView installieren</string>
 <string name="messages_iota_donation_require_login">Bitte log dich zuerst mit deinem Seed ein</string>
+<string name="message_pushtx_returns_null">Spend failed. Server returned null value.</string>
+<string name="bip47_recommended_list"></string>
+<string name="bip47_recommended">Recommended payment codes</string>
+<string name="bip47_already_has_recommended">This payment code is already in your list.</string>
+
+<string name="bip47_no_label_error">You must supply a label for this payment code</string>
+<string name="bip47_init_text1">Add a payment code to send bitcoin anytime without sharing or reusing addresses.</string>
+<string name="bip47_init_text2">Share your payment code to receive payments without sharing or reusing your addresses.</string>
+<string name="bip47_init_text3">HELP GETTING STARTED</string>
+<string name="bip47_status_tbe">Not yet established</string>
+<string name="bip47_status_pending">Pending - 0/1 Confirmations</string>
+<string name="bip47_status_active">Ready to send</string>
+<string name="bip47_status_incoming">Ready to receive</string>
+<string name="bip47_cannot_scan_own_pcode">Cannot scan your own payment code</string>
+<string name="bip47_spend_to_pcode">Send through this payment channel?</string>
+<string name="bip47_partners">Recommended</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<string name="trusted_node_tx_error">Transaction failed on trusted node.</string>
+<string name="trusted_node_not_valid">Please supply valid info for your trusted node.</string>
+<string name="tx_failed">xx</string>
+<string name="trusted_node_tx_sent">xx</string>
+<string name="tx_sent">xx</string>
+<string name="alternative_pin_wait">Wait for stealth launch mode to fully activate before defining an alternative PIN code.</string>
+<string name="alternative_pin_deleted">You are not using any alternative PIN code for stealth and remote functions.</string>
+<string name="alternative_pin_create">Are you sure you want to create an alternative PIN to be used for stealth launch and remote commands?</string>
+<string name="success_change_pin">PIN changed</string>
+<string name="confirm_change_pin">Are you sure you want to change your PIN?</string>
+<string name="encrypted_backup">Encrypted wallet data</string>
+<string name="decryption_error">There was an error while decrypting your wallet backup. Please try again.</string>
+<string name="restore_wallet_from_backup">Restore wallet from backup</string>
+<string name="restore_wallet_from_existing_backup">Backup found on device. To restore from existing backup, tap \'OK\', otherwise copy/paste different backup and tap \'OK\'.</string>
+<string name="choose_email_client">Choose an Email client:</string>
+<string name="cannot_launch_app">Samourai Wallet cannot be run on this device</string>
+<string name="ssl_no_connection">We are unable to connect to the host to verify the SSL certificate. Please verify your network connection and device before continuing.
+</string>
+<string name="ssl_pinning_invalid">SL certificate pinning has failed. This might indicate malicious activity. Please verify your network connection and device before continuing.</string>
 <string name="force_upgrade_msg_true">NEW VERSION AVAILABLE \n
 Please update IOTA wallet App NOW</string>
 <string name="force_upgrade_msg_optional">NEW VERSION AVAILABLE \n
