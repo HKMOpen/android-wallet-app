@@ -44,6 +44,7 @@ import org.iota.wallet.ui.fragment.WalletTabFragment;
 import org.iota.wallet.ui.util.ComSetup;
 import org.iota.wallet.ui.util.utilFragment;
 import org.iota.wallet.var.LocaleUtils;
+import org.iota.wallet.var.PrefsUtil;
 import org.iota.wallet.var.Util;
 
 import butterknife.BindView;
@@ -57,13 +58,15 @@ import de.madcyph3r.materialnavigationdrawer.menu.item.custom.MaterialItemCustom
 import de.madcyph3r.materialnavigationdrawer.menu.item.section.MaterialItemSection;
 import de.madcyph3r.materialnavigationdrawer.menu.item.section.MaterialItemSectionFragment;
 
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
+
 
 /**
  * Created by hesk on 16/11/2017.
  */
 
 public class MainNewIota extends MaterialNavNoHeaderActivity {
-    private SharedPreferences prefs;
+    private PrefsUtil prefs;
     private MaterialNavigationDrawer drawer = null;
     private BeastBar mbar;
     public static int request_code_parent_menu = 1549;
@@ -323,7 +326,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
         MaterialMenu menu = new MaterialMenu();
         //phrase 1: remove the head items
         menu.add(new HeaderMembershipBar(this));
-        String encSeed = prefs.getString(Constants.PREFERENCE_ENC_SEED, "");
+        String encSeed = prefs.getValue(IOTA_ENC_SEED, "");
         if (!encSeed.isEmpty() && IOTA.seed == null) {
             menu.add(new ItemFr(this, getString(R.string.menu_wallet), new PasswordLoginFragment(), "PasswordLoginFragment"));
         } else if (IOTA.seed == null) {
@@ -484,7 +487,7 @@ public class MainNewIota extends MaterialNavNoHeaderActivity {
     @Override
     public void init(Bundle savedInstanceState) {
         drawer = this;
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PrefsUtil.getInstance(getApplication());
         //  core = Appliance.getGDCore().getUserSession();
         // information text for the fragment
         // load first ItemFr in the menu, because there is no start position

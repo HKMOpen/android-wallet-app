@@ -34,7 +34,7 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.iota.wallet.R;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 import org.iota.wallet.helper.price.AlternateValueManager;
 import org.iota.wallet.helper.price.AlternateValueUtils;
 import org.iota.wallet.helper.price.ExchangeRateNotAvailableException;
@@ -80,7 +80,7 @@ public class TangleExplorerSearchCardAdapter extends RecyclerView.Adapter<Tangle
         if (NumberUtils.isCreatable(String.valueOf(transaction.getValue()))) {
             holder.valueLabel.setText(IotaUnitConverter.convertRawIotaAmountToDisplayText(transaction.getValue(), false));
             try {
-                Currency currency = Utils.getConfiguredAlternateCurrency(context);
+                Currency currency = IOTAUtils.getConfiguredAlternateCurrency(context);
                 String text = AlternateValueUtils.formatAlternateBalanceText(
                         new AlternateValueManager(context).convert(transaction.getValue(), currency), currency);
                 holder.alternativeValueLabel.setText(text);
@@ -97,7 +97,7 @@ public class TangleExplorerSearchCardAdapter extends RecyclerView.Adapter<Tangle
             holder.valueLabel.setText(String.valueOf(transaction.getValue()));
         }
         holder.tagLabel.setText(transaction.getTag());
-        holder.timestampLabel.setText(Utils.timeStampToDate(transaction.getTimestamp()));
+        holder.timestampLabel.setText(IOTAUtils.timeStampToDate(transaction.getTimestamp()));
         holder.bundleLabel.setText(transaction.getBundle());
         if (transaction.getPersistence() == null) {
             holder.persistenceLabel.setVisibility(View.GONE);

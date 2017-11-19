@@ -131,8 +131,6 @@
 <string name="cannot_sweep_privkey">Error sweeping private key</string>
 <string name="cannot_find_unspents">Unspents list is empty</string>
 <string name="please_wait_sending">Sending transaction, please wait.</string>
-
-
 <string name="trusted_node_breaks_consensus">Trusted node cannot be set on a bitcoin client that breaks consensus.</string>
 <string name="trusted_node_not_responding">Trusted node not responding. Please check installation.</string>
 <string name="trusted_node_not_core_131">Trusted node is set. Note that Samourai Wallet supports Bitcoin Core 0.13.1 and over.</string>
@@ -146,7 +144,6 @@
 <string name="trusted_node_user_hint">rpc user name</string>
 <string name="trusted_node">Trusted node</string>
 <string name="tx_length_error">Samourai does not handle transactions over 100KB in size. Please try splitting your transaction.</string>
-
 <string name="invalid_amount">Invalid amount</string>
 <string name="trusted_node_tx_sent">Transaction sent via trusted node.</string>
 <string name="timeline_today">Today</string>

@@ -5,11 +5,27 @@ import android.util.Log;
 
 
 import org.apache.commons.io.IOUtils;
+import org.iota.wallet.R;
+import org.iota.wallet.var.client.StrongHttpsClient;
 
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import ch.boye.httpclientandroidlib.HttpResponse;
+import ch.boye.httpclientandroidlib.NameValuePair;
+import ch.boye.httpclientandroidlib.client.entity.UrlEncodedFormEntity;
+import ch.boye.httpclientandroidlib.client.methods.HttpDelete;
+import ch.boye.httpclientandroidlib.client.methods.HttpGet;
+import ch.boye.httpclientandroidlib.client.methods.HttpPost;
+import ch.boye.httpclientandroidlib.message.BasicNameValuePair;
 
 public class WebUtil {
 
@@ -33,7 +49,7 @@ public class WebUtil {
     private static final int DefaultRequestRetry = 2;
     private static final int DefaultRequestTimeout = 60000;
 
-    //private static final String strProxyType = StrongHttpsClient.TYPE_SOCKS;
+    private static final String strProxyType = StrongHttpsClient.TYPE_SOCKS;
     private static final String strProxyIP = "127.0.0.1";
     private static final int proxyPort = 9050;
 
@@ -237,14 +253,14 @@ public class WebUtil {
         return error;
     }
 
-    public String tor_postURL(String URL, HashMap<String, String> args) throws Exception {
-        return "";
-    }
+    /*  public String tor_postURL(String URL, HashMap<String, String> args) throws Exception {
+          return "";
+      }
 
-    public String tor_deleteURL(String URL, HashMap<String, String> args) throws Exception {
-        return "";
-    }
- /*   private String tor_getURL(String URL) throws Exception {
+      public String tor_deleteURL(String URL, HashMap<String, String> args) throws Exception {
+          return "";
+      }*/
+    private String tor_getURL(String URL) throws Exception {
 
         StrongHttpsClient httpclient = new StrongHttpsClient(context, R.raw.debiancacerts);
 
@@ -259,7 +275,7 @@ public class WebUtil {
         InputStream is = response.getEntity().getContent();
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line = null;
-        while ((line = br.readLine()) != null)  {
+        while ((line = br.readLine()) != null) {
             sb.append(line);
         }
 
@@ -268,16 +284,15 @@ public class WebUtil {
         String result = sb.toString();
 //        Log.d("WebUtil", "GET result via Tor:" + result);
         int idx = result.indexOf("{");
-        if(idx != -1)    {
+        if (idx != -1) {
             return result.substring(idx);
-        }
-        else    {
+        } else {
             return result;
         }
 
     }
 
-    public String tor_postURL(String URL, HashMap<String,String> args) throws Exception {
+    public String tor_postURL(String URL, HashMap<String, String> args) throws Exception {
 
         StrongHttpsClient httpclient = new StrongHttpsClient(context, R.raw.debiancacerts);
 
@@ -289,9 +304,9 @@ public class WebUtil {
         httppost.setHeader("Accept", "application/json");
         httppost.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
 
-        if(args != null)    {
+        if (args != null) {
             List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-            for(String key : args.keySet())   {
+            for (String key : args.keySet()) {
                 urlParameters.add(new BasicNameValuePair(key, args.get(key)));
             }
             httppost.setEntity(new UrlEncodedFormEntity(urlParameters));
@@ -305,7 +320,7 @@ public class WebUtil {
         InputStream is = response.getEntity().getContent();
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line = null;
-        while ((line = br.readLine()) != null)  {
+        while ((line = br.readLine()) != null) {
             sb.append(line);
         }
 
@@ -314,16 +329,15 @@ public class WebUtil {
         String result = sb.toString();
         Log.d("WebUtil", "POST result via Tor:" + result);
         int idx = result.indexOf("{");
-        if(idx != -1)    {
+        if (idx != -1) {
             return result.substring(idx);
-        }
-        else    {
+        } else {
             return result;
         }
 
     }
 
-    public String tor_deleteURL(String URL, HashMap<String,String> args) throws Exception {
+    public String tor_deleteURL(String URL, HashMap<String, String> args) throws Exception {
 
         StrongHttpsClient httpclient = new StrongHttpsClient(context, R.raw.debiancacerts);
 
@@ -335,9 +349,9 @@ public class WebUtil {
         httpdelete.setHeader("Accept", "application/json");
         httpdelete.setHeader("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36");
 
-        if(args != null)    {
+        if (args != null) {
             List<NameValuePair> urlParameters = new ArrayList<NameValuePair>();
-            for(String key : args.keySet())   {
+            for (String key : args.keySet()) {
                 urlParameters.add(new BasicNameValuePair(key, args.get(key)));
             }
 //            httpdelete.setEntity(new UrlEncodedFormEntity(urlParameters));
@@ -351,22 +365,21 @@ public class WebUtil {
         InputStream is = response.getEntity().getContent();
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         String line = null;
-        while ((line = br.readLine()) != null)  {
+        while ((line = br.readLine()) != null) {
             sb.append(line);
         }
 
         httpclient.close();
 
         String result = sb.toString();
-       Log.d("WebUtil", "POST result via Tor:" + result);
+        Log.d("WebUtil", "POST result via Tor:" + result);
         int idx = result.indexOf("{");
-        if(idx != -1)    {
+        if (idx != -1) {
             return result.substring(idx);
-        }
-        else    {
+        } else {
             return result;
         }
 
-    }*/
+    }
 
 }

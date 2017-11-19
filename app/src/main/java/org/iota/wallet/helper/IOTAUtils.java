@@ -36,7 +36,7 @@ import java.util.Locale;
 /**
  * This class provides some utility method used across the app
  */
-public class Utils {
+public class IOTAUtils {
 
     public static void fixListView(final ListView lv, final SwipeRefreshLayout swipeLayout) {
         lv.setOnScrollListener(new AbsListView.OnScrollListener() {

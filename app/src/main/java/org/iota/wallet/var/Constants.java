@@ -51,6 +51,7 @@ public class Constants {
     public static final int SINGLE_PAGE_ITEM = 15;
 
     public static final String intent_title_tag = "title";
+    public static final String intent_password_default = "KCIOA#II()(#)@CNJS@#@@#234--+_989345vdger";
     public static final String intent_account_upgrade = "isUpgradeVIP";
     public static final String intent_group_param_type = "param_type_request_id";
     public static final String intent_postID_tag = "post_id";

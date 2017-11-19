@@ -39,12 +39,15 @@ import android.widget.TextView;
 
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
-import org.iota.wallet.helper.AESCrypt;
+import org.iota.wallet.var.AESCrypt;
 import org.iota.wallet.helper.Constants;
+import org.iota.wallet.var.PrefsUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class ShowSeedDialog extends DialogFragment {
 
@@ -74,13 +77,13 @@ public class ShowSeedDialog extends DialogFragment {
                 .create();
 
         alertDialog.setOnShowListener(dialog -> {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            PrefsUtil prefs = PrefsUtil.getInstance(getActivity());
 
             final Button bPositive = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
             final Button bNegative = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
             // if seed is not password protected
-            if (prefs.getString(Constants.PREFERENCE_ENC_SEED, "").isEmpty()) {
+            if (prefs.getValue(IOTA_ENC_SEED, "").isEmpty()) {
 
                 textInputLayoutPassword.setVisibility(View.GONE);
 
@@ -129,7 +132,7 @@ public class ShowSeedDialog extends DialogFragment {
 
         try {
             AESCrypt aes = new AESCrypt(password);
-            String encSeed = prefs.getString(Constants.PREFERENCE_ENC_SEED, "");
+            String encSeed = prefs.getString(IOTA_ENC_SEED, "");
             textViewSeed.setText(aes.decrypt(encSeed));
 
         } catch (Exception e) {

@@ -27,7 +27,7 @@ public class Constants {
     public static final String PREFERENCE_NODE_PROTOCOL = "preference_node_protocol";
     public static final String PREFERENCE_NODE_IP = "preference_node_ip";
     public static final String PREFERENCE_NODE_PORT = "preference_node_port";
-    public static final String PREFERENCE_ENC_SEED = "preference_enc_seed";
+
     public static final String PREFERENCE_WALLET_VALUE_CURRENCY = "preference_wallet_currency";
     public static final String PREFERENCE_RUN_WITH_ROOT = "preference_run_with_root";
     public static final String PREFERENCES_CURRENT_IOTA_BALANCE = "preference_current_iota_balance";

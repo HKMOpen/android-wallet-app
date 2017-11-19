@@ -31,6 +31,9 @@ import android.support.v7.preference.PreferenceManager;
 
 import org.iota.wallet.R;
 import org.iota.wallet.helper.Constants;
+import org.iota.wallet.var.PrefsUtil;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class ForgotPasswordDialog extends DialogFragment implements DialogInterface.OnClickListener {
 
@@ -53,8 +56,8 @@ public class ForgotPasswordDialog extends DialogFragment implements DialogInterf
     public void onClick(DialogInterface dialogInterface, int which) {
         switch (which) {
             case AlertDialog.BUTTON_POSITIVE:
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-                prefs.edit().remove(Constants.PREFERENCE_ENC_SEED).apply();
+                PrefsUtil prefs = PrefsUtil.getInstance(getActivity());
+                prefs.removeValue(IOTA_ENC_SEED);
                 getDialog().dismiss();
                 Intent intent = new Intent(getActivity().getIntent());
                 getActivity().startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);

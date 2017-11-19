@@ -19,7 +19,6 @@
 
 package org.iota.wallet.ui.fragment;
 
-import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,13 +26,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +40,7 @@ import org.iota.wallet.api.requests.GetAccountDataRequest;
 import org.iota.wallet.api.responses.GetAccountDataResponse;
 import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.helper.Constants;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 import org.iota.wallet.helper.price.AlternateValueManager;
 import org.iota.wallet.helper.price.AlternateValueUtils;
 import org.iota.wallet.helper.price.ExchangeRateNotAvailableException;
@@ -58,9 +54,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 import jota.utils.IotaUnitConverter;
 
 public class WalletTabFragment extends utilFragment {
@@ -203,7 +197,7 @@ public class WalletTabFragment extends utilFragment {
     }
 
     private void updateAlternateBalance() {
-        Currency alternateCurrency = Utils.getConfiguredAlternateCurrency(getActivity());
+        Currency alternateCurrency = IOTAUtils.getConfiguredAlternateCurrency(getActivity());
 
         try {
             float alternateCurrencyValue = alternateValueManager.convert(this.walletBalanceIota, alternateCurrency);

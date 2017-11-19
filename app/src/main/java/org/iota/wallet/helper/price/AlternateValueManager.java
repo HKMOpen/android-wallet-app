@@ -22,7 +22,7 @@ package org.iota.wallet.helper.price;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 import org.knowm.xchange.currency.Currency;
 
 import jota.utils.IotaUnits;
@@ -36,7 +36,7 @@ public class AlternateValueManager {
     }
 
     public float convert(long iotaAmount, Currency currency) throws ExchangeRateNotAvailableException {
-        Currency baseCurrency = Utils.getBaseCurrency();
+        Currency baseCurrency = IOTAUtils.getBaseCurrency();
         AlternateValueCalculator calculator = new AlternateValueCalculator(baseCurrency,
                 new ExchangeRateStorage(PreferenceManager.getDefaultSharedPreferences(context)));
 
@@ -49,7 +49,7 @@ public class AlternateValueManager {
     public void updateExchangeRatesAsync(boolean updateSelective) {
         ExchangeRateStorage storage = new ExchangeRateStorage(PreferenceManager.getDefaultSharedPreferences(context));
 
-        ExchangeRateUpdateTask exchangeRateUpdateTask = new ExchangeRateUpdateTask(context, Utils.getBaseCurrency(),
+        ExchangeRateUpdateTask exchangeRateUpdateTask = new ExchangeRateUpdateTask(context, IOTAUtils.getBaseCurrency(),
                 storage);
         exchangeRateUpdateTask.startNewRequestTask(updateSelective);
     }

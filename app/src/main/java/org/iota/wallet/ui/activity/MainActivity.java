@@ -42,7 +42,6 @@ import android.support.v13.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -56,7 +55,8 @@ import org.iota.wallet.R;
 import org.iota.wallet.api.TaskManager;
 import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.helper.Constants;
-import org.iota.wallet.helper.RootDetector;
+import org.iota.wallet.var.PrefsUtil;
+import org.iota.wallet.var.RootDetector;
 import org.iota.wallet.model.QRCode;
 import org.iota.wallet.ui.dialog.RootDetectedDialog;
 import org.iota.wallet.ui.fragment.AboutFragment;
@@ -77,7 +77,8 @@ import org.iota.wallet.ui.util.utilActivity;
 import java.util.Arrays;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class MainActivity extends utilActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -91,7 +92,7 @@ public class MainActivity extends utilActivity implements NavigationView.OnNavig
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
-    private SharedPreferences prefs;
+    private PrefsUtil prefs;
     private InputMethodManager inputManager;
     private String currentFragmentTag = null;
     private boolean killFragments = false;
@@ -108,7 +109,7 @@ public class MainActivity extends utilActivity implements NavigationView.OnNavig
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PrefsUtil.getInstance(getApplicationContext());
         inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_CURRENT_FRAGMENT_TAG)) {
@@ -119,7 +120,7 @@ public class MainActivity extends utilActivity implements NavigationView.OnNavig
             navigationView.getMenu().performIdentifierAction(R.id.nav_wallet, 0);
         }
 
-        if (!prefs.getBoolean(Constants.PREFERENCE_RUN_WITH_ROOT, false)) {
+        if (!prefs.getValue(Constants.PREFERENCE_RUN_WITH_ROOT, false)) {
             if (RootDetector.isDeviceRooted()) {
                 RootDetectedDialog dialog = new RootDetectedDialog();
                 dialog.show(this.getFragmentManager(), null);
@@ -304,7 +305,7 @@ public class MainActivity extends utilActivity implements NavigationView.OnNavig
 
         switch (item.getItemId()) {
             case R.id.nav_wallet:
-                String encSeed = prefs.getString(Constants.PREFERENCE_ENC_SEED, "");
+                String encSeed = prefs.getValue(IOTA_ENC_SEED, "");
                 if (!encSeed.isEmpty() && IOTA.seed == null) {
                     showLogoutNavigationItem();
                     fragment = new PasswordLoginFragment();
@@ -353,11 +354,11 @@ public class MainActivity extends utilActivity implements NavigationView.OnNavig
                         .create();
 
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.buttons_ok), (dialog, which) -> {
-                            prefs.edit().remove(Constants.PREFERENCE_ENC_SEED).apply();
+                           /* prefs.edit().remove(IOTA_ENC_SEED).apply();
                             IOTA.seed = null;
                             TaskManager.stopAndDestroyAllTasks(MainActivity.this);
                             killFragments = true;
-                            navigationView.getMenu().performIdentifierAction(R.id.nav_wallet, 0);
+                            navigationView.getMenu().performIdentifierAction(R.id.nav_wallet, 0);*/
                         });
 
                 alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.buttons_backup), (dialog, which) -> {

@@ -19,39 +19,25 @@
 
 package org.iota.wallet.ui.fragment;
 
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
-import org.iota.wallet.helper.Constants;
-import org.iota.wallet.helper.SeedValidator;
+import org.iota.wallet.var.SeedValidator;
 import org.iota.wallet.ui.dialog.CopySeedDialog;
 import org.iota.wallet.ui.dialog.EncryptSeedDialog;
 import org.iota.wallet.ui.util.utilFragment;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
-import butterknife.Unbinder;
 import jota.utils.SeedRandomGenerator;
 
 public class SeedLoginFragment extends utilFragment {

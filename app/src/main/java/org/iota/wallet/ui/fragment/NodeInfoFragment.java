@@ -24,8 +24,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.format.Formatter;
@@ -53,7 +51,7 @@ import org.iota.wallet.api.TaskManager;
 import org.iota.wallet.api.requests.NodeInfoRequest;
 import org.iota.wallet.api.responses.NodeInfoResponse;
 import org.iota.wallet.api.responses.error.NetworkError;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 import org.iota.wallet.model.NodeInfo;
 import org.iota.wallet.ui.adapter.NodeInfoListAdapter;
 import org.iota.wallet.ui.util.BaseSwipeRefreshLayoutFragment;
@@ -161,7 +159,7 @@ public class NodeInfoFragment extends BaseSwipeRefreshLayoutFragment implements 
 
     private void setAdapter() {
         NodeInfoListAdapter nodeInfoListAdapter = new NodeInfoListAdapter(getActivity(), R.layout.item_node_info, nodeInfos);
-        Utils.fixListView(list, getSwipeRefreshLayout());
+        IOTAUtils.fixListView(list, getSwipeRefreshLayout());
         list.setAdapter(nodeInfoListAdapter);
     }
 

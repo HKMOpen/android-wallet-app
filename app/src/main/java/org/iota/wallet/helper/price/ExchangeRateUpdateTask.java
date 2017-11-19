@@ -22,7 +22,7 @@ package org.iota.wallet.helper.price;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 import org.knowm.xchange.currency.Currency;
 
 class ExchangeRateUpdateTask {
@@ -39,7 +39,7 @@ class ExchangeRateUpdateTask {
 
     public void startNewRequestTask(boolean updateSelective) {
         ExchangeRateUpdateTaskHandler rt = new ExchangeRateUpdateTaskHandler(baseCurrency,
-                Utils.getConfiguredAlternateCurrency(context), updateSelective);
+                IOTAUtils.getConfiguredAlternateCurrency(context), updateSelective);
 
         rt.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, exchangeRateProvider);
     }

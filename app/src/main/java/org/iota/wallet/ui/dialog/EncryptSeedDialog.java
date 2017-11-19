@@ -37,12 +37,14 @@ import android.widget.Button;
 
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
-import org.iota.wallet.helper.AESCrypt;
+import org.iota.wallet.var.AESCrypt;
 import org.iota.wallet.helper.Constants;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class EncryptSeedDialog extends DialogFragment {
 
@@ -114,7 +116,7 @@ public class EncryptSeedDialog extends DialogFragment {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             try {
                 AESCrypt aes = new AESCrypt(passwordConfirm);
-                prefs.edit().putString(Constants.PREFERENCE_ENC_SEED, aes.encrypt(seed)).apply();
+                prefs.edit().putString(IOTA_ENC_SEED, aes.encrypt(seed)).apply();
                 IOTA.seed = seed.toCharArray();
                 getDialog().dismiss();
                 Intent intent = new Intent(getActivity().getIntent());

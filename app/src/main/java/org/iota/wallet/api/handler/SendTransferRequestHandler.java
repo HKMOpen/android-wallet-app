@@ -31,7 +31,7 @@ import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.api.responses.error.NetworkErrorType;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.helper.NotificationHelper;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 
 import java.util.Arrays;
 
@@ -54,7 +54,7 @@ public class SendTransferRequestHandler extends IotaRequestHandler {
 
     @Override
     public ApiResponse handle(ApiRequest request) {
-        int notificationId = Utils.createNewID();
+        int notificationId = IOTAUtils.createNewID();
         ApiResponse response;
         // if we generate a new address the tag == address
         if (((SendTransferRequest) request).getValue().equals("0")

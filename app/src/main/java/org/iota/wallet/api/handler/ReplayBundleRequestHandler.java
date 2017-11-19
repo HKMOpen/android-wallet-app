@@ -29,7 +29,7 @@ import org.iota.wallet.api.responses.ReplayBundleResponse;
 import org.iota.wallet.api.responses.error.NetworkError;
 import org.iota.wallet.api.responses.error.NetworkErrorType;
 import org.iota.wallet.helper.NotificationHelper;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 
 import java.util.Arrays;
 
@@ -52,7 +52,7 @@ public class ReplayBundleRequestHandler extends IotaRequestHandler {
     @Override
     public ApiResponse handle(ApiRequest request) {
         ApiResponse response;
-        int notificationId = Utils.createNewID();
+        int notificationId = IOTAUtils.createNewID();
 
         NotificationHelper.requestNotification(context,
                 R.drawable.ic_replay, context.getString(R.string.notification_replay_bundle_request_title), notificationId);

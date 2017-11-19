@@ -51,19 +51,17 @@ public class PrefsUtil {
 	public static final String BCC_REPLAYED = "BCCReplayed";
 	public static final String BCC_DISMISSED = "BCCDismiss";
 
+	public static final String IOTA_ENC_SEED = "IOTASEE903294-R2";
+
 	private static Context context = null;
 	private static PrefsUtil instance = null;
-
-	private PrefsUtil() { ; }
+	private PrefsUtil() {}
 
 	public static PrefsUtil getInstance(Context ctx) {
-
 		context = ctx;
-
 		if(instance == null) {
 			instance = new PrefsUtil();
 		}
-
 		return instance;
 	}
 

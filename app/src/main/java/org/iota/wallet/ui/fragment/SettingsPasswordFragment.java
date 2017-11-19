@@ -32,6 +32,9 @@ import org.iota.wallet.helper.Constants;
 import org.iota.wallet.ui.dialog.ChangeSeedPasswordDialog;
 import org.iota.wallet.ui.dialog.EncryptSeedDialog;
 import org.iota.wallet.ui.dialog.ShowSeedDialog;
+import org.iota.wallet.var.PrefsUtil;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class SettingsPasswordFragment extends PreferenceFragment {
 
@@ -69,22 +72,22 @@ public class SettingsPasswordFragment extends PreferenceFragment {
     }
 
     private void checkPreferencesDependencies() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        PrefsUtil prefs = PrefsUtil.getInstance(getActivity());
         PreferenceScreen screen = getPreferenceScreen();
 
         Preference showSeed = findPreference(PREFERENCE_SHOW_SEED);
         Preference changePassword = findPreference(PREFERENCE_CHANGE_PASSWORD);
         Preference setPassword = findPreference(PREFERENCE_ENCRYPT_SEED);
 
-        if (prefs.getString(Constants.PREFERENCE_ENC_SEED, "").isEmpty() && IOTA.seed == null) {
+        if (prefs.getValue(IOTA_ENC_SEED, "").isEmpty() && IOTA.seed == null) {
             screen.removePreference(showSeed);
         }
 
-        if (prefs.getString(Constants.PREFERENCE_ENC_SEED, "").isEmpty()) {
+        if (prefs.getValue(IOTA_ENC_SEED, "").isEmpty()) {
             screen.removePreference(changePassword);
         }
 
-        if (!prefs.getString(Constants.PREFERENCE_ENC_SEED, "").isEmpty() || IOTA.seed == null) {
+        if (!prefs.getValue(IOTA_ENC_SEED, "").isEmpty() || IOTA.seed == null) {
             screen.removePreference(setPassword);
         }
     }

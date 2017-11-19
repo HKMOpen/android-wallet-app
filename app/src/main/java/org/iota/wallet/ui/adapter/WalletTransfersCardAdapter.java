@@ -37,7 +37,7 @@ import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 
 import org.iota.wallet.R;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 import org.iota.wallet.helper.price.AlternateValueManager;
 import org.iota.wallet.helper.price.AlternateValueUtils;
 import org.iota.wallet.helper.price.ExchangeRateNotAvailableException;
@@ -92,13 +92,13 @@ public class WalletTransfersCardAdapter extends RecyclerView.Adapter<WalletTrans
         holder.addressLabel.setText(transfer.getAddress());
         holder.messageLabel.setText(TextUtils.isEmpty(transfer.getMessage()) ? "-" : transfer.getMessage());
         holder.tagLabel.setText(transfer.getTag());
-        holder.timeLabel.setText(Utils.timeStampToDate(transfer.getTimestamp()));
+        holder.timeLabel.setText(IOTAUtils.timeStampToDate(transfer.getTimestamp()));
         holder.hashLabel.setText(transfer.getHash());
         holder.persistenceLabel.setText(context.getResources().getString(
                 transfer.getPersistence() ? R.string.card_label_persistence_yes :
                         R.string.card_label_persistence_no));
         try {
-            Currency currency = Utils.getConfiguredAlternateCurrency(context);
+            Currency currency = IOTAUtils.getConfiguredAlternateCurrency(context);
             String text = AlternateValueUtils.formatAlternateBalanceText(
                     new AlternateValueManager(context).convert(transfer.getValue(), currency), currency);
             holder.alternativeValueLabel.setText(text);

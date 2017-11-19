@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.iota.wallet.helper;
+package org.iota.wallet.var;
 
 import android.util.Base64;
 

@@ -34,14 +34,17 @@ import android.view.inputmethod.EditorInfo;
 
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
-import org.iota.wallet.helper.AESCrypt;
+import org.iota.wallet.var.AESCrypt;
 import org.iota.wallet.helper.Constants;
 import org.iota.wallet.ui.dialog.ForgotPasswordDialog;
 import org.iota.wallet.ui.util.utilFragment;
+import org.iota.wallet.var.PrefsUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class PasswordLoginFragment extends utilFragment {
 
@@ -64,10 +67,10 @@ public class PasswordLoginFragment extends utilFragment {
 
     private void login() {
         String password = textInputEditTextPassword.getText().toString();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        PrefsUtil prefs = PrefsUtil.getInstance(getParent());
         try {
             AESCrypt aes = new AESCrypt(password);
-            String encSeed = prefs.getString(Constants.PREFERENCE_ENC_SEED, "");
+            String encSeed = prefs.getValue(IOTA_ENC_SEED, "");
             IOTA.seed = aes.decrypt(encSeed).toCharArray();
             Intent intent = new Intent(getActivity().getIntent());
             getActivity().startActivityForResult(intent, Constants.REQUEST_CODE_LOGIN);

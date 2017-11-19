@@ -38,12 +38,15 @@ import android.widget.Button;
 
 import org.iota.wallet.IOTA;
 import org.iota.wallet.R;
-import org.iota.wallet.helper.AESCrypt;
+import org.iota.wallet.var.AESCrypt;
 import org.iota.wallet.helper.Constants;
+import org.iota.wallet.var.PrefsUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnEditorAction;
+
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class ChangeSeedPasswordDialog extends DialogFragment {
 
@@ -98,7 +101,7 @@ public class ChangeSeedPasswordDialog extends DialogFragment {
     }
 
     private void changeSeedPassword() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        PrefsUtil prefs = PrefsUtil.getInstance(getActivity());
 
         String passwordCurrent = textInputEditTextPasswordCurrent.getText().toString();
         String passwordNew = textInputEditTextPasswordNew.getText().toString();
@@ -117,11 +120,11 @@ public class ChangeSeedPasswordDialog extends DialogFragment {
         else
             try {
                 AESCrypt aesOld = new AESCrypt(passwordCurrent);
-                String encSeed = prefs.getString(Constants.PREFERENCE_ENC_SEED, "");
+                String encSeed = prefs.getValue(IOTA_ENC_SEED, "");
                 aesOld.decrypt(encSeed);
                 try {
                     AESCrypt aesNew = new AESCrypt(passwordNew);
-                    prefs.edit().putString(Constants.PREFERENCE_ENC_SEED, aesNew.encrypt(String.valueOf(IOTA.seed))).apply();
+                    prefs.setValue(IOTA_ENC_SEED, aesNew.encrypt(String.valueOf(IOTA.seed)));
                     getDialog().dismiss();
                 } catch (Exception e) {
                     e.getStackTrace();

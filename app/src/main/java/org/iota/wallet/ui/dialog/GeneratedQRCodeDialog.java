@@ -35,7 +35,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import org.iota.wallet.R;
-import org.iota.wallet.helper.Utils;
+import org.iota.wallet.helper.IOTAUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,7 +57,7 @@ public class GeneratedQRCodeDialog extends DialogFragment implements DialogInter
 
     private static void shareQRCode(Context context, Bitmap bitmap) {
         try {
-            File file = new File(Utils.getExternalIotaDirectory(context), "qr_code.png");
+            File file = new File(IOTAUtils.getExternalIotaDirectory(context), "qr_code.png");
 
             FileOutputStream fileOutputStream = new FileOutputStream(file);
 

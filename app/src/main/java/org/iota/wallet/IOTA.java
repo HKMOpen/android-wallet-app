@@ -21,7 +21,15 @@ package org.iota.wallet;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.multidex.MultiDex;
+import android.support.v7.preference.PreferenceManager;
+
+import org.iota.wallet.var.AESCrypt;
+import org.iota.wallet.var.PrefsUtil;
+
+import static org.iota.wallet.var.Constants.intent_password_default;
+import static org.iota.wallet.var.PrefsUtil.IOTA_ENC_SEED;
 
 public class IOTA extends Application {
     public static char[] seed = null;
@@ -29,7 +37,17 @@ public class IOTA extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        seed = null;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (seed != null) {
+            try {
+                AESCrypt aes = new AESCrypt(intent_password_default);
+                PrefsUtil.getInstance(getApplicationContext()).setValue(IOTA_ENC_SEED, aes.encrypt(seed.toString()));
+                //  prefs.edit().putString(IOTA_ENC_SEED, aes.encrypt(seed.toString())).apply();
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+            seed = null;
+        }
     }
 
     @Override
@@ -38,5 +56,18 @@ public class IOTA extends Application {
         MultiDex.install(this);
     }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        try {
+            AESCrypt aes = new AESCrypt(intent_password_default);
+            String encSeed = PrefsUtil.getInstance(getApplicationContext()).getValue(IOTA_ENC_SEED, "");
+            if (!encSeed.isEmpty())
+                IOTA.seed = aes.decrypt(encSeed).toCharArray();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+    }
 }
 
